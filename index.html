@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#101a29"/>
+<meta name="theme-color" content="#0c0d10"/>
+<meta name="application-version" content="1.2.0"/>
 <meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 24 stratejik bölümü tamamla."/>
 <title>Kırılma Hattı</title>
 <style>
@@ -242,58 +243,63 @@ position:relative;overflow:hidden;padding:0;cursor:pointer;transition:transform 
 .help-note{margin-top:11px;color:var(--muted);font-size:10px;line-height:1.5}
 
 
-/* One responsive theme; no accumulated override patches. */
-:root{--bg:#101a29;--panel:#172436;--panel2:#111c2b;--line:#ffffff16;--line2:#ffffff24;--text:#eff4fa;--muted:#a3b2c6;--accent:#82e2b0;--cyan:#73d5ef;--gold:#edcb86;--gold2:#cea457;--danger:#ff8597;--violet:#b79aed;--shadow:0 12px 28px #0003;--glow:0 3px 12px #0002}
-html,body{background:radial-gradient(ellipse at 50% 0,#223450 0,transparent 60%),#101a29;color:var(--text)}
+/* Obsidian & champagne · compact edition 1.2.0 */
+:root{--bg:#0c0d10;--panel:#17181e;--panel2:#121318;--line:#ffffff16;--line2:#ffffff24;--text:#f6f2e9;--muted:#a9a6a0;--accent:#54e0ab;--cyan:#66dccb;--gold:#e9c783;--gold2:#bc944f;--danger:#ff647c;--violet:#b695ff;--shadow:0 12px 28px #0003;--glow:0 3px 12px #0002}
+html,body{background:radial-gradient(ellipse at 50% -20%,#30291c 0,transparent 55%),#0c0d10;color:var(--text)}
 body:before,body:after{display:none}
 button{touch-action:manipulation;cursor:pointer;color:inherit}
 button:disabled{cursor:default}.icon-btn:disabled{opacity:.35}
 button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
-.app{max-width:720px;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
-.glass,.status,.goal-line{background:linear-gradient(160deg,#1b293d,#132033);border:1px solid var(--line);box-shadow:var(--shadow)}
-.btn,.btn.secondary,.icon-btn,.hud-icon{background:linear-gradient(160deg,#26364d,#1b2a40);border:1px solid var(--line2);color:var(--text);border-radius:16px}
-.btn.primary{background:linear-gradient(160deg,#f2d799,#dcb66d);border-color:#f5db9e;color:#211c10;box-shadow:0 5px 20px #dcb66d1a}
+.app{max-width:720px;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+.glass,.status,.goal-line{background:linear-gradient(160deg,#1e1f25,#101115);border:1px solid var(--line);box-shadow:var(--shadow)}
+.btn,.btn.secondary,.icon-btn,.hud-icon{background:linear-gradient(160deg,#24252b,#17181e);border:1px solid var(--line2);color:var(--text);border-radius:16px}
+.btn.primary{background:linear-gradient(160deg,#efd396,#bd9552);border-color:#e8cb8a;color:#211c10;box-shadow:0 5px 20px #bd95521a}
 .btn.text{background:transparent}
-.icon-btn{width:48px;height:48px}.icon-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn{width:42px;height:42px}.icon-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .home{min-height:calc(100svh - 40px);display:none}.home.active{display:grid;align-items:center}
-.home-content{padding:16px 0 28px}.home-logo{margin-top:8px;background:linear-gradient(150deg,#2b415e,#17253a)}
+.home-content{padding:16px 0 28px}.home-logo{margin-top:8px;background:linear-gradient(150deg,#363027,#17171b)}
 .game-name{font-size:clamp(34px,8vw,58px);letter-spacing:.05em;line-height:1.05}.game-name span{display:block;margin-top:5px}
 .tagline{font-size:14px;padding:0 14px;color:var(--muted)}.home-status{font-size:13px;line-height:1.5}
 .menu-panel{max-width:430px;padding:18px;margin-top:24px}.chip{font-size:12px;min-height:36px}
 .section-head .tiny,.setting .tiny{font-size:12px;line-height:1.5}.level-card{color:var(--text)}.level-name{font-size:14px}.mechanic{font-size:12px}
-#game{max-width:600px;margin:auto}.topbar{gap:10px;margin-bottom:8px}.topbar-title b{font-weight:800;line-height:1.3;font-family:inherit;font-size:18px}.topbar-title span{font-size:12px;color:var(--muted);letter-spacing:0}.topbar-title:after{display:none}
-.hud{gap:8px;margin-bottom:8px}.hud-box{grid-template-columns:34px 1fr;min-height:58px;padding:8px 12px;gap:10px;border-radius:16px}
-.hud-icon{width:34px;height:34px;border-radius:10px}.hud-icon svg{width:23px;height:23px}.hud-box .k{font-size:11px;color:var(--muted);letter-spacing:.04em}.hud-box .v{font-size:22px;margin-top:3px}
-.goal-line{font-size:12px;line-height:1.4;padding:8px 10px;margin:0 0 8px;border-radius:14px;gap:8px}.goal-icon{width:24px;height:24px;font-size:14px;background:#24364f;border-color:#adc9ee55;flex-shrink:0}
-.board-shell{padding:7px;border-radius:18px;margin:0 auto;width:min(100%,max(282px,calc((100svh - 342px)*6/7)));overflow:hidden}
-.board{gap:4px}.tile{background:linear-gradient(155deg,#263952,#1c2b41);border-color:#abc6eb22;border-radius:10px;box-shadow:inset 0 1px #ffffff08,0 3px 7px #0002}
+#game{max-width:600px;margin:auto}.topbar{gap:10px;margin-bottom:6px}.topbar-title b{font-weight:800;line-height:1.3;font-family:inherit;font-size:18px}.topbar-title span{display:none}.topbar-title:after{display:none}
+.hud{display:flex;gap:0;margin:0 0 4px;border:1px solid #e6cc9420;border-radius:12px;background:linear-gradient(110deg,#211e19,#15161b);box-shadow:0 4px 16px #0002}
+.hud-box{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;min-height:40px;padding:6px 10px;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none}
+.hud-box+.hud-box{border-left:1px solid #ffffff0d}.hud-icon{width:20px;height:20px;display:grid;place-items:center;border:0;border-radius:0;background:none;box-shadow:none}.hud-icon svg{width:18px;height:18px}
+.hud-copy{display:flex;align-items:baseline;gap:9px}.hud-box .k{font-size:10px;color:#b8b2a8;letter-spacing:.07em}.hud-box .v{font-size:21px;font-weight:800;margin:0;line-height:1}
+.goal-line{min-height:26px;background:none;border:0;box-shadow:none;border-radius:0;font-size:11px;line-height:1.35;padding:3px 2px;margin:0 0 5px;gap:0;color:#b5b0a6;justify-content:center;text-align:center}.goal-icon{display:none}
+.board-shell{padding:6px;border-radius:16px;margin:0 auto;width:min(100%,max(280px,calc((100svh - 246px)*6/7)));overflow:hidden}
+.board{gap:5px}.tile{background:linear-gradient(155deg,#27292e,#191a20);border-color:#cfc6b51c;border-radius:10px;box-shadow:inset 0 1px #ffffff08,0 3px 7px #0002}
 .tile:before{inset:5px;border-radius:7px;border-color:#ffffff07}
-.tile.wall{background:#132033;border-color:#a2b6d912}.wall-mark:before{width:35%;height:3px;background:#61758f66;border-radius:3px}
-.tile.current{border-color:#8befb6;box-shadow:inset 0 0 0 1px #82e2b066}.tile.next-target{border:1px solid #73d5ef88;box-shadow:inset 0 0 9px #73d5ef15}
-.tile.failure{border-color:var(--danger);box-shadow:inset 0 0 0 2px #ff859755}.tile.success{border-color:var(--accent)}
-.dial{width:64%;height:64%}.dial-ring{border-color:#bfd1ec24;background:#0c172326;box-shadow:none}.pointer:before{border-left-width:5px;border-right-width:5px;border-bottom-width:8px}
-.glyph{width:19px;height:19px;border-radius:6px;background:#101a2cee;box-shadow:0 2px 5px #0003}.glyph svg,.key-g svg{width:13px;height:13px}
+.tile.wall{background:#101115;border-color:#ffffff06}.wall-mark:before{width:35%;height:3px;background:#655e5166;border-radius:3px}
+.tile.current{border-color:#8befb6;box-shadow:inset 0 0 0 1px #54e0ab66}.tile.next-target{border:1px solid #66dccb88;box-shadow:inset 0 0 9px #66dccb15}
+.tile.failure{border-color:var(--danger);box-shadow:inset 0 0 0 2px #ff647c55}.tile.success{border-color:var(--accent)}
+.dial{width:64%;height:64%}.dial-ring{border-color:#ddd0b51a;background:#0c0d1026;box-shadow:none}.pointer{background:linear-gradient(180deg,#70f1c2,#209677);box-shadow:0 0 7px #54e0ab30}.pointer:before{border-left-width:5px;border-right-width:5px;border-bottom-width:8px;border-bottom-color:#89f6ca;filter:none}.dial-ring:before{background:#33483e;box-shadow:none}
+.glyph{width:19px;height:19px;border-radius:6px;background:#101115ee;box-shadow:0 2px 5px #0003}.glyph svg,.key-g svg{width:13px;height:13px}
 .glyph.tl{left:2px;top:2px}.glyph.tr{right:2px;top:2px}.glyph.bl{left:2px;bottom:2px}.glyph.br{right:2px;bottom:2px}.glyph.tc{top:2px}.glyph.bc{bottom:2px}.glyph.lc{left:2px}.glyph.rc{right:2px}
-.glyph small{position:absolute;right:-2px;bottom:-2px;background:#aa87dc;color:#101a29;border-radius:4px;font-size:9px;min-width:11px;text-align:center}
+.glyph small{position:absolute;right:-2px;bottom:-2px;background:#aa87dc;color:#0c0d10;border-radius:4px;font-size:9px;min-width:11px;text-align:center}
 .key-order-badge,.alpha-chip{width:17px;height:17px;font-size:10px;top:2px;right:2px}.count-chip{font-size:10px;height:17px;bottom:2px;padding:0 4px;min-width:20px}
-.switch-label{left:2px;right:auto;top:2px}.portal-mark{min-width:22px;height:16px;font-size:9px;bottom:2px;padding:0 3px;background:#b79aed;color:#151124}.exit-center svg{width:26px;height:26px}
-.runner{width:25px;height:25px}.runner-tail{display:none}.runner-core{box-shadow:0 0 10px #82e2b088}.runner-core:after{height:7px;top:-5px}
-.path-svg{inset:auto}.path-plan{stroke-width:2;opacity:.7}.path-past{stroke-width:2.5}.path-danger{stroke-width:3}.path-plan-glow,.path-past-glow{stroke-width:6}
-.tile.gate{background:#122232;border-color:#a9c0df55}.gate-frame{position:absolute;inset:18% 24% 30%;border:2px solid #bccde2;border-bottom:0;border-radius:4px 4px 0 0}
-.gate-frame:after{content:'';position:absolute;inset:3px 2px 0;background:repeating-linear-gradient(90deg,#d4dfefaa 0 2px,transparent 2px 6px);transition:transform .2s;transform-origin:top}
-.gate-open{border-color:#82e2b088;background:#163632}.gate-open .gate-frame{border-color:#82e2b0}.gate-open .gate-frame:after{transform:scaleY(.13)}
-.gate-state{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:8px;font-weight:800;letter-spacing:.04em;color:#c8d6e7}.gate-open .gate-state{color:#82e2b0}
-.tile.collapsed{background:#0b1320;border:1px dashed #998d7866;opacity:.65}.collapsed .dial,.collapsed .glyph{opacity:.15}.collapsed:after{content:'×';position:absolute;inset:0;display:grid;place-items:center;font-size:28px;color:#b5a68c}
-.star-target{font-size:12px;line-height:1.4;color:var(--gold);text-align:center;margin:8px 0 5px;min-height:17px}
-.status{min-height:44px;margin-top:0;padding:9px 12px;border-radius:14px;font-size:12px;line-height:1.45}
-.controls{grid-template-columns:44px 44px 1fr 44px;gap:7px;margin-top:8px}.controls .icon-btn{width:44px;height:48px;border-radius:14px}#startBtn{min-height:48px;font-size:16px;border-radius:14px}
-.level-info{margin-top:10px;padding:0 12px;border-radius:16px}.level-info-head{width:100%;min-height:48px;margin:0;padding:8px 0;background:none;border:0;color:var(--text);text-align:left}.level-info-head b{font-size:12px;color:var(--text);letter-spacing:.06em}.level-info-link{font-size:12px;color:var(--muted);letter-spacing:0}
-.level-info-grid{display:none;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:12px}.level-info.details-open .level-info-grid{display:grid}
-.mechanic-info{grid-template-columns:30px 1fr;gap:8px;padding:10px;background:#213149;border-color:var(--line);border-radius:12px;overflow:visible}.mechanic-info:before{display:none}.mechanic-icon{width:28px;height:28px;position:relative;border-radius:8px}.mechanic-icon svg{width:20px;height:20px}.mechanic-copy b{font-size:12px;color:var(--text)}.mechanic-copy span{font-size:12px;line-height:1.45;color:#b9c8dc}.legend-badge{position:absolute;right:-3px;top:-7px;font-size:9px;padding:2px;border-radius:4px;background:#0f1a2b}
-.full-overlay{padding:12px}.sheet{width:min(100%,470px);max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;padding:20px}.sheet p,.sheet ul{font-size:14px;line-height:1.55}.sheet .actions{position:sticky;bottom:-20px;padding:12px 0;background:#172436}.help-note{font-size:12px}
+.switch-label{left:2px;right:auto;top:2px}.portal-mark{min-width:22px;height:16px;font-size:9px;bottom:2px;padding:0 3px;background:#b695ff;color:#181222}.exit-center svg{width:26px;height:26px}
+.runner{width:25px;height:25px}.runner-tail{display:none}.runner-core{background:radial-gradient(circle at 35% 30%,#fcfff1,#7af2bd 45%,#249b74);box-shadow:0 0 13px #54e0ab66}.runner-core:after{height:7px;top:-5px;background:#d9ffef;box-shadow:0 0 6px #54e0ab44}
+.path-svg{inset:auto}.path-plan{stroke:#66daca;stroke-width:2;opacity:.8;filter:none}.path-past{stroke-width:2.5}.path-danger{stroke:#ff647c;stroke-width:3;filter:drop-shadow(0 0 3px #ff647c55)}.path-plan-glow,.path-past-glow{stroke-width:6}
+.tile.gate{background:#14151a;border-color:#d6bc8355}.gate-frame{position:absolute;inset:18% 24% 30%;border:2px solid #d6bc83;border-bottom:0;border-radius:4px 4px 0 0}
+.gate-frame:after{content:'';position:absolute;inset:3px 2px 0;background:repeating-linear-gradient(90deg,#eed39caa 0 2px,transparent 2px 6px);transition:transform .2s;transform-origin:top}
+.gate-open{border-color:#54e0ab88;background:#142b24}.gate-open .gate-frame{border-color:#54e0ab}.gate-open .gate-frame:after{transform:scaleY(.13)}
+.gate-state{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:8px;font-weight:800;letter-spacing:.04em;color:#c8bda7}.gate-open .gate-state{color:#54e0ab}
+.tile.collapsed{background:#08090b;border:1px dashed #998d7866;opacity:.65}.collapsed .dial,.collapsed .glyph{opacity:.15}.collapsed:after{content:'×';position:absolute;inset:0;display:grid;place-items:center;font-size:28px;color:#b5a68c}
+.status{min-height:30px;margin:4px 0 0;padding:5px 3px;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none;font-size:12px;line-height:1.4;color:#c0bab0;text-align:center;justify-content:center}
+.controls{grid-template-columns:42px 42px 1fr 42px;gap:7px;margin-top:4px}.controls .icon-btn{width:42px;height:46px;border-radius:12px;background:#191a20;border-color:#ffffff14}#startBtn{min-height:46px;font-size:15px;letter-spacing:.09em;border-radius:12px;box-shadow:0 4px 18px #b8914420}
+.game-footer{display:grid;grid-template-columns:1fr auto;align-items:start;gap:8px;margin-top:5px}.star-target{color:#c6b07f;font-size:11px;line-height:1.4;text-align:left;min-height:40px;display:flex;align-items:center;margin:0}
+.level-info{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none}.level-info-head{width:100%;min-height:40px;display:flex;align-items:center;gap:6px;margin:0;padding:4px 0 4px 8px;background:none;border:0;color:var(--muted);text-align:right}.level-info-head b{font-size:11px;color:#d5c5a5;letter-spacing:0;text-transform:none}.level-info-link{font-size:11px;color:#8d877a;letter-spacing:0}
+.game-footer:has(.details-open){grid-template-columns:1fr}.game-footer:has(.details-open) .star-target{display:none}.details-open .level-info-head{justify-content:space-between;padding:0}
+.level-info-grid{display:none;grid-template-columns:1fr 1fr;gap:7px;padding:0 0 10px}.level-info.details-open .level-info-grid{display:grid}
+.mechanic-info{grid-template-columns:30px 1fr;gap:8px;padding:10px;background:#1b1c22;border-color:var(--line);border-radius:12px;overflow:visible}.mechanic-info:before{display:none}.mechanic-icon{width:28px;height:28px;position:relative;border-radius:8px}.mechanic-icon svg{width:20px;height:20px}.mechanic-copy b{font-size:12px;color:var(--text)}.mechanic-copy span{font-size:12px;line-height:1.45;color:#b8b5b0}.legend-badge{position:absolute;right:-3px;top:-7px;font-size:9px;padding:2px;border-radius:4px;background:#101115}
+.full-overlay{padding:12px}.sheet{width:min(100%,470px);max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;padding:20px}.sheet p,.sheet ul{font-size:14px;line-height:1.55}.sheet .actions{position:sticky;bottom:-20px;padding:12px 0;background:#17181e}.help-note{font-size:12px}
 .modal{padding:18px;width:min(100%,380px)}.modal h3{font-size:23px}.modal p,.score-note{font-size:13px;line-height:1.5}.modal-actions .btn{min-height:48px;font-size:14px;padding:0 8px}.result-stars{font-size:28px}
 @media(max-width:520px){.level-grid{grid-template-columns:1fr 1fr}.home-stats{gap:5px}.topbar-title b{font-size:16px}.level-info-grid{grid-template-columns:1fr}.settings-actions{grid-template-columns:1fr}.setting{padding:12px}.switch{min-width:76px}.game-name{font-size:42px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.tile.key-tile{border-color:#e1bd6959;box-shadow:inset 0 0 0 1px #e1bd6912}.tile .key-g{color:#f4d084;background:#261f12;border-color:#d0a65555;box-shadow:none}.key-order-badge{background:#211b12;color:#f1d18d;border-color:#e1bd6980}.tile.portal-tile{border-color:#a884f157;box-shadow:inset 0 0 0 1px #ad88fa18}.portal-ring{border-color:#b18af270;box-shadow:inset 0 0 10px #a884f10a}.tile:has(.hazard-g){background:linear-gradient(150deg,#2a1c24,#1c171e)}.hazard-g{color:#ff7590}.tile:has(.switch-g){border-color:#cfac5a50}.tile .switch-label{background:#e5be70;color:#241b0d}.exit-center{color:#66e7ae}.exit-center.decoy{color:#ff647c}.exit-center svg{filter:none}.mover-dot{border-color:#ff759088;box-shadow:0 0 0 3px #ff647c0c,0 0 12px #ff647c33}.mover-track{stroke:#ff647c66;filter:none}.mover-node{fill:#ff647c;stroke:#ffd8df}.home-logo{border-color:#dac38f35}.home-logo:before{border-color:#d2b77c66}.home-logo:after{background:radial-gradient(circle at 35% 30%,#f7e8bd,#d9b56c 60%,#9b7437);box-shadow:0 0 25px #d9b56c44}.game-name span{color:#e9c783}.menu-panel{border-color:#d7bd8620}.ambient{opacity:.15}.topbar-title b{color:#f3eddf;font-weight:750;letter-spacing:-.02em}.icon-btn svg{width:20px;height:20px}
+@media(max-width:360px){.hud-copy{gap:6px}.hud-box .v{font-size:19px}.goal-line{font-size:10px}.star-target{font-size:10px}.level-info-head b,.level-info-link{font-size:10px}.controls{gap:5px}}
 </style>
 </head>
 <body>
@@ -401,7 +407,6 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
       </div>
     </div>
 
-    <div id="starTarget" class="star-target"></div>
     <div id="status" class="status glass" role="status" aria-live="polite">Rotanı hazırla.</div>
     <div class="controls">
       <button id="undoBtn" class="icon-btn" disabled aria-label="Son dönüşü geri al" title="Son dönüşü geri al"><svg viewBox="0 0 24 24"><path d="M9 5 4 10l5 5M4 10h9a6 6 0 0 1 0 12"/></svg></button>
@@ -413,7 +418,7 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
         <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8.5 14.5C7 13.4 6 11.6 6 9.5a6 6 0 1 1 12 0c0 2.1-1 3.9-2.5 5-.8.6-1.5 1.4-1.5 2.5h-4c0-1.1-.7-1.9-1.5-2.5z"/></svg>
       </button>
     </div>
-    <div id="levelInfo" class="level-info glass"></div>
+    <div class="game-footer"><div id="starTarget" class="star-target"></div><div id="levelInfo" class="level-info"></div></div>
   </section>
 </div>
 
@@ -426,7 +431,7 @@ button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
       <li>Planlanan rota başlamadan önce mavi çizilir; geçtiğin hat yeşile döner.</li>
       <li>Tehlikeye giden rota kırmızıyla uyarılır.</li>
       <li>Tüm anahtarları toplamadan doğru çıkış tamamlanmaz.</li>
-      <li>Bölümdeki kuralları Mekanikler → Detayları Gör ile incele.</li>
+      <li>Bölümdeki kuralları Mekanikler → Kurallar ile incele.</li>
       <li>Kapılarda ve kontrol karelerinde aynı <b>harf etiketi</b> görünür. Örneğin <b>A</b> kontrolü, <b>A</b> kapısını açar.</li>
       <li>Portal çiftlerinde aynı <b>P numarası</b> görünür. <b>P1 ↔ P1</b> aynı geçidi ifade eder.</li>
       <li>Sıralı anahtarlarda anahtarın üzerindeki <b>1, 2, 3</b> rozetlerini takip et.</li>
@@ -602,7 +607,7 @@ function renderLevelInfo(){
  if(L.autoRotate.length)arr.push(mechanicCard('auto','Otomatik Dönüş','Üzerine girince disk 90° döner.'));
  if(L.movers.length)arr.push(mechanicCard('mover','Devriye','İnce kırmızı rota devriye yoludur. Kırmızı devriye sembolü bu hat üzerinde hareket eder.'));
  if(L.decoys.length)arr.push(mechanicCard('decoy','Sahte Çıkış','Kırmızı çıkış bölümü kaybettirir.'));
- host.classList.remove('details-open');host.innerHTML=`<button type="button" class="level-info-head" aria-expanded="false" aria-controls="mechanicsGrid"><b>Mekanikler</b><span class="level-info-link">Detayları Gör ›</span></button><div id="mechanicsGrid" class="level-info-grid">${arr.join('')}</div>`;
+ host.classList.remove('details-open');host.innerHTML=`<button type="button" class="level-info-head" aria-expanded="false" aria-controls="mechanicsGrid"><b>Mekanikler</b><span class="level-info-link">Kurallar +</span></button><div id="mechanicsGrid" class="level-info-grid">${arr.join('')}</div>`;
 }
 
 function renderLevels(){
@@ -626,7 +631,7 @@ function openLevel(i){
  cancelPending();undoStack=[];currentLevel=i;save.lastLevel=i;storage.set('kh9_lastLevel',i);const L=levels[i];
  state={L,grid:createGrid(L),pos:[...L.start],prevPos:null,pathSegments:[],moves:L.moves,collected:new Set(),boosts:new Set(),openGates:new Set(),fragileUsed:new Set(),limited:new Map(),steps:0,rotations:0,running:false,paused:false,dead:false,won:false,hintUsed:false,failCell:null,moverStep:0,nextOrdered:0};
  L.limited.forEach(([r,c,n])=>state.limited.set(coordKey(r,c),n));
- $('#levelTitle').textContent=`${i+1}. ${L.name}`;$('#levelSubtitle').textContent=L.tag;$('#goalLine').textContent=L.ordered?'Anahtarları sırayla topla ve doğru çıkışa ulaş.':'Tüm anahtarları topla ve doğru çıkışa ulaş.';
+ $('#levelTitle').textContent=`${i+1}. ${L.name}`;$('#levelSubtitle').textContent=L.tag;$('#goalLine').textContent=L.ordered?'Anahtarları sırayla topla → çıkışa ulaş':'Anahtarları topla → çıkışa ulaş';
  $('#resultOverlay').classList.remove('show');$('#pathSvg').classList.remove('route-flash');$('#startBtn').disabled=false;$('#pauseBtn').disabled=true;$('#pauseBtn').innerHTML=PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label','Duraklat');$('#hintBtn').disabled=false;
  show('game');renderBoard();updateHud();renderLevelInfo();readyStatus();
  requestAnimationFrame(()=>{
@@ -639,8 +644,7 @@ function openLevel(i){
 }
 
 function readyStatus(){
- const L=state.L,notes=[];if(L.portals.length)notes.push('Portal aktif');if(L.gates.length){const ids=[...new Set(L.gates.map(g=>g[2]))].join(', ');notes.push(`${ids} işaretli kontrol karesi kapıyı açar`)}if(L.movers.length)notes.push('Devriyeyi zamanla');
- $('#status').textContent=`Başlangıç yönü ${ARROW[currentDir()]}. ${notes.join(' • ')||'Rotanı hazırlayıp Başlat.'}`;
+ $('#status').textContent='Disklere dokun, rotanı kur.';
 }
 
 function makeDial(dir){const d=document.createElement('div');d.className='dial';d.style.setProperty('--rot',ROT[dir]+'deg');d.innerHTML='<div class="dial-ring"></div><div class="pointer"></div>';return d}
@@ -681,7 +685,7 @@ function renderBoard(){
 function updateHud(){
  $('#moveVal').textContent=state.moves;$('#keyVal').textContent=`${state.collected.size}/${state.L.keys.length}`;
  $('#moveBox').classList.toggle('warn',state.moves<=5);
- $('#starTarget').textContent=`★★★ ${state.L.par} dönüş veya azı · ${state.rotations} dönüş${state.hintUsed?' · İpucu: en çok 2 yıldız':''}`;
+ $('#starTarget').textContent=`${state.hintUsed?'★★':'★★★'} Hedef ≤${state.L.par} · Dönüş ${state.rotations}${state.hintUsed?' · İpucu kullanıldı':''}`;
  $('#undoBtn').disabled=!undoStack.length||state.dead||state.won||(state.running&&!state.paused);
 }
 function rememberRotation(){undoStack.push({grid:state.grid.map(row=>row.slice()),moves:state.moves,rotations:state.rotations,limited:new Map(state.limited)});if(undoStack.length>100)undoStack.shift()}
@@ -819,7 +823,7 @@ function startGame(){
  if(!state||state.running||state.dead||state.won)return;
  ensureAudio();sfx.ui();state.running=true;state.paused=false;undoStack=[];state.pathSegments=[[[...state.pos]]];
  $('#startBtn').disabled=true;$('#pauseBtn').disabled=false;$('#pauseBtn').innerHTML=PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label','Duraklat');
- $('#status').textContent='Çekirdek ilerliyor. Düşünmek için duraklatabilirsin.';
+ $('#status').textContent='Çekirdek ilerliyor.';
  const events=[],reason=collectAt(state,events);playEvents(events);if(reason){fail(reason,state.pos);return}
  renderBoard();updateHud();clearInterval(timer);timer=setInterval(tick,STEP_MS);
 }
@@ -828,7 +832,7 @@ function pauseGame(){
  state.paused=!state.paused;sfx.ui();clearInterval(timer);timer=null;
  if(!state.paused)timer=setInterval(tick,STEP_MS);
  $('#pauseBtn').innerHTML=state.paused?PLAY_ICON:PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label',state.paused?'Devam et':'Duraklat');
- $('#status').textContent=state.paused?'Duraklatıldı. Rotanı düzenleyebilirsin.':'Devam.';updateHud();
+ $('#status').textContent=state.paused?'Duraklatıldı · Rotanı düzenle.':'Devam.';updateHud();
 }
 
 
@@ -898,8 +902,8 @@ refreshHome();refreshSettings();renderLevels();if(!save.seenHelp)openHelp();
     const label=info.querySelector('.level-info-link');
     if(label){
       label.textContent=info.classList.contains('details-open')
-        ? 'Gizle ↑'
-        : 'Detayları Gör ›';
+        ? 'Kapat −'
+        : 'Kurallar +';
     }
   });
 })();
