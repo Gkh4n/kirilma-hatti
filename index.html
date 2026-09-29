@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#101a29"/>
+<meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 24 stratejik bölümü tamamla."/>
+<title>Kırılma Hattı</title>
+<style>
+:root{
+  --bg:#140d1d;--panel:rgba(39,20,46,.78);--panel2:rgba(26,16,36,.9);
+  --line:rgba(255,186,184,.19);--line2:rgba(255,204,158,.28);
+  --text:#fff4f2;--muted:#ccb7c8;--accent:#7ef5b7;--cyan:#69ecff;
+  --gold:#f4d07d;--gold2:#e9b86e;--danger:#ff5f89;--violet:#b95cff;
+  --peach1:#ffd6c0;--peach2:#f2b99b;
+  --shadow:0 24px 60px rgba(0,0,0,.38);
+  --glow:0 0 0 1px rgba(255,255,255,.03),0 10px 28px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:
+radial-gradient(480px 420px at 100% 0%,rgba(255,214,192,.15),transparent 42%),
+radial-gradient(520px 460px at 0% 100%,rgba(191,86,147,.18),transparent 44%),
+radial-gradient(760px 560px at 50% 0%,rgba(110,43,91,.22),transparent 60%),
+linear-gradient(180deg,#150d1e 0%,#1b1127 50%,#160d21 100%);
+color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+body:before,body:after{content:"";position:fixed;border-radius:50%;pointer-events:none;z-index:0;opacity:.55;filter:blur(.2px)}
+body:before{width:420px;height:420px;right:-160px;top:-120px;background:radial-gradient(circle,rgba(255,211,165,.16),transparent 66%);border:1px solid rgba(255,207,154,.18)}
+body:after{width:520px;height:520px;left:-220px;bottom:-140px;background:radial-gradient(circle,rgba(216,95,151,.12),transparent 65%);border:1px solid rgba(235,133,171,.12)}
+body{min-height:100vh;overflow-x:hidden}
+button{font:inherit}
+.app{max-width:760px;margin:0 auto;padding:16px 14px 34px;position:relative;z-index:1}
+.screen{display:none}.screen.active{display:block;animation:screenIn .25s ease}
+@keyframes screenIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.glass{background:linear-gradient(180deg,rgba(54,31,61,.66),rgba(32,19,44,.82));border:1px solid rgba(255,186,184,.16);box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+.muted{color:var(--muted)}.tiny{font-size:11px}
+.btn{min-height:54px;padding:0 16px;border-radius:22px;border:1px solid rgba(255,207,189,.22);background:linear-gradient(180deg,rgba(57,35,69,.96),rgba(34,21,47,.96));color:var(--text);font-weight:850;letter-spacing:.01em;cursor:pointer;box-shadow:var(--glow);transition:transform .11s ease,border-color .15s ease,opacity .15s ease}
+.btn:active{transform:scale(.984)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{color:#201518;background:linear-gradient(180deg,var(--peach1),var(--peach2));border-color:rgba(255,238,222,.62);box-shadow:0 12px 32px rgba(242,185,155,.28)}
+.btn.secondary{background:linear-gradient(180deg,rgba(63,38,74,.98),rgba(35,22,46,.98))}
+.btn.text{background:transparent;box-shadow:none}.btn.small{min-height:42px;border-radius:14px}
+.icon-btn{width:54px;height:54px;border-radius:18px;border:1px solid rgba(255,203,196,.16);background:linear-gradient(180deg,rgba(66,40,74,.95),rgba(38,24,49,.98));color:#fff;box-shadow:var(--glow);display:grid;place-items:center;padding:0}
+.icon-btn svg{width:22px;height:22px;stroke:currentColor}
+
+/* HOME */
+.home{padding-top:6px;position:relative;overflow:hidden;min-height:660px}
+.ambient{position:absolute;inset:0;pointer-events:none;opacity:.42;overflow:hidden}
+.ambient svg{position:absolute;inset:0;width:100%;height:100%}
+.ambient .a-line{fill:none;stroke:rgba(85,214,255,.17);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:8 11;animation:dash 13s linear infinite}
+.ambient .a-line.g{stroke:rgba(152,242,109,.13);animation-duration:17s}
+.ambient .a-dot{fill:var(--accent);filter:drop-shadow(0 0 8px rgba(152,242,109,.5));animation:dotPulse 1.8s ease-in-out infinite alternate}
+@keyframes dash{to{stroke-dashoffset:-190}}@keyframes dotPulse{to{opacity:.35}}
+.home-content{position:relative;z-index:1}
+.home-logo{width:92px;height:92px;margin:34px auto 18px;border-radius:28px;position:relative;background:
+radial-gradient(circle at 35% 30%,rgba(152,242,109,.38),transparent 42%),
+linear-gradient(180deg,#1c2637,#101620);border:1px solid var(--line2);box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05)}
+.home-logo:before,.home-logo:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%}
+.home-logo:before{width:50px;height:50px;border:1px solid rgba(85,214,255,.42);box-shadow:inset 0 0 24px rgba(85,214,255,.06)}
+.home-logo:after{width:17px;height:17px;background:radial-gradient(circle at 35% 30%,#e8ffd8,#98f26d 55%,#4ea82d);box-shadow:0 0 26px rgba(152,242,109,.62)}
+.game-name{text-align:center;font-size:clamp(37px,10vw,66px);font-weight:950;letter-spacing:.13em;line-height:.94;margin:0}.game-name span{color:var(--accent)}
+.tagline{text-align:center;color:#abb5c5;margin:10px auto 0;font-size:13px;max-width:420px;line-height:1.55}
+.menu-panel{margin:30px auto 0;max-width:500px;border-radius:28px;padding:18px;background:linear-gradient(180deg,rgba(17,24,38,.86),rgba(10,16,26,.82))}
+.menu-list{display:grid;gap:10px}.menu-list .btn{font-size:17px;min-height:57px}
+.home-status{text-align:center;margin-top:13px;color:var(--muted);font-size:11px}
+.home-stats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:8px 11px;background:rgba(255,255,255,.018);font-size:12px;color:#d8dfeb}
+
+/* HEADER */
+.topbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-bottom:16px}
+.topbar-title{text-align:center;min-width:0}
+.topbar-title b{display:block;font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:900;letter-spacing:.01em;font-family:Georgia,'Times New Roman',serif}
+.topbar-title span{display:block;font-size:11px;color:#f1dfdf;margin-top:3px;letter-spacing:.08em}
+.topbar-title:after{content:"";display:block;width:150px;height:1px;margin:10px auto 0;background:linear-gradient(90deg,transparent,rgba(255,214,192,.82),transparent)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:4px 0 13px}.section-head h2{margin:0;font-size:25px}.section-head p{margin:4px 0 0}
+
+/* LEVELS */
+.chapter{margin:17px 0 8px;display:flex;align-items:center;gap:10px;color:#ccd4e0;font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.chapter:after{content:"";height:1px;background:var(--line);flex:1}
+.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.level-card{min-height:108px;text-align:left;padding:12px;border-radius:18px;cursor:pointer;position:relative;overflow:hidden}
+.level-card.locked{opacity:.4;filter:saturate(.7)}
+.level-card:after{content:"";position:absolute;right:-18px;top:-18px;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle,rgba(85,214,255,.11),transparent 65%)}
+.level-num{font-size:23px;font-weight:950;position:relative;z-index:1}.level-name{font-size:12px;color:#c6cedb;margin-top:3px;position:relative;z-index:1}.mechanic{font-size:10px;color:var(--muted);margin-top:5px;position:relative;z-index:1}.stars{margin-top:8px;font-size:13px;letter-spacing:1px;color:var(--gold);position:relative;z-index:1}
+
+/* SETTINGS */
+.settings-grid{display:grid;gap:10px}.setting{padding:14px 15px;border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.setting b{display:block;margin-bottom:3px}
+.switch{min-width:94px;min-height:42px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--text);font-weight:850;padding:0 12px}
+.settings-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+
+/* GAME HUD */
+.hud{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.hud-box{border-radius:24px;padding:14px 16px;display:grid;grid-template-columns:72px 1fr;align-items:center;gap:14px;min-height:96px;border-color:rgba(255,214,192,.22)}
+.hud-icon{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(41,22,43,.96),rgba(22,12,31,.98));border:1px solid rgba(255,214,192,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.hud-icon svg{width:30px;height:30px;stroke-width:1.9}
+.hud-copy{text-align:left}
+.hud-box .k{font-size:10px;color:#d8bfd0;text-transform:uppercase;letter-spacing:.18em}
+.hud-box .v{margin-top:6px;font-size:25px;font-weight:950;line-height:1}
+.hud-box.warn .v{color:var(--danger)}
+.goal-line{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:999px;color:#f4e9ec;font-size:12px;margin:4px 0 14px;background:linear-gradient(180deg,rgba(58,33,67,.8),rgba(35,21,48,.86));border:1px solid rgba(255,202,196,.18);box-shadow:var(--shadow)}
+.goal-icon{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,214,192,.55);color:#ffe7cb;font-weight:900;font-size:18px;flex:0 0 auto;background:rgba(53,31,55,.78)}
+.goal-text{flex:1}
+.goal-line b{color:#fff7f6}
+
+/* BOARD */
+.board-shell{padding:12px;border-radius:28px;position:relative;overflow:hidden;border-color:rgba(255,198,194,.18);box-shadow:0 0 0 1px rgba(255,198,194,.06), var(--shadow)}
+.board{display:grid;gap:6px;touch-action:manipulation;position:relative;z-index:1}
+.tile{aspect-ratio:1/1;border-radius:18px;border:1px solid rgba(255,198,194,.15);background:
+linear-gradient(180deg,rgba(58,35,67,.72),rgba(31,19,45,.92));
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 10px 22px rgba(0,0,0,.22);
+position:relative;overflow:hidden;padding:0;cursor:pointer;transition:transform .11s ease,border-color .16s ease,box-shadow .16s ease}
+.tile:active{transform:scale(.98)}.tile:before{content:"";position:absolute;inset:10px;border-radius:13px;background:rgba(255,255,255,.012);border:1px solid rgba(255,233,236,.035);pointer-events:none}
+.tile.wall{background:linear-gradient(180deg,#0d1016,#090d14);border-color:rgba(255,255,255,.04);cursor:default}.tile.wall:before{opacity:.25}
+.tile.current{border-color:rgba(152,242,109,.62);box-shadow:inset 0 0 0 1px rgba(152,242,109,.18),0 0 24px rgba(152,242,109,.13)}
+.tile.next-target{border:2px solid rgba(85,214,255,.96);box-shadow:inset 0 0 0 2px rgba(85,214,255,.2),inset 0 0 22px rgba(85,214,255,.12),0 0 16px rgba(85,214,255,.4),0 0 30px rgba(85,214,255,.16)}
+.tile.failure{border-color:rgba(255,102,122,.9);box-shadow:inset 0 0 0 2px rgba(255,102,122,.3),0 0 28px rgba(255,102,122,.32)}
+.tile.success{border-color:rgba(152,242,109,.86);box-shadow:inset 0 0 0 2px rgba(152,242,109,.22),0 0 28px rgba(152,242,109,.25)}
+.dial{position:absolute;left:50%;top:50%;width:64%;height:64%;transform:translate(-50%,-50%) rotate(var(--rot));transition:transform .17s ease}
+.dial-ring{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.07),rgba(255,255,255,.012) 58%);border:1px solid rgba(147,165,191,.19);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -8px 20px rgba(0,0,0,.22)}
+.dial-ring:before{content:"";position:absolute;left:50%;top:50%;width:16%;height:16%;border-radius:50%;transform:translate(-50%,-50%);background:linear-gradient(180deg,#334057,#1b2331);box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.pointer{position:absolute;left:50%;top:14%;width:13%;height:47%;transform:translateX(-50%);border-radius:999px;background:linear-gradient(180deg,rgba(85,214,255,.95),rgba(85,214,255,.3));box-shadow:0 0 10px rgba(85,214,255,.18)}
+.pointer:before{content:"";position:absolute;left:50%;top:-10%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:11px solid rgba(152,242,109,.98);filter:drop-shadow(0 0 7px rgba(152,242,109,.28))}
+.wall-mark{position:absolute;inset:0;display:grid;place-items:center}.wall-mark:before{content:"";width:25%;height:25%;border-radius:4px;background:#273042;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
+
+/* CORE */
+.runner{position:absolute;width:30px;height:30px;left:0;top:0;z-index:12;pointer-events:none;transition:left .42s cubic-bezier(.22,.85,.27,1),top .42s cubic-bezier(.22,.85,.27,1),transform .18s ease;transform:translate(-50%,-50%) rotate(var(--runner-rot)) scaleX(var(--stretch,1));transform-origin:center}
+.runner-core{position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#efffe5,#a6ff7b 40%,#72d941 70%,#34761e 100%);box-shadow:0 0 18px rgba(152,242,109,.7),0 0 0 4px rgba(152,242,109,.09)}
+.runner-core:after{content:"";position:absolute;left:50%;top:-8px;transform:translateX(-50%);width:5px;height:11px;border-radius:999px;background:linear-gradient(180deg,#e8ffde,#55d6ff);box-shadow:0 0 8px rgba(85,214,255,.85)}
+.runner-tail{position:absolute;left:50%;top:50%;width:34px;height:8px;transform:translate(-100%,-50%);border-radius:999px;background:linear-gradient(90deg,transparent,rgba(85,214,255,.14),rgba(152,242,109,.55));filter:blur(.4px);opacity:.85}
+.runner.bump{--stretch:1.2}.runner.hit{animation:runnerHit .33s ease}
+@keyframes runnerHit{50%{transform:translate(-50%,-50%) rotate(var(--runner-rot)) scale(.72)}}
+
+/* ROUTE */
+.path-svg{position:absolute;inset:10px;z-index:4;pointer-events:none;overflow:visible}
+.path-past-glow{fill:none;stroke:rgba(152,242,109,.15);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.path-past{fill:none;stroke:rgba(152,242,109,.72);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(152,242,109,.35))}
+.path-plan-glow{fill:none;stroke:rgba(85,214,255,.16);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.path-plan{fill:none;stroke:#55d6ff;stroke-width:3.1;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(85,214,255,.64))}
+.path-danger-glow{fill:none;stroke:rgba(255,102,122,.18);stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+.path-danger{fill:none;stroke:#ff667a;stroke-width:3.3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(255,102,122,.65))}
+.route-flash .path-plan,.route-flash .path-past{stroke:#98f26d;filter:drop-shadow(0 0 8px rgba(152,242,109,.75))}
+.route-flash .path-plan-glow,.route-flash .path-past-glow{stroke:rgba(152,242,109,.28)}
+
+/* CUSTOM ICONS */
+.glyph{position:absolute;z-index:6;width:24px;height:24px;display:grid;place-items:center;border-radius:8px;background:rgba(7,12,20,.88);border:1px solid rgba(255,255,255,.08);box-shadow:0 6px 14px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.04)}
+.glyph svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.glyph.tl{left:6px;top:6px}.glyph.tr{right:6px;top:6px}.glyph.bl{left:6px;bottom:6px}.glyph.br{right:6px;bottom:6px}
+.glyph.tc{left:50%;top:6px;transform:translateX(-50%)}.glyph.bc{left:50%;bottom:6px;transform:translateX(-50%)}.glyph.lc{left:6px;top:50%;transform:translateY(-50%)}.glyph.rc{right:6px;top:50%;transform:translateY(-50%)}
+.key-g{color:var(--gold)}.hazard-g{color:var(--danger)}.boost-g{color:var(--cyan)}.portal-g{color:var(--violet)}.fixed-g{color:#d9e1ee}.gate-g{color:#eef4ff}.switch-g{color:var(--gold)}.fragile-g{color:#dfd3b3}.oneway-g{color:var(--cyan)}.limited-g{color:#ffb66b}.linked-g{color:var(--violet)}.auto-g{color:var(--accent)}.mover-g{color:var(--danger)}.exit-g{color:var(--accent)}.decoy-g{color:var(--danger)}
+.key-index,.mini-label,.alpha-chip,.count-chip{position:absolute;display:grid;place-items:center;font-weight:950;line-height:1;box-shadow:0 3px 9px rgba(0,0,0,.28);z-index:11}
+.mini-label{min-width:19px;height:19px;padding:0 5px;border-radius:999px;border:1px solid rgba(255,255,255,.58);font-size:10px}
+.alpha-chip{
+  width:21px;height:21px;padding:0;border-radius:50%;
+  border:1px solid rgba(255,255,255,.62);font-size:10px;
+  background:#eef4ff;color:#101623;
+  box-shadow:0 0 0 2px rgba(238,244,255,.07),0 4px 10px rgba(0,0,0,.3)
+}
+.alpha-chip.gate-label{right:5px;top:5px}
+.alpha-chip.switch-label{right:4px;top:4px;background:var(--gold);color:#161006;border-color:rgba(255,245,205,.75)}
+.count-chip{left:50%;bottom:6px;transform:translateX(-50%);min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:rgba(255,182,107,.98);color:#1a0f05;font-size:10px;border:1px solid rgba(255,255,255,.4)}
+.exit-center{position:absolute;inset:0;display:grid;place-items:center;color:var(--accent)}
+.exit-center svg{width:32px;height:32px;stroke:currentColor;fill:none;stroke-width:1.8;filter:drop-shadow(0 0 10px rgba(152,242,109,.34))}
+.exit-center.decoy{color:var(--danger)}
+.portal-tile{box-shadow:inset 0 0 0 1px rgba(180,140,255,.18),0 0 20px rgba(180,140,255,.08)}
+.portal-mark{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);min-width:30px;height:19px;padding:0 7px;border-radius:999px;background:rgba(180,140,255,.95);color:#0f0b18;display:grid;place-items:center;font-size:9px;font-weight:950;z-index:9;border:1px solid rgba(255,255,255,.45);box-shadow:0 0 12px rgba(180,140,255,.24)}
+.portal-ring{position:absolute;inset:15%;border-radius:50%;border:1px solid rgba(180,140,255,.5);box-shadow:inset 0 0 14px rgba(180,140,255,.08),0 0 14px rgba(180,140,255,.12);z-index:2;pointer-events:none}
+.key-tile{border-color:rgba(255,211,107,.34);box-shadow:inset 0 0 0 1px rgba(255,211,107,.12),0 0 16px rgba(255,211,107,.07)}
+.key-g{z-index:12;background:rgba(29,23,8,.94);border-color:rgba(255,211,107,.28);box-shadow:0 0 14px rgba(255,211,107,.14),0 6px 14px rgba(0,0,0,.28)}
+.key-g svg{width:17px;height:17px}
+.ordered-key-tile{border-color:rgba(255,211,107,.42);box-shadow:inset 0 0 0 1px rgba(255,211,107,.16),0 0 18px rgba(255,211,107,.09)}
+.key-order-badge{position:absolute;right:5px;top:5px;width:19px;height:19px;border-radius:50%;background:rgba(10,13,19,.96);color:var(--gold);display:grid;place-items:center;font-size:10px;font-weight:950;border:1px solid rgba(255,211,107,.72);line-height:1;box-shadow:0 0 10px rgba(255,211,107,.13),0 3px 8px rgba(0,0,0,.3);z-index:13}
+.mover-dot{
+  position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),rgba(255,255,255,0) 34%),linear-gradient(180deg,#2a0d14,#14080d);
+  border:1px solid rgba(255,130,146,.5);
+  box-shadow:0 0 0 3px rgba(255,102,122,.08),0 0 14px rgba(255,102,122,.28),0 6px 14px rgba(0,0,0,.32);
+  animation:moverFloat 1.2s ease-in-out infinite;
+  z-index:10
+}
+.mover-dot:before{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid rgba(255,142,156,.95);
+  box-shadow:0 0 8px rgba(255,102,122,.26), inset 0 0 0 2px rgba(0,0,0,.18)
+}
+.mover-dot:after{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:4px;height:4px;border-radius:50%;background:#ffe3e8;
+  box-shadow:0 0 8px rgba(255,220,226,.65)
+}
+@keyframes moverFloat{
+  0%,100%{transform:translate(-50%,-50%)}
+  50%{transform:translate(-50%,-53%)}
+}
+.mover-track-glow{fill:none;stroke:rgba(255,102,122,.08);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.mover-track{fill:none;stroke:rgba(255,102,122,.45);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4 7;filter:drop-shadow(0 0 2px rgba(255,102,122,.18))}
+.mover-node{fill:#ff667a;stroke:#ffd4da;stroke-width:.8;opacity:.72}
+.mechanic-info{position:relative;overflow:hidden}
+.mechanic-info:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--mechanic-color,rgba(255,214,192,.35))}
+.mechanic-info.mechanic-key{--mechanic-color:var(--gold)}
+.mechanic-info.mechanic-hazard{--mechanic-color:var(--danger)}
+.mechanic-info.mechanic-boost,.mechanic-info.mechanic-oneway{--mechanic-color:var(--cyan)}
+.mechanic-info.mechanic-gate{--mechanic-color:#eef4ff}
+.mechanic-info.mechanic-portal,.mechanic-info.mechanic-linked{--mechanic-color:var(--violet)}
+.mechanic-info.mechanic-fixed{--mechanic-color:#d9e1ee}
+.mechanic-info.mechanic-fragile{--mechanic-color:#dfd3b3}
+.mechanic-info.mechanic-limited{--mechanic-color:#ffb66b}
+.mechanic-info.mechanic-auto{--mechanic-color:var(--accent)}
+.mechanic-info.mechanic-mover,.mechanic-info.mechanic-decoy{--mechanic-color:var(--danger)}
+.mechanic-info .mechanic-icon{color:var(--mechanic-color,#dbe4f1)}
+
+
+/* INFO / STATUS */
+.status{min-height:58px;margin-top:12px;padding:14px 16px;border-radius:22px;display:flex;align-items:center;color:#f6eef2;font-size:13px;background:linear-gradient(180deg,rgba(57,33,66,.82),rgba(34,20,46,.9));border:1px solid rgba(255,203,196,.18)}
+.controls{display:grid;grid-template-columns:54px 1fr 54px;gap:12px;margin-top:14px}.controls .btn{padding:0}.controls .primary{font-size:18px;letter-spacing:.03em}
+#startBtn{border-radius:28px;min-height:60px;font-size:19px}
+.level-info{margin-top:14px;padding:14px;border-radius:24px;display:block}
+.level-info:empty{display:none}
+.level-info-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.level-info-head b{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#e7c79a}
+.level-info-link{font-size:12px;color:#efe0e0;letter-spacing:.06em}
+.level-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mechanic-info{min-width:0;display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;padding:12px;border-radius:18px;background:linear-gradient(180deg,rgba(58,34,66,.66),rgba(34,21,47,.76));border:1px solid rgba(255,198,194,.12)}
+.mechanic-icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.03);color:#f1e7ef}
+.mechanic-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mechanic-copy b{display:block;font-size:12px;color:#fff6f7}
+.mechanic-copy span{display:block;color:#d1bdcb;font-size:11px;line-height:1.35;margin-top:4px}
+
+/* INTRO / RESULT */
+.level-intro{position:absolute;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(7,10,15,.83);backdrop-filter:blur(6px);border-radius:24px;padding:20px}
+.level-intro.show{display:flex;animation:introIn .22s ease}
+@keyframes introIn{from{opacity:0}to{opacity:1}}
+.intro-card{text-align:center}.intro-kicker{color:var(--muted);font-size:10px;letter-spacing:.16em;text-transform:uppercase}.intro-card h3{margin:7px 0 5px;font-size:29px}.intro-card p{margin:0;color:#b8c2d0;font-size:12px}.intro-line{width:64px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);margin:14px auto 0;animation:introLine .8s ease-in-out infinite alternate}@keyframes introLine{to{width:115px}}
+.overlay{display:none;position:absolute;inset:0;border-radius:24px;background:rgba(7,9,14,.82);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:18px;z-index:35}.overlay.show{display:flex}
+.modal{width:min(94%,400px);padding:20px;border-radius:24px;text-align:center;animation:modalIn .24s ease}@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.modal h3{margin:0 0 7px;font-size:27px}.modal p{margin:0;color:#c0c8d6;font-size:12px;line-height:1.5}
+.result-stars{font-size:31px;letter-spacing:4px;color:var(--gold);margin:13px 0 5px}.score-note{color:var(--muted);font-size:10px;min-height:16px;margin-bottom:14px}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.success-ripple{position:absolute;left:50%;top:50%;width:25px;height:25px;border-radius:50%;border:2px solid rgba(152,242,109,.65);transform:translate(-50%,-50%);animation:ripple .7s ease-out forwards;z-index:30;pointer-events:none}@keyframes ripple{to{width:260px;height:260px;opacity:0}}
+
+/* HELP */
+.full-overlay{position:fixed;inset:0;background:rgba(7,9,14,.8);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.full-overlay.show{display:flex}
+.sheet{width:min(94%,470px);padding:20px;border-radius:24px}.sheet h3{margin:0 0 9px;font-size:25px}.sheet p{margin:0;color:#c0c8d6;line-height:1.55;font-size:13px}.sheet ul{padding-left:18px;color:#dce3ee;font-size:12px;line-height:1.62}.sheet .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.help-note{margin-top:11px;color:var(--muted);font-size:10px;line-height:1.5}
+
+
+/* One responsive theme; no accumulated override patches. */
+:root{--bg:#101a29;--panel:#172436;--panel2:#111c2b;--line:#ffffff16;--line2:#ffffff24;--text:#eff4fa;--muted:#a3b2c6;--accent:#82e2b0;--cyan:#73d5ef;--gold:#edcb86;--gold2:#cea457;--danger:#ff8597;--violet:#b79aed;--shadow:0 12px 28px #0003;--glow:0 3px 12px #0002}
+html,body{background:radial-gradient(ellipse at 50% 0,#223450 0,transparent 60%),#101a29;color:var(--text)}
+body:before,body:after{display:none}
+button{touch-action:manipulation;cursor:pointer;color:inherit}
+button:disabled{cursor:default}.icon-btn:disabled{opacity:.35}
+button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.app{max-width:720px;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+.glass,.status,.goal-line{background:linear-gradient(160deg,#1b293d,#132033);border:1px solid var(--line);box-shadow:var(--shadow)}
+.btn,.btn.secondary,.icon-btn,.hud-icon{background:linear-gradient(160deg,#26364d,#1b2a40);border:1px solid var(--line2);color:var(--text);border-radius:16px}
+.btn.primary{background:linear-gradient(160deg,#f2d799,#dcb66d);border-color:#f5db9e;color:#211c10;box-shadow:0 5px 20px #dcb66d1a}
+.btn.text{background:transparent}
+.icon-btn{width:48px;height:48px}.icon-btn svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.home{min-height:calc(100svh - 40px);display:none}.home.active{display:grid;align-items:center}
+.home-content{padding:16px 0 28px}.home-logo{margin-top:8px;background:linear-gradient(150deg,#2b415e,#17253a)}
+.game-name{font-size:clamp(34px,8vw,58px);letter-spacing:.05em;line-height:1.05}.game-name span{display:block;margin-top:5px}
+.tagline{font-size:14px;padding:0 14px;color:var(--muted)}.home-status{font-size:13px;line-height:1.5}
+.menu-panel{max-width:430px;padding:18px;margin-top:24px}.chip{font-size:12px;min-height:36px}
+.section-head .tiny,.setting .tiny{font-size:12px;line-height:1.5}.level-card{color:var(--text)}.level-name{font-size:14px}.mechanic{font-size:12px}
+#game{max-width:600px;margin:auto}.topbar{gap:10px;margin-bottom:8px}.topbar-title b{font-weight:800;line-height:1.3;font-family:inherit;font-size:18px}.topbar-title span{font-size:12px;color:var(--muted);letter-spacing:0}.topbar-title:after{display:none}
+.hud{gap:8px;margin-bottom:8px}.hud-box{grid-template-columns:34px 1fr;min-height:58px;padding:8px 12px;gap:10px;border-radius:16px}
+.hud-icon{width:34px;height:34px;border-radius:10px}.hud-icon svg{width:23px;height:23px}.hud-box .k{font-size:11px;color:var(--muted);letter-spacing:.04em}.hud-box .v{font-size:22px;margin-top:3px}
+.goal-line{font-size:12px;line-height:1.4;padding:8px 10px;margin:0 0 8px;border-radius:14px;gap:8px}.goal-icon{width:24px;height:24px;font-size:14px;background:#24364f;border-color:#adc9ee55;flex-shrink:0}
+.board-shell{padding:7px;border-radius:18px;margin:0 auto;width:min(100%,max(282px,calc((100svh - 342px)*6/7)));overflow:hidden}
+.board{gap:4px}.tile{background:linear-gradient(155deg,#263952,#1c2b41);border-color:#abc6eb22;border-radius:10px;box-shadow:inset 0 1px #ffffff08,0 3px 7px #0002}
+.tile:before{inset:5px;border-radius:7px;border-color:#ffffff07}
+.tile.wall{background:#132033;border-color:#a2b6d912}.wall-mark:before{width:35%;height:3px;background:#61758f66;border-radius:3px}
+.tile.current{border-color:#8befb6;box-shadow:inset 0 0 0 1px #82e2b066}.tile.next-target{border:1px solid #73d5ef88;box-shadow:inset 0 0 9px #73d5ef15}
+.tile.failure{border-color:var(--danger);box-shadow:inset 0 0 0 2px #ff859755}.tile.success{border-color:var(--accent)}
+.dial{width:64%;height:64%}.dial-ring{border-color:#bfd1ec24;background:#0c172326;box-shadow:none}.pointer:before{border-left-width:5px;border-right-width:5px;border-bottom-width:8px}
+.glyph{width:19px;height:19px;border-radius:6px;background:#101a2cee;box-shadow:0 2px 5px #0003}.glyph svg,.key-g svg{width:13px;height:13px}
+.glyph.tl{left:2px;top:2px}.glyph.tr{right:2px;top:2px}.glyph.bl{left:2px;bottom:2px}.glyph.br{right:2px;bottom:2px}.glyph.tc{top:2px}.glyph.bc{bottom:2px}.glyph.lc{left:2px}.glyph.rc{right:2px}
+.glyph small{position:absolute;right:-2px;bottom:-2px;background:#aa87dc;color:#101a29;border-radius:4px;font-size:9px;min-width:11px;text-align:center}
+.key-order-badge,.alpha-chip{width:17px;height:17px;font-size:10px;top:2px;right:2px}.count-chip{font-size:10px;height:17px;bottom:2px;padding:0 4px;min-width:20px}
+.switch-label{left:2px;right:auto;top:2px}.portal-mark{min-width:22px;height:16px;font-size:9px;bottom:2px;padding:0 3px;background:#b79aed;color:#151124}.exit-center svg{width:26px;height:26px}
+.runner{width:25px;height:25px}.runner-tail{display:none}.runner-core{box-shadow:0 0 10px #82e2b088}.runner-core:after{height:7px;top:-5px}
+.path-svg{inset:auto}.path-plan{stroke-width:2;opacity:.7}.path-past{stroke-width:2.5}.path-danger{stroke-width:3}.path-plan-glow,.path-past-glow{stroke-width:6}
+.tile.gate{background:#122232;border-color:#a9c0df55}.gate-frame{position:absolute;inset:18% 24% 30%;border:2px solid #bccde2;border-bottom:0;border-radius:4px 4px 0 0}
+.gate-frame:after{content:'';position:absolute;inset:3px 2px 0;background:repeating-linear-gradient(90deg,#d4dfefaa 0 2px,transparent 2px 6px);transition:transform .2s;transform-origin:top}
+.gate-open{border-color:#82e2b088;background:#163632}.gate-open .gate-frame{border-color:#82e2b0}.gate-open .gate-frame:after{transform:scaleY(.13)}
+.gate-state{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:8px;font-weight:800;letter-spacing:.04em;color:#c8d6e7}.gate-open .gate-state{color:#82e2b0}
+.tile.collapsed{background:#0b1320;border:1px dashed #998d7866;opacity:.65}.collapsed .dial,.collapsed .glyph{opacity:.15}.collapsed:after{content:'×';position:absolute;inset:0;display:grid;place-items:center;font-size:28px;color:#b5a68c}
+.star-target{font-size:12px;line-height:1.4;color:var(--gold);text-align:center;margin:8px 0 5px;min-height:17px}
+.status{min-height:44px;margin-top:0;padding:9px 12px;border-radius:14px;font-size:12px;line-height:1.45}
+.controls{grid-template-columns:44px 44px 1fr 44px;gap:7px;margin-top:8px}.controls .icon-btn{width:44px;height:48px;border-radius:14px}#startBtn{min-height:48px;font-size:16px;border-radius:14px}
+.level-info{margin-top:10px;padding:0 12px;border-radius:16px}.level-info-head{width:100%;min-height:48px;margin:0;padding:8px 0;background:none;border:0;color:var(--text);text-align:left}.level-info-head b{font-size:12px;color:var(--text);letter-spacing:.06em}.level-info-link{font-size:12px;color:var(--muted);letter-spacing:0}
+.level-info-grid{display:none;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:12px}.level-info.details-open .level-info-grid{display:grid}
+.mechanic-info{grid-template-columns:30px 1fr;gap:8px;padding:10px;background:#213149;border-color:var(--line);border-radius:12px;overflow:visible}.mechanic-info:before{display:none}.mechanic-icon{width:28px;height:28px;position:relative;border-radius:8px}.mechanic-icon svg{width:20px;height:20px}.mechanic-copy b{font-size:12px;color:var(--text)}.mechanic-copy span{font-size:12px;line-height:1.45;color:#b9c8dc}.legend-badge{position:absolute;right:-3px;top:-7px;font-size:9px;padding:2px;border-radius:4px;background:#0f1a2b}
+.full-overlay{padding:12px}.sheet{width:min(100%,470px);max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain;padding:20px}.sheet p,.sheet ul{font-size:14px;line-height:1.55}.sheet .actions{position:sticky;bottom:-20px;padding:12px 0;background:#172436}.help-note{font-size:12px}
+.modal{padding:18px;width:min(100%,380px)}.modal h3{font-size:23px}.modal p,.score-note{font-size:13px;line-height:1.5}.modal-actions .btn{min-height:48px;font-size:14px;padding:0 8px}.result-stars{font-size:28px}
+@media(max-width:520px){.level-grid{grid-template-columns:1fr 1fr}.home-stats{gap:5px}.topbar-title b{font-size:16px}.level-info-grid{grid-template-columns:1fr}.settings-actions{grid-template-columns:1fr}.setting{padding:12px}.switch{min-width:76px}.game-name{font-size:42px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section id="home" class="screen active home">
+    <div class="ambient" aria-hidden="true">
+      <svg viewBox="0 0 760 720" preserveAspectRatio="none">
+        <path class="a-line" d="M-40 180 C140 90 240 260 390 180 S660 60 820 170"/>
+        <path class="a-line g" d="M-60 470 C120 360 260 560 430 445 S680 350 820 430"/>
+        <circle class="a-dot" cx="188" cy="148" r="4"/><circle class="a-dot" cx="545" cy="132" r="3"/>
+        <circle class="a-dot" cx="375" cy="466" r="4"/>
+      </svg>
+    </div>
+    <div class="home-content">
+      <div class="home-logo"></div>
+      <h1 class="game-name">KIRILMA <span>HATTI</span></h1>
+      <p class="tagline">Rotayı kur. Çekirdeği yönlendir. Hattı bozmadan çıkışa ulaş.</p>
+      <div class="menu-panel glass">
+        <div class="menu-list">
+          <button id="playBtn" class="btn primary">OYNA</button>
+          <button id="levelsBtn" class="btn secondary">BÖLÜMLER</button>
+          <button id="settingsBtn" class="btn secondary">AYARLAR</button>
+        </div>
+        <div class="home-status" id="lastLevelText">Son bölüm</div>
+        <div class="home-stats">
+          <span id="homeProgress" class="chip">Bölüm 1 / 24</span>
+          <span id="homeStars" class="chip">★ 0 / 72</span>
+          <button id="helpBtn" class="chip" type="button">Nasıl oynanır?</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="levels" class="screen">
+    <div class="section-head">
+      <div><div class="tiny muted">SEVİYE SEÇİMİ</div><h2>Bölümler</h2><p class="tiny muted">24 bölüm açık. Sırayla ilerle veya istediğini seç.</p></div>
+      <button class="btn text small js-home">Ana Sayfa</button>
+    </div>
+    <div id="levelList"></div>
+  </section>
+
+  <section id="settings" class="screen">
+    <div class="section-head">
+      <div><div class="tiny muted">AYARLAR</div><h2>Oyun Ayarları</h2></div>
+      <button class="btn text small js-home">Ana Sayfa</button>
+    </div>
+    <div class="settings-grid">
+      <div class="setting glass"><div><b>Ses</b><div class="tiny muted">Oyun ve arayüz sesleri.</div></div><button id="soundToggle" class="switch">Açık</button></div>
+      <div class="setting glass"><div><b>Titreşim</b><div class="tiny muted">Dokunuş ve sonuç geri bildirimi.</div></div><button id="vibrationToggle" class="switch">Açık</button></div>
+      <div class="setting glass"><div><b>Nasıl oynanır?</b><div class="tiny muted">Temel oynanışı tekrar göster.</div></div><button id="showHelp" class="switch">Göster</button></div>
+    </div>
+    <div class="settings-actions">
+      <button id="resetProgress" class="btn secondary">İlerlemeyi Sıfırla</button>
+      <button class="btn primary js-home">Tamam</button>
+    </div>
+  </section>
+
+  <section id="game" class="screen">
+    <div class="topbar">
+      <button id="gameBack" class="icon-btn" aria-label="Bölümlere dön">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="topbar-title"><b id="levelTitle">1. İlk Akış</b><span id="levelSubtitle">Anahtarları topla ve çıkışa ulaş</span></div>
+      <button id="resetLevel" class="icon-btn" aria-label="Yeniden başlat">
+        <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8"/><path d="M4 3v5h5"/></svg>
+      </button>
+    </div>
+
+    <div class="hud">
+      <div id="moveBox" class="hud-box glass">
+        <div class="hud-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17c1.6 1.6 4.4 1.6 6 0l1.3-1.3c.7-.7.7-1.9 0-2.6l-3.1-3.1c-.7-.7-1.9-.7-2.6 0L7.3 11C5.7 12.6 5.7 15.4 7 17Z" stroke="var(--cyan)" stroke-width="1.8"/><path d="M13.8 8.2 16 6" stroke="var(--cyan)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="hud-copy"><div class="k">Hamle</div><div id="moveVal" class="v">0</div></div>
+      </div>
+      <div class="hud-box glass">
+        <div class="hud-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="var(--gold)" stroke-width="1.8"/><path d="M17 7h4M19 5v4M4 20v-4.2c0-.7.3-1.4.8-1.9L10 8.7" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hud-copy"><div class="k">Anahtar</div><div id="keyVal" class="v">0/0</div></div>
+      </div>
+    </div>
+    <div class="goal-line"><span class="goal-icon">i</span><span id="goalLine" class="goal-text">Tüm anahtarları topla ve çıkışa ulaş.</span></div>
+
+    <div class="board-shell glass">
+      <div id="board" class="board"></div>
+      <svg id="pathSvg" class="path-svg" aria-hidden="true"></svg>
+      <div id="runner" class="runner" aria-hidden="true"><div class="runner-tail"></div><div class="runner-core"></div></div>
+
+      <div id="levelIntro" class="level-intro">
+        <div class="intro-card"><div class="intro-kicker" id="introKicker">Bölüm 1</div><h3 id="introTitle">İlk Akış</h3><p id="introTag">Temel</p><div class="intro-line"></div></div>
+      </div>
+
+      <div id="resultOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+        <div class="modal glass">
+          <h3 id="resultTitle">Bölüm Tamam</h3>
+          <p id="resultText"></p>
+          <div id="resultStars" class="result-stars">★★★</div>
+          <div id="scoreNote" class="score-note"></div>
+          <div class="modal-actions">
+            <button id="againBtn" class="btn secondary">Tekrar</button>
+            <button id="nextBtn" class="btn primary">Sonraki</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="starTarget" class="star-target"></div>
+    <div id="status" class="status glass" role="status" aria-live="polite">Rotanı hazırla.</div>
+    <div class="controls">
+      <button id="undoBtn" class="icon-btn" disabled aria-label="Son dönüşü geri al" title="Son dönüşü geri al"><svg viewBox="0 0 24 24"><path d="M9 5 4 10l5 5M4 10h9a6 6 0 0 1 0 12"/></svg></button>
+      <button id="pauseBtn" class="icon-btn" disabled aria-label="Duraklat">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>
+      </button>
+      <button id="startBtn" class="btn primary">BAŞLAT</button>
+      <button id="hintBtn" class="icon-btn" aria-label="İpucu">
+        <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8.5 14.5C7 13.4 6 11.6 6 9.5a6 6 0 1 1 12 0c0 2.1-1 3.9-2.5 5-.8.6-1.5 1.4-1.5 2.5h-4c0-1.1-.7-1.9-1.5-2.5z"/></svg>
+      </button>
+    </div>
+    <div id="levelInfo" class="level-info glass"></div>
+  </section>
+</div>
+
+<div id="helpOverlay" class="full-overlay" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="sheet glass">
+    <h3 id="helpTitle">Nasıl Oynanır?</h3>
+    <p>Çekirdek, bulunduğu yön diskinin gösterdiği tarafa ilerler. Diskleri döndürerek çıkışa giden hattı kurarsın.</p>
+    <ul>
+      <li>Bir yön diskini döndürmek <b>1 Hamle</b> harcar.</li>
+      <li>Planlanan rota başlamadan önce mavi çizilir; geçtiğin hat yeşile döner.</li>
+      <li>Tehlikeye giden rota kırmızıyla uyarılır.</li>
+      <li>Tüm anahtarları toplamadan doğru çıkış tamamlanmaz.</li>
+      <li>Bölümdeki kuralları Mekanikler → Detayları Gör ile incele.</li>
+      <li>Kapılarda ve kontrol karelerinde aynı <b>harf etiketi</b> görünür. Örneğin <b>A</b> kontrolü, <b>A</b> kapısını açar.</li>
+      <li>Portal çiftlerinde aynı <b>P numarası</b> görünür. <b>P1 ↔ P1</b> aynı geçidi ifade eder.</li>
+      <li>Sıralı anahtarlarda anahtarın üzerindeki <b>1, 2, 3</b> rozetlerini takip et.</li>
+      <li><b>A / B</b> gibi harf çipleri kapı ve kontrol bağlantısını gösterir.</li>
+      <li>Turuncu <b>x sayaç</b>, diskin kaç dönüş hakkı kaldığını gösterir.</li>
+      <li>Devriye bulunan bölümlerde ince kırmızı rota hareketli engelin izleyeceği yolu gösterir.</li>
+    </ul>
+    <div class="help-note">Üç yıldız için ekrandaki dönüş hedefini aşma ve ipucu kullanma. Hazırlıkta veya duraklatınca son dönüşü geri alabilirsin. İlerleme bu cihazda saklanır.</div>
+    <div class="actions"><button id="closeHelp" class="btn secondary">Kapat</button><button id="helpPlay" class="btn primary">Oyna</button></div>
+  </div>
+</div>
+
+<script>
+(()=>{
+const DIRS=['U','R','D','L'],ROT={U:0,R:90,D:180,L:270},ARROW={U:'↑',R:'→',D:'↓',L:'←'},VEC={U:[-1,0],R:[0,1],D:[1,0],L:[0,-1]};
+const ROWS=7,COLS=6,STEP_MS=520,$=s=>document.querySelector(s),screens={home:$('#home'),levels:$('#levels'),settings:$('#settings'),game:$('#game')};
+
+const ICONS={
+ key:`<svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h8M17 12v3M20 12v2"/></svg>`,
+ hazard:`<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="6"/><path d="M12 7V4M10 4h4M17 7l2-2M7 7L5 5"/></svg>`,
+ boost:`<svg viewBox="0 0 24 24"><path d="M13 2L5 13h6l-1 9 9-13h-6z"/></svg>`,
+ portal:`<svg viewBox="0 0 24 24"><path d="M12 3l7 9-7 9-7-9z"/><path d="M9 12h6"/></svg>`,
+ fixed:`<svg viewBox="0 0 24 24"><path d="M6 7h12M6 17h12M9 4v6M15 14v6"/></svg>`,
+ gate:`<svg viewBox="0 0 24 24"><path d="M6 3v18M18 3v18M6 7h12M6 12h12M6 17h12"/></svg>`,
+ switch:`<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" rx="5"/><circle cx="10" cy="12" r="3"/></svg>`,
+ fragile:`<svg viewBox="0 0 24 24"><path d="M4 7h7l-2 5h6l-3 5h8M11 7l2-4"/></svg>`,
+ oneway:`<svg viewBox="0 0 24 24"><path d="M4 12h14M14 7l5 5-5 5"/></svg>`,
+ limited:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>`,
+ linked:`<svg viewBox="0 0 24 24"><path d="M9 8l-2-2a4 4 0 0 0-6 6l3 3a4 4 0 0 0 6 0l1-1M15 16l2 2a4 4 0 0 0 6-6l-3-3a4 4 0 0 0-6 0l-1 1M8 16l8-8"/></svg>`,
+ auto:`<svg viewBox="0 0 24 24"><path d="M18 8a7 7 0 1 0 1 7"/><path d="M18 3v5h-5"/></svg>`,
+ mover:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M3 12h4M17 12h4M12 3v4M12 17v4"/></svg>`,
+ exit:`<svg viewBox="0 0 24 24"><path d="M6 21V4M7 5h10l-2 4 2 4H7"/></svg>`,
+ decoy:`<svg viewBox="0 0 24 24"><path d="M6 21V4M7 5h10l-2 4 2 4H7M9 16l6-6M15 16l-6-6"/></svg>`
+};
+
+const levels=[
+{name:'İlk Akış',chapter:'Akış',tag:'Temel',seed:11,start:[6,0],exit:[0,5],keys:[[3,2]],walls:[[5,3],[4,3],[1,1]],hazards:[[2,4]],boosts:[],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:30,par:20,hint:'Önce ortadaki anahtara, sonra sağ üst çıkışa yönel.'},
+{name:'Dar Geçit',chapter:'Akış',tag:'Takviye',seed:21,start:[6,5],exit:[0,0],keys:[[4,2]],walls:[[5,1],[4,1],[3,1],[2,4],[1,4]],hazards:[[3,3],[1,2]],boosts:[[2,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:30,par:21,hint:'Takviye karesi ekstra Hamle kazandırır.'},
+{name:'Çapraz Baskı',chapter:'Akış',tag:'Çift anahtar',seed:31,start:[3,0],exit:[3,5],keys:[[0,2],[6,3]],walls:[[2,2],[3,2],[4,2],[2,3],[3,3],[4,3]],hazards:[[1,4],[5,1]],boosts:[[3,1]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:36,par:26,hint:'Merkez kapalı; üst ve alt kanadı ayrı kullan.'},
+{name:'Keskin Dönüş',chapter:'Akış',tag:'Zamanlama',seed:41,start:[6,2],exit:[0,3],keys:[[5,5],[1,0]],walls:[[5,1],[4,1],[3,4],[2,4]],hazards:[[4,4],[2,1]],boosts:[[3,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:37,par:27,hint:'Başlatmadan önce ilk birkaç yönü hazırla.'},
+
+{name:'Sabit Hat',chapter:'Kontrol',tag:'Sabit yön',seed:51,start:[6,0],exit:[0,5],keys:[[4,5]],walls:[[5,2],[3,2],[1,2]],hazards:[[6,3],[3,4]],boosts:[[2,3]],fixed:[[5,4,'U'],[2,4,'R'],[1,4,'U']],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:34,par:24,hint:'Sabit diskleri değiştiremezsin; rotayı onların yönüne göre kur.'},
+{name:'Kapı Kontrolü',chapter:'Kontrol',tag:'Kapı',seed:61,start:[6,5],exit:[0,0],keys:[[4,3]],walls:[[5,0],[4,0],[2,5],[1,5]],hazards:[[5,2],[1,3]],boosts:[[6,2]],fixed:[[3,2,'U']],switches:[[3,4,'A']],gates:[[2,2,'A']],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:38,par:28,hint:'Kontrol karesinden geçmeden A kapısı açılmaz.'},
+{name:'İki Uç',chapter:'Kontrol',tag:'Portal',seed:71,start:[0,0],exit:[6,5],keys:[[0,5],[6,0]],walls:[[1,2],[2,2],[4,3],[5,3]],hazards:[[2,4],[4,1]],boosts:[[3,5]],fixed:[],switches:[],gates:[],portals:[{a:[1,4],b:[5,1]}],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:40,par:29,hint:'Portalın iki ucu birbirine bağlıdır.'},
+{name:'Kırılgan Yol',chapter:'Kontrol',tag:'Tek kullanımlık',seed:81,start:[6,3],exit:[0,3],keys:[[3,0]],walls:[[5,4],[4,4],[2,1],[1,1]],hazards:[[5,1],[3,4]],boosts:[[4,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[[5,2],[3,2],[2,2]],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:33,par:24,hint:'Kırılgan karelerden geçtikten sonra geri dönemezsin.'},
+
+{name:'Tek Yön',chapter:'Yön',tag:'Tek yönlü geçit',seed:91,start:[6,0],exit:[0,5],keys:[[4,4]],walls:[[5,2],[3,2],[1,3]],hazards:[[4,1]],boosts:[[2,5]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[[5,4,'U'],[3,4,'U'],[2,4,'R']],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:35,par:25,hint:'Tek yönlü kareye yalnızca gösterdiği yönde girebilirsin.'},
+{name:'Son Dokunuş',chapter:'Yön',tag:'Sınırlı disk',seed:101,start:[6,5],exit:[0,0],keys:[[3,3]],walls:[[5,1],[2,4]],hazards:[[4,2],[1,3]],boosts:[[5,3]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[[4,4,1],[2,2,2],[1,1,1]],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:34,par:24,hint:'Turuncu sayaçlı diskler yalnızca belirtilen kadar döndürülebilir.'},
+{name:'Bağlı Diskler',chapter:'Yön',tag:'Bağlantılı yön',seed:111,start:[6,0],exit:[0,5],keys:[[2,5]],walls:[[5,3],[3,1],[1,2]],hazards:[[4,4],[1,4]],boosts:[[3,3]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[[[5,1],[2,3]],[[4,2],[1,5]]],autoRotate:[],movers:[],decoys:[],ordered:false,moves:36,par:25,hint:'Mor bağlantılı disklerden birini döndürürsen eşi de döner.'},
+{name:'Döner Zemin',chapter:'Yön',tag:'Otomatik dönüş',seed:121,start:[6,3],exit:[0,2],keys:[[3,5]],walls:[[5,1],[4,1],[2,4],[1,4]],hazards:[[4,3],[1,1]],boosts:[[3,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[[4,5],[2,2],[1,2]],movers:[],decoys:[],ordered:false,moves:36,par:26,hint:'Yeşil dönüş karesine girince o diskin yönü otomatik 90° değişir.'},
+
+{name:'Doğru Sıra',chapter:'Baskı',tag:'Sıralı anahtar',seed:131,start:[6,0],exit:[0,5],keys:[[5,5],[3,1],[0,2]],walls:[[5,2],[4,2],[2,3],[1,3]],hazards:[[4,4],[1,5]],boosts:[[3,5]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:true,moves:42,par:33,hint:'Anahtarları üzerlerindeki sıraya göre almalısın.'},
+{name:'Devriye',chapter:'Baskı',tag:'Hareketli engel',seed:141,start:[6,5],exit:[0,0],keys:[[3,2]],walls:[[5,1],[2,4]],hazards:[[4,3]],boosts:[[5,3]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[{path:[[3,4],[3,3],[3,2],[3,1],[3,2],[3,3]]}],decoys:[],ordered:false,moves:38,par:27,hint:'Kırmızı devriye her adımda bir kare ilerler.'},
+{name:'Sahte Çıkış',chapter:'Baskı',tag:'İki çıkış',seed:151,start:[6,0],exit:[0,5],keys:[[2,1]],walls:[[5,2],[3,3],[1,4]],hazards:[[4,5]],boosts:[[3,1]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[[0,0]],ordered:false,moves:34,par:24,hint:'Kırmızı işaretli çıkış sahte; doğru çıkış yeşildir.'},
+{name:'Karşı Akış',chapter:'Baskı',tag:'Karma kontrol',seed:161,start:[3,0],exit:[3,5],keys:[[0,3],[6,2]],walls:[[2,2],[4,3]],hazards:[[1,5],[5,0]],boosts:[[3,2]],fixed:[[1,2,'R']],switches:[],gates:[],portals:[],fragile:[],oneWay:[[2,4,'D']],limited:[[5,4,1]],links:[[[0,1],[6,4]]],autoRotate:[[4,1]],movers:[],decoys:[],ordered:false,moves:43,par:31,hint:'Bu bölümde birkaç sistem birlikte çalışıyor.'},
+
+{name:'Kilitli Portal',chapter:'Ustalık',tag:'Kapı + portal',seed:171,start:[6,0],exit:[0,5],keys:[[5,5],[1,0]],walls:[[5,2],[4,2],[2,3]],hazards:[[6,4],[0,1]],boosts:[[3,5]],fixed:[],switches:[[2,5,'A']],gates:[[1,3,'A']],portals:[{a:[4,0],b:[1,5]}],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:44,par:32,hint:'Portal seni anahtar tarafına taşır; çıkış için kapıyı aç.'},
+{name:'Tek Kullanım',chapter:'Ustalık',tag:'Kırılgan + sınırlı',seed:181,start:[6,3],exit:[0,3],keys:[[3,0]],walls:[[5,4],[4,4],[2,1],[1,1]],hazards:[[5,1],[3,4]],boosts:[[4,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[[5,2],[3,2]],oneWay:[],limited:[[2,2,1],[1,3,2]],links:[],autoRotate:[],movers:[],decoys:[],ordered:false,moves:36,par:26,hint:'Hem zemini hem de sınırlı diskleri tek seferlik kaynak gibi düşün.'},
+{name:'Senkron',chapter:'Ustalık',tag:'Bağlı + otomatik',seed:191,start:[6,5],exit:[0,0],keys:[[4,2],[1,4]],walls:[[5,1],[4,1],[2,4]],hazards:[[3,3],[1,2]],boosts:[[2,2]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[[[5,4],[2,1]],[[3,0],[1,5]]],autoRotate:[[4,4],[2,3]],movers:[],decoys:[],ordered:false,moves:43,par:31,hint:'Bağlı disklerle otomatik dönen kareleri birlikte hesapla.'},
+{name:'Zaman Hattı',chapter:'Ustalık',tag:'Devriye + tek yön',seed:201,start:[6,0],exit:[0,5],keys:[[3,4]],walls:[[5,2],[3,2],[1,2]],hazards:[[4,1]],boosts:[[2,3]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[[4,4,'U'],[2,4,'U']],limited:[],links:[],autoRotate:[],movers:[{path:[[1,4],[2,4],[3,4],[2,4]]}],decoys:[],ordered:false,moves:39,par:28,hint:'Tek yönlü hattın zamanlamasını devriyeye göre ayarla.'},
+
+{name:'Üçlü Kilit',chapter:'Kırılma',tag:'Sıra + kapı',seed:211,start:[6,0],exit:[0,5],keys:[[6,5],[3,3],[0,0]],walls:[[5,2],[4,2],[2,3],[1,3]],hazards:[[5,4],[2,1]],boosts:[[3,0]],fixed:[],switches:[[4,5,'A'],[1,0,'B']],gates:[[3,4,'A'],[0,3,'B']],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[],decoys:[],ordered:true,moves:49,par:36,hint:'Anahtar sırası ile kapı sırasını birlikte yönet.'},
+{name:'Çifte Tehdit',chapter:'Kırılma',tag:'Devriye + sahte çıkış',seed:221,start:[6,5],exit:[0,0],keys:[[4,2]],walls:[[5,1],[2,4]],hazards:[[4,3]],boosts:[[5,3]],fixed:[],switches:[],gates:[],portals:[],fragile:[],oneWay:[],limited:[],links:[],autoRotate:[],movers:[{path:[[3,4],[3,3],[3,2],[3,1],[3,2],[3,3]]}],decoys:[[6,0]],ordered:false,moves:41,par:29,hint:'Sahte çıkıştan uzak dururken devriyenin zamanını da hesapla.'},
+{name:'Kırık Senkron',chapter:'Kırılma',tag:'Tüm yön sistemleri',seed:231,start:[6,2],exit:[0,3],keys:[[5,5],[1,0]],walls:[[5,1],[4,1],[3,4],[2,4]],hazards:[[4,4],[2,1]],boosts:[[3,2]],fixed:[[4,3,'U']],switches:[],gates:[],portals:[],fragile:[[2,2]],oneWay:[[5,4,'U']],limited:[[1,3,1]],links:[[[6,4],[1,5]]],autoRotate:[[3,5]],movers:[],decoys:[],ordered:false,moves:48,par:35,hint:'Her yön mekanizması burada aynı anda devrede.'},
+{name:'Kırılma Noktası',chapter:'Kırılma',tag:'Final',seed:241,start:[6,3],exit:[0,2],keys:[[6,0],[3,5],[1,5],[0,0]],walls:[[5,1],[4,1],[2,1],[1,1],[5,4],[4,4],[2,4],[1,4]],hazards:[[6,5],[4,0],[3,0],[1,3]],boosts:[[3,2]],fixed:[[5,2,'U']],switches:[[3,4,'A']],gates:[[3,1,'A']],portals:[{a:[5,5],b:[1,0]}],fragile:[[4,2]],oneWay:[[2,3,'R']],limited:[[1,2,1]],links:[[[6,4],[0,4]]],autoRotate:[[2,2]],movers:[{path:[[5,3],[4,3],[3,3],[4,3]]}],decoys:[[0,5]],ordered:true,moves:58,par:42,hint:'Anahtarları 1 → 2 → 3 → 4 sırasıyla topla. Merkezdeki devriyenin geçiş zamanını hesapla.'}
+];
+
+const storage={
+ get(key,fallback=null){try{return localStorage.getItem(key)??fallback}catch{return fallback}},
+ set(key,value){try{localStorage.setItem(key,String(value));return true}catch{return false}}
+};
+function readStars(){
+ try{const raw=JSON.parse(storage.get('kh9_stars',storage.get('kh4_stars','{}'))),out={};
+ if(raw&&typeof raw==='object')for(let i=0;i<levels.length;i++){const v=Number(raw[i]);if(Number.isInteger(v)&&v>=1&&v<=3)out[i]=v}return out;
+ }catch{return {}}
+}
+const savedLast=Number(storage.get('kh9_lastLevel','0'));
+const save={unlocked:levels.length,stars:readStars(),lastLevel:Number.isInteger(savedLast)&&savedLast>=0&&savedLast<levels.length?savedLast:0,
+ seenHelp:storage.get('kh9_seenHelp')==='1',sound:storage.get('kh9_sound')!=='0',vibration:storage.get('kh9_vibration')!=='0'};
+let currentLevel=save.lastLevel,state=null,timer=null,audioCtx=null,introTimer=null,resultTimer=null;
+let undoStack=[];
+const PAUSE_ICON='<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
+const PLAY_ICON='<svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg>';
+function cancelPending(){clearInterval(timer);clearTimeout(introTimer);clearTimeout(resultTimer);timer=null;resultTimer=null;$('#levelIntro').classList.remove('show');$('#runner').classList.remove('hit')}
+function scheduleResult(delay){const finished=state;clearTimeout(resultTimer);resultTimer=setTimeout(()=>{if(state===finished&&screens.game.classList.contains('active')){$('#resultOverlay').classList.add('show');$('#againBtn').focus()}},delay)}
+
+function ensureAudio(){if(!save.sound)return null;try{if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}catch(e){return null}}
+function tone(freq,dur=.06,type='sine',vol=.03,delay=0){const ctx=ensureAudio();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+delay;o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+dur+.02)}
+const sfx={
+ ui(){tone(300,.04,'sine',.015)},
+ rotate(){tone(390,.045,'triangle',.024);tone(520,.04,'triangle',.012,.025)},
+ step(){tone(190,.025,'sine',.008)},
+ key(){tone(680,.07,'sine',.03);tone(920,.09,'sine',.026,.055)},
+ boost(){tone(480,.055,'triangle',.022);tone(720,.065,'triangle',.022,.045);tone(980,.08,'triangle',.018,.095)},
+ portal(){tone(310,.07,'sine',.02);tone(680,.12,'sine',.028,.045)},
+ gate(){tone(245,.055,'square',.016);tone(510,.065,'square',.015,.045)},
+ auto(){tone(420,.04,'triangle',.02);tone(560,.05,'triangle',.015,.03)},
+ link(){tone(360,.04,'triangle',.018);tone(620,.05,'triangle',.016,.025)},
+ fail(){tone(180,.12,'sawtooth',.024);tone(115,.2,'sawtooth',.022,.09)},
+ win(){tone(520,.07,'sine',.025);tone(660,.08,'sine',.026,.065);tone(860,.14,'sine',.03,.145)}
+};
+function vibrate(p){if(save.vibration&&navigator.vibrate)navigator.vibrate(p)}
+function seeded(seed){let x=seed>>>0;return()=>{x=(x*1664525+1013904223)>>>0;return x/4294967296}}
+function same(a,b){return a&&b&&a[0]===b[0]&&a[1]===b[1]}function has(list,r,c){return list.some(p=>p[0]===r&&p[1]===c)}function itemAt(list,r,c){return list.find(p=>p[0]===r&&p[1]===c)}
+function keyIndex(L,r,c){return L.keys.findIndex(p=>p[0]===r&&p[1]===c)}function boostIndex(L,r,c){return L.boosts.findIndex(p=>p[0]===r&&p[1]===c)}
+function totalStars(){return Object.values(save.stars).reduce((a,b)=>a+Number(b||0),0)}
+function show(name){
+ if(name!=='game'){cancelPending();if(state)state.running=false}
+ Object.values(screens).forEach(x=>x.classList.remove('active'));
+ screens[name].classList.add('active');
+ if(name==='levels')renderLevels();
+ if(name==='settings')refreshSettings();
+ if(name==='home')refreshHome();
+ window.scrollTo({top:0,left:0,behavior:'instant'});
+ document.documentElement.scrollTop=0;
+ document.body.scrollTop=0;
+}
+function refreshHome(){
+ $('#homeProgress').textContent=`${Object.keys(save.stars).length} / ${levels.length} bölüm tamamlandı`;
+ $('#homeStars').textContent=`★ ${totalStars()} / ${levels.length*3}`;
+ $('#lastLevelText').textContent=`Devam: ${save.lastLevel+1}. ${levels[save.lastLevel].name}`;
+}
+
+function refreshSettings(){$('#soundToggle').textContent=save.sound?'Açık':'Kapalı';$('#vibrationToggle').textContent=save.vibration?'Açık':'Kapalı'}
+function createGrid(L){const rand=seeded(L.seed),g=[];for(let r=0;r<ROWS;r++){const row=[];for(let c=0;c<COLS;c++)row.push(DIRS[Math.floor(rand()*4)]);g.push(row)}L.fixed.forEach(([r,c,d])=>g[r][c]=d);L.oneWay.forEach(([r,c,d])=>g[r][c]=d);return g}
+function portalPairAt(L,r,c){for(const p of L.portals){if(same(p.a,[r,c]))return p.b;if(same(p.b,[r,c]))return p.a}return null}
+function portalIndexAt(L,r,c){for(let i=0;i<L.portals.length;i++){const p=L.portals[i];if(same(p.a,[r,c])||same(p.b,[r,c]))return i}return -1}
+function switchAt(L,r,c){return L.switches.find(x=>x[0]===r&&x[1]===c)}function gateAt(L,r,c){return L.gates.find(x=>x[0]===r&&x[1]===c)}
+function gateClosedAt(L,openGates,r,c){const g=gateAt(L,r,c);return !!g&&!openGates.has(g[2])}
+function oneWayAt(L,r,c){return L.oneWay.find(x=>x[0]===r&&x[1]===c)}
+function autoAt(L,r,c){return has(L.autoRotate,r,c)}
+function linkGroupAt(L,r,c){return L.links.find(group=>group.some(p=>same(p,[r,c])))||null}
+function moverPos(mover,step){return mover.path[step % mover.path.length]}
+function currentDir(){return state.grid[state.pos[0]][state.pos[1]]}
+function nextPos(){const[dR,dC]=VEC[currentDir()];return[state.pos[0]+dR,state.pos[1]+dC]}
+function coordKey(r,c){return `${r},${c}`}
+
+function glyph(type,pos='tr',extra=''){const cls=type==='hazard'?'hazard-g':type==='boost'?'boost-g':type==='portal'?'portal-g':type==='fixed'?'fixed-g':type==='gate'?'gate-g':type==='switch'?'switch-g':type==='fragile'?'fragile-g':type==='oneway'?'oneway-g':type==='limited'?'limited-g':type==='linked'?'linked-g':type==='auto'?'auto-g':type==='mover'?'mover-g':type==='exit'?'exit-g':type==='decoy'?'decoy-g':'key-g';return `<span class="glyph ${pos} ${cls}">${ICONS[type]||''}${extra}</span>`}
+
+function mechanicPreview(type,badge=''){
+ const svg=ICONS[type]||'';
+ if(type==='portal'){
+   return `<div class="mechanic-icon board-icon portal-g"><span class="portal-symbol">∞</span>${badge?`<span class="legend-badge portal-badge">${badge}</span>`:''}</div>`;
+ }
+ if(type==='key'){
+   return `<div class="mechanic-icon board-icon key-g">${svg}${badge?`<span class="legend-badge key-badge">${badge}</span>`:''}</div>`;
+ }
+ if(type==='gate'){
+   return `<div class="mechanic-icon board-icon gate-g">${svg}${badge?`<span class="legend-badge gate-badge">${badge}</span>`:''}</div>`;
+ }
+ if(type==='limited'){
+   return `<div class="mechanic-icon board-icon limited-g">${svg}${badge?`<span class="legend-badge limited-badge">${badge}</span>`:''}</div>`;
+ }
+ return `<div class="mechanic-icon board-icon ${type}-g">${svg}</div>`;
+}
+function mechanicCard(type,title,text,badge=''){return `<div class="mechanic-info mechanic-${type}">${mechanicPreview(type,badge)}<div class="mechanic-copy"><b>${title}</b><span>${text}</span></div></div>`}
+
+function renderLevelInfo(){
+ const host=$('#levelInfo');if(!state)return;const L=state.L,arr=[];
+ if(L.keys.length)arr.push(mechanicCard('key',L.ordered?'Sıralı Anahtar':'Anahtar',L.ordered?'Anahtar simgesi aynı kalır; küçük rozetteki sırayı takip et.':'Çıkıştan önce tüm anahtarları topla.',L.ordered?'1':''));
+ if(L.hazards.length)arr.push(mechanicCard('hazard','Mayın','Üzerine girersen hat kopar.'));
+ if(L.boosts.length)arr.push(mechanicCard('boost','Takviye','Üzerinden geçince +5 Hamle verir.'));
+ if(L.fixed.length)arr.push(mechanicCard('fixed','Sabit Yön','Bu yön diskleri döndürülemez.'));
+ if(L.gates.length){
+   const pairs=[...new Set(L.gates.map(g=>g[2]))].join(', ');
+   arr.push(mechanicCard('gate','Kapı / Kontrol',`Aynı harfli kontrol kapıyı açar; tekrar geçersen kapatır. Açık kapıdan aynı yönde düz ilerlersin.`,pairs.split(',')[0].trim()));
+ }
+ if(L.portals.length){const labels=L.portals.map((_,i)=>`P${i+1} ↔ P${i+1}`).join(' • ');arr.push(mechanicCard('portal','Portal',`${labels}. Aynı etiketli iki portal birbirine bağlıdır.`,'P1'));}
+ if(L.fragile.length)arr.push(mechanicCard('fragile','Kırılgan Zemin','Geçtikten sonra tekrar kullanılamaz.'));
+ if(L.oneWay.length)arr.push(mechanicCard('oneway','Tek Yön','Sadece gösterilen yönde geçilebilir.'));
+ if(L.limited.length)arr.push(mechanicCard('limited','Sınırlı Disk','Altındaki sayaç, o diskin kaç kez daha döndürülebileceğini gösterir.','1x'));
+ if(L.links.length)arr.push(mechanicCard('linked','Bağlı Disk','Aynı numaralı diskler birlikte döner.'));
+ if(L.autoRotate.length)arr.push(mechanicCard('auto','Otomatik Dönüş','Üzerine girince disk 90° döner.'));
+ if(L.movers.length)arr.push(mechanicCard('mover','Devriye','İnce kırmızı rota devriye yoludur. Kırmızı devriye sembolü bu hat üzerinde hareket eder.'));
+ if(L.decoys.length)arr.push(mechanicCard('decoy','Sahte Çıkış','Kırmızı çıkış bölümü kaybettirir.'));
+ host.classList.remove('details-open');host.innerHTML=`<button type="button" class="level-info-head" aria-expanded="false" aria-controls="mechanicsGrid"><b>Mekanikler</b><span class="level-info-link">Detayları Gör ›</span></button><div id="mechanicsGrid" class="level-info-grid">${arr.join('')}</div>`;
+}
+
+function renderLevels(){
+ const host=$('#levelList');host.innerHTML='';let chap='';
+ levels.forEach((L,i)=>{
+   if(L.chapter!==chap){chap=L.chapter;const h=document.createElement('div');h.className='chapter';h.textContent=chap;host.appendChild(h);const g=document.createElement('div');g.className='level-grid';g.dataset.chapter=chap;host.appendChild(g)}
+   const grid=host.querySelector(`.level-grid[data-chapter="${chap}"]`),unlocked=i<save.unlocked,st=Number(save.stars[i]||0),b=document.createElement('button');
+   b.type='button';b.className='level-card glass'+(unlocked?'':' locked');b.disabled=!unlocked;
+   b.innerHTML=`<div class="level-num">${unlocked?i+1:'—'}</div><div class="level-name">${L.name}</div><div class="mechanic">${L.tag}</div><div class="stars">${'★'.repeat(st)}${'☆'.repeat(3-st)}</div>`;
+   if(unlocked)b.addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(i)});
+   grid.appendChild(b);
+ })
+}
+
+function showIntro(L,i){
+ clearTimeout(introTimer);$('#introKicker').textContent=`Bölüm ${i+1}`;$('#introTitle').textContent=L.name;$('#introTag').textContent=L.tag;$('#levelIntro').classList.add('show');
+ introTimer=setTimeout(()=>$('#levelIntro').classList.remove('show'),900);
+}
+
+function openLevel(i){
+ cancelPending();undoStack=[];currentLevel=i;save.lastLevel=i;storage.set('kh9_lastLevel',i);const L=levels[i];
+ state={L,grid:createGrid(L),pos:[...L.start],prevPos:null,pathSegments:[],moves:L.moves,collected:new Set(),boosts:new Set(),openGates:new Set(),fragileUsed:new Set(),limited:new Map(),steps:0,rotations:0,running:false,paused:false,dead:false,won:false,hintUsed:false,failCell:null,moverStep:0,nextOrdered:0};
+ L.limited.forEach(([r,c,n])=>state.limited.set(coordKey(r,c),n));
+ $('#levelTitle').textContent=`${i+1}. ${L.name}`;$('#levelSubtitle').textContent=L.tag;$('#goalLine').textContent=L.ordered?'Anahtarları sırayla topla ve doğru çıkışa ulaş.':'Tüm anahtarları topla ve doğru çıkışa ulaş.';
+ $('#resultOverlay').classList.remove('show');$('#pathSvg').classList.remove('route-flash');$('#startBtn').disabled=false;$('#pauseBtn').disabled=true;$('#pauseBtn').innerHTML=PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label','Duraklat');$('#hintBtn').disabled=false;
+ show('game');renderBoard();updateHud();renderLevelInfo();readyStatus();
+ requestAnimationFrame(()=>{
+   window.scrollTo({top:0,left:0,behavior:'instant'});
+   document.documentElement.scrollTop=0;
+   document.body.scrollTop=0;
+   screens.game.scrollIntoView({block:'start',behavior:'instant'});
+ });
+
+}
+
+function readyStatus(){
+ const L=state.L,notes=[];if(L.portals.length)notes.push('Portal aktif');if(L.gates.length){const ids=[...new Set(L.gates.map(g=>g[2]))].join(', ');notes.push(`${ids} işaretli kontrol karesi kapıyı açar`)}if(L.movers.length)notes.push('Devriyeyi zamanla');
+ $('#status').textContent=`Başlangıç yönü ${ARROW[currentDir()]}. ${notes.join(' • ')||'Rotanı hazırlayıp Başlat.'}`;
+}
+
+function makeDial(dir){const d=document.createElement('div');d.className='dial';d.style.setProperty('--rot',ROT[dir]+'deg');d.innerHTML='<div class="dial-ring"></div><div class="pointer"></div>';return d}
+
+function renderBoard(){
+ const b=$('#board');b.innerHTML='';b.style.gridTemplateColumns=`repeat(${COLS},1fr)`;
+ const next=(!state.dead&&!state.won)?nextPos():null;const moverCells=state.L.movers.map(m=>moverPos(m,state.moverStep));
+ for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+   const L=state.L,t=document.createElement('button');t.type='button';t.className='tile';t.dataset.r=r;t.dataset.c=c;
+   const wall=has(L.walls,r,c),exit=same(L.exit,[r,c]),decoy=has(L.decoys,r,c),current=same(state.pos,[r,c]),fixed=itemAt(L.fixed,r,c),ow=oneWayAt(L,r,c),gate=gateAt(L,r,c),portal=portalPairAt(L,r,c),portalIndex=portalIndexAt(L,r,c),fragile=has(L.fragile,r,c),auto=autoAt(L,r,c),linked=linkGroupAt(L,r,c);
+   if(state.fragileUsed.has(coordKey(r,c))){t.classList.add('collapsed');t.disabled=true}if(wall)t.classList.add('wall');if(current)t.classList.add('current');if(portal)t.classList.add('portal-tile');if(next&&same(next,[r,c]))t.classList.add('next-target');if(state.failCell&&same(state.failCell,[r,c]))t.classList.add('failure');if(state.won&&exit)t.classList.add('success');
+   if(wall){t.innerHTML='<div class="wall-mark"></div>';t.disabled=true;b.appendChild(t);continue}
+   if(exit||decoy){t.innerHTML=`<div class="exit-center ${decoy?'decoy':''}">${ICONS[decoy?'decoy':'exit']}</div>`;t.disabled=true}
+   else if(gate){const closed=gateClosedAt(L,state.openGates,r,c);t.classList.add('gate',closed?'gate-closed':'gate-open');t.innerHTML=`<span class="gate-frame"></span><span class="alpha-chip gate-label">${gate[2]}</span><span class="gate-state">${closed?'KİLİTLİ':'AÇIK'}</span>`;t.disabled=true}
+   else{
+     t.appendChild(makeDial(state.grid[r][c]));
+     if(fixed||ow||has(L.hazards,r,c))t.disabled=true;
+     if(fixed)t.insertAdjacentHTML('beforeend',glyph('fixed','lc'));
+     if(ow)t.insertAdjacentHTML('beforeend',glyph('oneway','rc'));
+     if(portal)t.insertAdjacentHTML('beforeend',`<span class="portal-ring"></span><span class="portal-mark">P${portalIndex+1}</span>`);
+     if(fragile)t.insertAdjacentHTML('beforeend',glyph('fragile','bc'));
+     if(auto)t.insertAdjacentHTML('beforeend',glyph('auto','bl'));
+     if(linked)t.insertAdjacentHTML('beforeend',glyph('linked','br',`<small>${L.links.indexOf(linked)+1}</small>`));
+     const lim=state.limited.get(coordKey(r,c));if(lim!==undefined)t.insertAdjacentHTML('beforeend',`${glyph('limited','tc')}<span class="count-chip">${lim}x</span>`);
+     const sw=switchAt(L,r,c);if(sw)t.insertAdjacentHTML('beforeend',`${glyph('switch','tr')}<span class="alpha-chip switch-label">${sw[2]}</span>`);
+     const ki=keyIndex(L,r,c);if(ki>=0&&!state.collected.has(ki)){t.classList.add('key-tile');if(L.ordered){t.classList.add('ordered-key-tile');t.insertAdjacentHTML('beforeend',glyph('key','tl')+`<span class="key-order-badge">${ki+1}</span>`)}else t.insertAdjacentHTML('beforeend',glyph('key','tl'));}
+     const bi=boostIndex(L,r,c);if(bi>=0&&!state.boosts.has(bi))t.insertAdjacentHTML('beforeend',glyph('boost','tr'));
+     if(has(L.hazards,r,c))t.insertAdjacentHTML('beforeend',glyph('hazard','tl'));
+     t.addEventListener('click',()=>rotate(r,c));
+   }
+   if(moverCells.some(p=>same(p,[r,c])))t.insertAdjacentHTML('beforeend','<span class="mover-dot" aria-label="Devriye engeli"></span>');
+   t.setAttribute('aria-label',`${r+1}. satır ${c+1}. sütun, ${gate?'Kapı '+gate[2]+(gateClosedAt(L,state.openGates,r,c)?' kapalı':' açık'):exit?'Çıkış':decoy?'Sahte çıkış':state.fragileUsed.has(coordKey(r,c))?'Çökmüş zemin':ARROW[state.grid[r][c]]+' yönü'}`);
+   b.appendChild(t)
+ }
+ requestAnimationFrame(()=>{renderPaths();positionRunner(state.pos,!state.running,currentDir())})
+}
+
+function updateHud(){
+ $('#moveVal').textContent=state.moves;$('#keyVal').textContent=`${state.collected.size}/${state.L.keys.length}`;
+ $('#moveBox').classList.toggle('warn',state.moves<=5);
+ $('#starTarget').textContent=`★★★ ${state.L.par} dönüş veya azı · ${state.rotations} dönüş${state.hintUsed?' · İpucu: en çok 2 yıldız':''}`;
+ $('#undoBtn').disabled=!undoStack.length||state.dead||state.won||(state.running&&!state.paused);
+}
+function rememberRotation(){undoStack.push({grid:state.grid.map(row=>row.slice()),moves:state.moves,rotations:state.rotations,limited:new Map(state.limited)});if(undoStack.length>100)undoStack.shift()}
+function undoRotation(){
+ if(!state||!undoStack.length||state.dead||state.won||(state.running&&!state.paused))return;
+ Object.assign(state,undoStack.pop());renderBoard();updateHud();$('#status').textContent='Son dönüş geri alındı.';
+}
+
+function rotateSingle(r,c){
+ const d=state.grid[r][c],nd=DIRS[(DIRS.indexOf(d)+1)%4];state.grid[r][c]=nd;
+ const tile=document.querySelector(`.tile[data-r="${r}"][data-c="${c}"]`),dial=tile&&tile.querySelector('.dial');if(dial)dial.style.setProperty('--rot',ROT[nd]+'deg');
+ return nd
+}
+function rotate(r,c){
+ if(!state||state.dead||state.won||has(state.L.walls,r,c)||has(state.L.hazards,r,c)||state.fragileUsed.has(coordKey(r,c))||gateAt(state.L,r,c)||same(state.L.exit,[r,c])||has(state.L.decoys,r,c)||itemAt(state.L.fixed,r,c)||oneWayAt(state.L,r,c))return;
+ if(state.moves<=0){$('#status').textContent='Hamlen bitti. Rota artık sabit.';return}
+ const key=coordKey(r,c),lim=state.limited.get(key);if(lim!==undefined&&lim<=0){$('#status').textContent='Bu diskin döndürme hakkı bitti.';return}
+ rememberRotation();ensureAudio();state.moves--;state.rotations++;rotateSingle(r,c);
+ if(lim!==undefined)state.limited.set(key,lim-1);
+ const group=linkGroupAt(state.L,r,c);if(group){group.forEach(([rr,cc])=>{if(rr!==r||cc!==c)rotateSingle(rr,cc)});sfx.link()}else sfx.rotate();
+ vibrate(8);updateHud();renderBoard();
+ if(state.running)$('#status').textContent='Rota yeniden hesaplandı.';else readyStatus();
+}
+
+function cloneRun(S){return {...S,grid:S.grid.map(r=>r.slice()),pos:[...S.pos],collected:new Set(S.collected),boosts:new Set(S.boosts),openGates:new Set(S.openGates),fragileUsed:new Set(S.fragileUsed),limited:new Map(S.limited)}}
+function collectAt(S,events){
+ const [r,c]=S.pos,L=S.L,ki=keyIndex(L,r,c);
+ if(ki>=0&&!S.collected.has(ki)){
+  if(L.ordered&&ki!==S.nextOrdered)return `Anahtar sırası yanlış. ${S.nextOrdered+1}. anahtarı almalısın.`;
+  S.collected.add(ki);if(L.ordered)S.nextOrdered++;events.push(['key','Anahtar alındı.']);
+ }
+ const bi=boostIndex(L,r,c);if(bi>=0&&!S.boosts.has(bi)){S.boosts.add(bi);S.moves+=5;events.push(['boost','+5 Hamle kazandın.'])}
+ const sw=switchAt(L,r,c);if(sw){S.openGates.has(sw[2])?S.openGates.delete(sw[2]):S.openGates.add(sw[2]);events.push(['gate',`${sw[2]} kapısı ${S.openGates.has(sw[2])?'açıldı':'kapandı'}.`])}
+ if(autoAt(L,r,c)){S.grid[r][c]=DIRS[(DIRS.indexOf(S.grid[r][c])+1)%4];events.push(['auto','Disk otomatik döndü.'])}
+ return null;
+}
+function advance(S){
+ const L=S.L,from=[...S.pos],d=S.grid[from[0]][from[1]],[dr,dc]=VEC[d],next=[from[0]+dr,from[1]+dc],events=[];
+ const result={from,next,events,portaled:false,won:false,reason:null,cell:null};
+ const failAt=(reason,cell=next)=>Object.assign(result,{reason,cell:[...cell]});
+ const [r,c]=next;
+ if(r<0||r>=ROWS||c<0||c>=COLS)return failAt('Hat alanın dışına çıktı.',from);
+ if(has(L.walls,r,c))return failAt('Duvara çarptın.');
+ if(gateClosedAt(L,S.openGates,r,c))return failAt('Kapalı kapıya çarptın.');
+ if(S.fragileUsed.has(coordKey(r,c)))return failAt('Kırılgan zemin çökmüştü.');
+ const ow=oneWayAt(L,r,c);if(ow&&d!==ow[2])return failAt('Tek yönlü geçide ters yönden girdin.');
+ if(L.movers.some(m=>same(moverPos(m,S.moverStep),next)))return failAt('Devriyeye çarptın.');
+ if(has(L.fragile,...from))S.fragileUsed.add(coordKey(...from));
+ S.prevPos=from;S.pos=next;S.steps++;
+ if(gateAt(L,r,c))S.grid[r][c]=d;
+ if(has(L.hazards,r,c))return failAt('Mayına girdin.');
+ if(has(L.decoys,r,c))return failAt('Sahte çıkışa girdin.');
+ if(same(L.exit,next)){
+  if(S.collected.size!==L.keys.length)return failAt('Çıkışa ulaştın ama anahtarların eksik.');
+  result.won=true;return result;
+ }
+ let reason=collectAt(S,events);if(reason)return failAt(reason);
+ const pair=portalPairAt(L,r,c);
+ if(pair){
+  if(has(L.fragile,r,c))S.fragileUsed.add(coordKey(r,c));
+  S.pos=[...pair];result.portaled=true;events.push(['portal','Portal geçişi.']);
+  if(has(L.walls,...pair)||gateClosedAt(L,S.openGates,...pair)||S.fragileUsed.has(coordKey(...pair))||has(L.hazards,...pair)||has(L.decoys,...pair))return failAt('Portalın çıkışı güvenli değil.',pair);
+  if(L.movers.some(m=>same(moverPos(m,S.moverStep),pair)))return failAt('Portal çıkışında devriye var.',pair);
+  reason=collectAt(S,events);if(reason)return failAt(reason,pair);
+ }
+ S.moverStep++;
+ if(L.movers.some(m=>same(moverPos(m,S.moverStep),S.pos)))return failAt('Devriye yolunu kesti.',S.pos);
+ if(S.steps>150)return failAt('Hat fazla uzadı. Daha kısa bir rota kur.',S.pos);
+ return result;
+}
+function playEvents(events){for(const [type,message] of events){if(sfx[type])sfx[type]();$('#status').textContent=message}}
+function predictRoute(max=151){
+ if(!state||state.dead||state.won)return {segments:[],danger:null};
+ const S=cloneRun(state),segments=[[[...S.pos]]];
+ if(!state.running){const err=collectAt(S,[]);if(err)return {segments,danger:[...S.pos]}}
+ for(let i=0;i<max;i++){
+  const result=advance(S);
+  if(result.next[0]>=0&&result.next[0]<ROWS&&result.next[1]>=0&&result.next[1]<COLS)segments[segments.length-1].push([...result.next]);
+  if(result.portaled)segments.push([[...S.pos]]);
+  if(result.reason)return {segments,danger:result.cell,reason:result.reason};
+  if(result.won)return {segments,danger:null,won:true};
+ }
+ return {segments,danger:null};
+}
+
+function renderPaths(){
+ const svg=$('#pathSvg'),board=$('#board');if(!svg||!board||!state)return;svg.innerHTML='';
+ const rect=board.getBoundingClientRect();if(!rect.width||!rect.height)return;svg.style.left=board.offsetLeft+'px';svg.style.top=board.offsetTop+'px';svg.style.width=rect.width+'px';svg.style.height=rect.height+'px';svg.setAttribute('viewBox',`0 0 ${rect.width} ${rect.height}`);svg.setAttribute('preserveAspectRatio','none');
+ const ns='http://www.w3.org/2000/svg';
+ function toPts(seg){return seg.map(([r,c])=>{const t=board.querySelector(`.tile[data-r="${r}"][data-c="${c}"]`);if(!t)return null;const q=t.getBoundingClientRect();return[q.left-rect.left+q.width/2,q.top-rect.top+q.height/2]}).filter(Boolean)}
+ function addPolyline(seg,glowCls,lineCls){const pts=toPts(seg);if(pts.length<2)return;const p=pts.map(v=>`${v[0]},${v[1]}`).join(' '),g=document.createElementNS(ns,'polyline'),l=document.createElementNS(ns,'polyline');g.setAttribute('points',p);g.setAttribute('class',glowCls);l.setAttribute('points',p);l.setAttribute('class',lineCls);svg.append(g,l)}
+ // Hareketli engellerin rotasını önceden göster.
+ state.L.movers.forEach(m=>{
+   const pts=toPts(m.path);if(pts.length<2)return;
+   const p=pts.map(v=>`${v[0]},${v[1]}`).join(' ');
+   const glow=document.createElementNS(ns,'polyline');glow.setAttribute('points',p);glow.setAttribute('class','mover-track-glow');
+   const line=document.createElementNS(ns,'polyline');line.setAttribute('points',p);line.setAttribute('class','mover-track');
+   svg.append(glow,line);
+   const seen=new Set();
+   pts.forEach(v=>{const k=`${Math.round(v[0])},${Math.round(v[1])}`;if(seen.has(k))return;seen.add(k);const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',v[0]);dot.setAttribute('cy',v[1]);dot.setAttribute('r','2.4');dot.setAttribute('class','mover-node');svg.appendChild(dot)});
+ });
+ (state.pathSegments||[]).forEach(seg=>addPolyline(seg,'path-past-glow','path-past'));
+ if(!state.dead&&!state.won){
+   const pred=predictRoute(),danger=pred.danger;
+   pred.segments.forEach((seg,idx)=>{
+     if(!danger){addPolyline(seg,'path-plan-glow','path-plan');return}
+     const di=seg.findIndex(p=>same(p,danger));
+     if(di<0){addPolyline(seg,'path-plan-glow','path-plan');return}
+     if(di>0)addPolyline(seg.slice(0,di+1),'path-plan-glow','path-plan');
+     if(di>0)addPolyline(seg.slice(di-1),'path-danger-glow','path-danger');else addPolyline(seg,'path-danger-glow','path-danger');
+   })
+ }
+}
+
+function positionRunner(pos,instant=false,dir='R'){
+ const runner=$('#runner'),board=$('#board'),tile=board.querySelector(`.tile[data-r="${pos[0]}"][data-c="${pos[1]}"]`);if(!runner||!tile)return;
+ const br=board.getBoundingClientRect(),tr=tile.getBoundingClientRect();if(instant)runner.style.transition='none';else runner.style.transition='';
+ runner.style.left=(tr.left-br.left+tr.width/2+board.offsetLeft)+'px';runner.style.top=(tr.top-br.top+tr.height/2+board.offsetTop)+'px';runner.style.setProperty('--runner-rot',ROT[dir]+'deg');
+ runner.classList.add('bump');setTimeout(()=>runner.classList.remove('bump'),160);runner.style.display='block';
+ if(instant)requestAnimationFrame(()=>runner.style.transition='')
+}
+function hideRunner(){$('#runner').style.display='none'}
+
+function tick(){
+ if(!state.running||state.paused||state.dead||state.won)return;
+ undoStack=[];
+ const result=advance(state);
+ if(!same(result.from,state.pos)){state.pathSegments[state.pathSegments.length-1].push([...result.next]);if(result.portaled)state.pathSegments.push([[...state.pos]])}
+ playEvents(result.events);
+ if(result.reason){fail(result.reason,result.cell);return}
+ sfx.step();renderBoard();updateHud();
+ if(result.won){win();return}
+}
+function startGame(){
+ if(!state||state.running||state.dead||state.won)return;
+ ensureAudio();sfx.ui();state.running=true;state.paused=false;undoStack=[];state.pathSegments=[[[...state.pos]]];
+ $('#startBtn').disabled=true;$('#pauseBtn').disabled=false;$('#pauseBtn').innerHTML=PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label','Duraklat');
+ $('#status').textContent='Çekirdek ilerliyor. Düşünmek için duraklatabilirsin.';
+ const events=[],reason=collectAt(state,events);playEvents(events);if(reason){fail(reason,state.pos);return}
+ renderBoard();updateHud();clearInterval(timer);timer=setInterval(tick,STEP_MS);
+}
+function pauseGame(){
+ if(!state||!state.running||state.dead||state.won)return;
+ state.paused=!state.paused;sfx.ui();clearInterval(timer);timer=null;
+ if(!state.paused)timer=setInterval(tick,STEP_MS);
+ $('#pauseBtn').innerHTML=state.paused?PLAY_ICON:PAUSE_ICON;$('#pauseBtn').setAttribute('aria-label',state.paused?'Devam et':'Duraklat');
+ $('#status').textContent=state.paused?'Duraklatıldı. Rotanı düzenleyebilirsin.':'Devam.';updateHud();
+}
+
+
+function starCount(){if(state.rotations<=state.L.par&&!state.hintUsed)return 3;if(state.rotations<=state.L.par+7)return 2;return 1}
+function fail(reason,cell=null){
+ clearInterval(timer);timer=null;state.dead=true;state.running=false;state.failCell=cell;sfx.fail();vibrate([60,40,100]);renderBoard();updateHud();$('#runner').classList.add('hit');setTimeout(()=>$('#runner').classList.remove('hit'),350);
+ $('#pauseBtn').disabled=true;$('#startBtn').disabled=true;$('#hintBtn').disabled=true;$('#status').textContent=reason;
+ $('#resultTitle').textContent='Hat Koptu';$('#resultText').textContent=reason;$('#resultStars').textContent='';$('#scoreNote').textContent=cell?'Hatalı kareyi inceleyip rotanı düzelt.':'Son hareketini kontrol et.';
+ $('#againBtn').textContent='Tekrar Dene';$('#nextBtn').textContent='Bölümler';$('#nextBtn').onclick=()=>show('levels');scheduleResult(700)
+}
+function win(){
+ clearInterval(timer);timer=null;state.won=true;state.running=false;$('#pauseBtn').disabled=true;$('#hintBtn').disabled=true;updateHud();sfx.win();vibrate([35,20,35,20,90]);$('#pathSvg').classList.add('route-flash');renderBoard();renderPaths();
+ const shell=document.querySelector('.board-shell'),rip=document.createElement('div');rip.className='success-ripple';shell.appendChild(rip);setTimeout(()=>rip.remove(),800);
+ const st=starCount();save.stars[currentLevel]=Math.max(Number(save.stars[currentLevel]||0),st);if(currentLevel+2>save.unlocked&&currentLevel<levels.length-1)save.unlocked=currentLevel+2;
+ storage.set('kh9_stars',JSON.stringify(save.stars));save.lastLevel=Math.min(currentLevel+1,levels.length-1);storage.set('kh9_lastLevel',save.lastLevel);
+ $('#resultTitle').textContent='Bölüm Tamam';$('#resultText').textContent=`${state.moves} Hamle kaldı`;
+ $('#resultStars').textContent='★'.repeat(st)+'☆'.repeat(3-st);
+ $('#scoreNote').textContent=st===3?'Temiz rota.':st===2?'Daha sade bir hatla yıldızını yükseltebilirsin.':'Rotayı daha az müdahaleyle kurmayı dene.';
+ $('#againBtn').textContent='Tekrar';$('#nextBtn').textContent=currentLevel<levels.length-1?'Sonraki':'Bölümler';$('#nextBtn').onclick=()=>currentLevel<levels.length-1?openLevel(currentLevel+1):show('levels');
+ scheduleResult(520);refreshHome()
+}
+
+function openHelp(){if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh9_seenHelp','1')}
+function resetAll(){if(!confirm('Tüm bölüm ilerlemesi ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=levels.length;save.stars={};save.lastLevel=0;storage.set('kh9_lastLevel','0');storage.set('kh9_stars','{}');storage.set('kh4_stars','{}');currentLevel=0;refreshHome();show('home')}
+
+$('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(save.lastLevel)});
+$('#levelsBtn').addEventListener('click',()=>{sfx.ui();show('levels')});
+$('#settingsBtn').addEventListener('click',()=>{sfx.ui();show('settings')});
+$('#helpBtn').addEventListener('click',openHelp);
+document.querySelectorAll('.js-home').forEach(b=>b.addEventListener('click',()=>{sfx.ui();show('home')}));
+$('#gameBack').addEventListener('click',()=>{clearInterval(timer);timer=null;hideRunner();sfx.ui();show('levels')});
+$('#resetLevel').addEventListener('click',()=>{sfx.ui();openLevel(currentLevel)});
+$('#startBtn').addEventListener('click',startGame);
+$('#pauseBtn').addEventListener('click',pauseGame);
+$('#hintBtn').addEventListener('click',()=>{if(!state||state.dead||state.won)return;state.hintUsed=true;sfx.ui();updateHud();$('#status').textContent=state.L.hint});
+$('#undoBtn').addEventListener('click',undoRotation);
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&state?.running&&!state.paused)pauseGame()});
+window.addEventListener('pagehide',()=>{if(state?.running&&!state.paused)pauseGame()});
+$('#againBtn').addEventListener('click',()=>openLevel(currentLevel));
+$('#closeHelp').addEventListener('click',closeHelp);
+$('#helpPlay').addEventListener('click',()=>{closeHelp();openLevel(save.lastLevel)});
+$('#soundToggle').addEventListener('click',()=>{save.sound=!save.sound;storage.set('kh9_sound',save.sound?'1':'0');refreshSettings();if(save.sound){ensureAudio();sfx.key()}});
+$('#vibrationToggle').addEventListener('click',()=>{save.vibration=!save.vibration;storage.set('kh9_vibration',save.vibration?'1':'0');refreshSettings();vibrate(15)});
+$('#showHelp').addEventListener('click',openHelp);
+$('#resetProgress').addEventListener('click',resetAll);
+window.addEventListener('resize',()=>requestAnimationFrame(()=>{renderPaths();if(state&&screens.game.classList.contains('active'))positionRunner(state.pos,true,currentDir())}));
+
+refreshHome();refreshSettings();renderLevels();if(!save.seenHelp)openHelp();
+})();
+
+
+
+
+(function mechanicsDetailsFix(){
+  document.addEventListener('click', function(e){
+    const head=e.target.closest('.level-info-head');
+    const link=e.target.closest('.level-info-link');
+    if(!head && !link) return;
+
+    const info=(head||link).closest('.level-info');
+    if(!info) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    info.classList.toggle('details-open');info.querySelector('.level-info-head').setAttribute('aria-expanded',String(info.classList.contains('details-open')));
+    const label=info.querySelector('.level-info-link');
+    if(label){
+      label.textContent=info.classList.contains('details-open')
+        ? 'Gizle ↑'
+        : 'Detayları Gör ›';
+    }
+  });
+})();
+
+if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+const fs=require('node:fs'),vm=require('node:vm');
+const html=fs.readFileSync(require('node:path').join(__dirname,'../index.html'),'utf8');
+function boot(stored={}){
+ const cache=new Map(),scheduled=new Map(),data=new Map(Object.entries(stored));let next=0;
+ class Element{constructor(){this.classes=new Set();this.classList={add:(...v)=>v.forEach(x=>this.classes.add(x)),remove:(...v)=>v.forEach(x=>this.classes.delete(x)),contains:x=>this.classes.has(x),toggle:(x,on)=>{on=on??!this.classes.has(x);on?this.classes.add(x):this.classes.delete(x);return on}};this.style={setProperty(){}};this.dataset={};this.listeners={};this.children=[];this.attrs={};this.textContent='';this.disabled=false;}
+ set innerHTML(x){this._html=x;this.children=[]}get innerHTML(){return this._html||''}appendChild(x){this.children.push(x);return x}append(...x){this.children.push(...x)}insertAdjacentHTML(){}addEventListener(k,fn){this.listeners[k]=fn}setAttribute(k,v){this.attrs[k]=v}querySelector(k){return this.children.find(x=>x.className?.includes('level-grid'))||new Element()}querySelectorAll(){return []}getBoundingClientRect(){return {width:360,height:420,left:0,top:0}}focus(){}scrollIntoView(){}remove(){}}
+ const el=k=>{if(!cache.has(k))cache.set(k,new Element());return cache.get(k)};
+ const doc={querySelector:el,querySelectorAll:()=>[],createElement:()=>new Element(),createElementNS:()=>new Element(),addEventListener(k,f){this[k]=f},documentElement:{},body:{},hidden:false};
+ const context={document:doc,window:{scrollTo(){},addEventListener(){}},navigator:{},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,String(v))},requestAnimationFrame:()=>{},setTimeout:(fn)=>{scheduled.set(++next,fn);return next},clearTimeout:id=>scheduled.delete(id),setInterval:()=>++next,clearInterval:()=>{},confirm:()=>true,console};
+ vm.createContext(context);let js=html.match(/<script>([\s\S]*?)<\/script>/)[1];js=js.replace('refreshHome();refreshSettings();renderLevels();if(!save.seenHelp)openHelp();',`globalThis.game={levels,save,openLevel,createGrid,cloneRun,advance,collectAt,predictRoute,startGame,tick,pauseGame,rotate,undoRotation,fail,win,resetAll,show,starCount,get state(){return state},set state(v){state=v}};refreshHome();refreshSettings();renderLevels();if(!save.seenHelp)openHelp();`);vm.runInContext(js,context);return {g:context.game,el,data,scheduled,doc};
+}
+module.exports={boot,html};
