@@ -1,4 +1,4 @@
-# Kırılma Hattı · 3.1.0
+# Kırılma Hattı · 3.2.0
 
 50 farklı haritalı stratejik rota oyunu. Beş sarmal yörünge: İz, Geçit,
 Bağlantı, Faz ve Sentez. Bölümlerin tamamı seçilebilir.
@@ -6,12 +6,14 @@ Bağlantı, Faz ve Sentez. Bölümlerin tamamı seçilebilir.
 Her manuel 90° dönüş bir hamledir; sayaç sıfırdan artar. Daha az hamle daha iyi
 sonuçtur, eşit hamlede daha az adım üstün gelir. Kişisel en iyi sonuç bu tarayıcıda
 saklanır. Yeni haritalar eski haritaların puanlarıyla karşılaştırılmaz;
-eski kayıtlar silinmez, yeni kampanya `kh31_` kayıt alanını kullanır.
+eski kayıtlar silinmez, yeni kampanya `kh32_` kayıt alanını kullanır.
 
 ## Mekanikler
 
-- Anahtarlar, sıralı anahtarlar ve tek yönlü/sabit diskler.
+- Tüm 50 bölümde 42 dolu kare; boş duvar hücresi yok.
+- İlk bölümden itibaren 3–6 sıralı anahtar; tek yönlü/sabit diskler.
 - Harfli röleler ve kapılar; aynı röleye tekrar girmek kapıyı kapatır.
+  Röleli bölümlerde çıkış için rölenin açık olması da gerekir.
 - Bir veya iki portal çifti, kırılgan zemin ve bağlı diskler.
 - Girişte 90° dönen diskler.
 - **Buz:** düzenlenemez; giriş yönünü koruyarak düz geçiş sağlar.
@@ -48,7 +50,12 @@ gecikmiş sonuç pencerelerinin iptali.
 
 `scripts/build-campaign.py` tasarımları ve çözüm tanıklarını deterministik olarak
 yeniden üretir. Üretimden sonra testler yeniden çalıştırılmalıdır.
-Test rotalarının dönüş sayısı 7'den 56'ya yükselir; uzunlukları 11'den 35 adıma
+Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten 35 adıma
 çıkar ve gerilemez. Bunlar çözülebilirlik ve denge referanslarıdır; matematiksel
 en kısa çözüm veya öznel zorluğun kusursuz sıralandığı iddiası değildir.
 Oyuncular daha iyi yollar bulabilir.
+
+3.2.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
+yönü, kapı ve buz kısıtları gevşetilse bile anahtarları sırayla gezmenin en kısa
+mesafesi 16–25 adımdır ve kampanya boyunca gerilemez. Bu alt sınır bağımsız
+genişlik öncelikli arama ile doğrulanır; hamle minimumu değildir.

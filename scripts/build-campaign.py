@@ -1,12 +1,14 @@
 """Deterministic, distinct route designs with replayable witnesses. Not an optimal solver."""
 import random,json,re
+from collections import deque
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 D=['U','R','D','L'];V=[(-1,0),(0,1),(1,0),(0,-1)]
 names=['İlk Kıvılcım','Kıyı Yolu','İki Yakası','Çatal','Gizli Cep','Sabit Yıldız','Dar Açı','Tek Akış','Ters Kıyı','Keskin Köşe','İlk Röle','Anahtar Odası','Kapalı Devre','Çift Koridor','Dönüş Kilidi','Uzak Bağ','İkiz Adalar','Kırık Köprü','Ada Zinciri','Son Geçit','Eş Zaman','Bağlı Karar','İkili Düğüm','Dönen Çekirdek','Çapraz Etki','Buz Hattı','Kaygan Viraj','Soğuk Bağ','Kristal Akış','Donuk Geçit','İlk Faz','Mor Eşik','Altın Dönüş','Faz Değişimi','İki Gerçeklik','Röle ve Kristal','Ayna Koridor','Faz Köprüsü','Uzak Yankı','Çift Frekans','Üç Ada','Karşı Kutuplar','Çözüm Ağı','Kilit Zinciri','Kırılgan Devre','Derin Yörünge','Buz ve Ateş','Son Düğüm','Son Frekans','Kırılma Noktası']
 def direction(a,b):return D[V.index((b[0]-a[0],b[1]-a[1]))]
 def build(i,attempt):
- rng=random.Random(51000+i*8191+attempt*31);n=12+i//2+(1 if i>=15 else 0)+(1 if i>=40 else 0)
+ rng=random.Random(51000+i*8191+attempt*31);n=24+i//4+(1 if i>=15 else 0)+(1 if i>=40 else 0)
+ if i<15 and (n-1)%2!=(16+i//5)%2:n+=1
  jumps=[]
  if i>=15:jumps=[n//2]
  if i>=40:jumps=[n//3,2*n//3]
@@ -31,7 +33,7 @@ def build(i,attempt):
  if not walk():return
  ingress={j-1 for j in jumps};used={0,n-1,*ingress,*jumps}
  straight=[k for k in range(1,n-1) if k not in used and direction(path[k-1],path[k])==direction(path[k],path[k+1])]
- L=dict(id=f'kh31-{i+1:02d}',name=names[i],chapter=['İz','Geçit','Bağlantı','Faz','Sentez'][i//10],seed=51000+i,start=path[0],exit=path[-1],keys=[],walls=[],hazards=[],fixed=[],gates=[],switches=[],portals=[dict(a=path[j-1],b=path[j]) for j in jumps],fragile=[],oneWay=[],links=[],autoRotate=[],movers=[],decoys=[],limited=[],boosts=[],ice=[],phaseGates=[],phaseSwitches=[],ordered=i>=12,moves=0)
+ L=dict(id=f'kh32-{i+1:02d}',name=names[i],chapter=['İz','Geçit','Bağlantı','Faz','Sentez'][i//10],seed=51000+i,start=path[0],exit=path[-1],keys=[],walls=[],hazards=[],fixed=[],gates=[],switches=[],portals=[dict(a=path[j-1],b=path[j]) for j in jumps],fragile=[],oneWay=[],links=[],autoRotate=[],movers=[],decoys=[],limited=[],boosts=[],ice=[],phaseGates=[],phaseSwitches=[],ordered=True,moves=0)
  def take(candidates):
   opts=[k for k in candidates if k not in used]
   if not opts:raise ValueError()
@@ -58,23 +60,40 @@ def build(i,attempt):
    k=take(range(1,n-1));L['autoRotate']=[path[k]]
   # Keys span the route, including branch tips; can share a rotating disk without changing its rules.
   key_opts=[k for k in range(1,n-1) if k not in ingress and k not in jumps and path[k] not in L['phaseSwitches'] and not any(path[k]==x[:2] for x in L['gates']+L['phaseGates']) and path[k] not in L['ice']]
-  count=1+i//10
+  count=min(6,3+i//12)
   selected=[]
   for f in range(count):
    ideal=(f+1)*(n-1)/(count+1);k=min([x for x in key_opts if x not in selected],key=lambda x:abs(x-ideal));selected.append(k)
   L['keys']=[path[k] for k in sorted(selected)]
-  extras=[(r,c) for r in range(7) for c in range(6) if (r,c) not in seen];rng.shuffle(extras)
-  open_extra=set();want=min(len(extras),3+i//12)
-  # Add junctions and alternate approaches, not just a single forced corridor.
-  for p in extras:
-   if len(open_extra)>=want:break
-   if any((p[0]+dr,p[1]+dc) in seen|open_extra for dr,dc in V):open_extra.add(p)
-  L['walls']=[(r,c) for r in range(7) for c in range(6) if (r,c) not in seen|open_extra]
-  if i>=7 and len(open_extra)>2:L['hazards']=[rng.choice(sorted(open_extra))]
+  # Every cell is playable or a clearly drawn special tile; there are no blank walls.
+  L['walls']=[]
+  extras=[(r,c) for r in range(7) for c in range(6) if (r,c) not in seen]
+  rng.shuffle(extras)
+  L['hazards']=extras[:min(len(extras),1+i//15)] if i>=4 else []
+  L['requiredGates']=[g[2] for g in L['gates']]
+  # Exact shortest distance in a RELAXED board: ignore disk direction, gate locks,
+  # phase and ice constraints, but preserve portal transit and lethal cells.
+  # This is a lower bound on actual movement, not a minimum-rotation claim.
+  def distance(start,end):
+   q=deque([(start,0)]);visited={start}
+   while q:
+    p,d=q.popleft()
+    if p==end:return d
+    for dr,dc in V:
+     z=(p[0]+dr,p[1]+dc)
+     if not(0<=z[0]<7 and 0<=z[1]<6) or z in L['hazards']:continue
+     for portal in L['portals']:
+      if z==portal['a']:z=portal['b'];break
+      if z==portal['b']:z=portal['a'];break
+     if z not in visited:visited.add(z);q.append((z,d+1))
+   return 999
+  stops=[L['start'],*L['keys'],L['exit']]
+  relaxed=sum(distance(a,b) for a,b in zip(stops,stops[1:]))
+  if relaxed!=16+i//5:return
   blocked={tuple(x[:2]) for x in L['fixed']+L['oneWay']+L['gates']+L['phaseGates']}|set(L['ice'])
   departures=[k for k in range(n-1) if k not in ingress]
   editable=[k for k in departures if path[k] not in blocked]
-  target=7+i
+  target=18+i
   if target>3*len(editable):return
   turns={k:0 for k in departures}
   for _ in range(target):turns[rng.choice([k for k in editable if turns[k]<3])]+=1
@@ -89,8 +108,8 @@ def build(i,attempt):
   L['layout']=layout;L['par']=target
   types=[label for key,label in [('phaseGates','Faz'),('ice','Buz'),('links','Bağlı'),('portals','Portal'),('gates','Kapı'),('oneWay','Tek Yön'),('fixed','Sabit')] if L[key]]
   L['tag']=' · '.join(types[:2]) or 'Rota Seçimi'
-  L['hint']=('Kristalleri hangi sırayla geçtiğine dikkat et; I ve II kapıları aynı anda açık olmaz.' if i>=30 else 'Buzda yön veremezsin; girişini bir önceki diskten ayarla.' if i>=25 else 'Bağlı disklerin ikisini de kontrol et. Birini çevirmek diğerini de değiştirir.' if i>=20 else 'Portaldan sonraki çıkış yönünü de hazırla.' if i>=15 else 'Önce A kontrolüne uğra; kapıya ancak açıldıktan sonra girebilirsin.' if i>=10 else 'Anahtarın bulunduğu yolu çıkışla birleştir. Sabit okların yönüne dikkat et.' if i>=5 else 'Anahtara giden iki yaklaşımı karşılaştır; çıkışı en az dönüşle hazırla.')
-  L['balance']={'referenceTurns':target,'referenceSteps':len(departures),'mechanicTypes':len(types),'design':i+1}
+  L['hint']=('Kristalleri hangi sırayla geçtiğine dikkat et; I ve II kapıları aynı anda açık olmaz.' if i>=30 else 'Buzda yön veremezsin; girişini bir önceki diskten ayarla.' if i>=25 else 'Bağlı disklerin ikisini de kontrol et. Birini çevirmek diğerini de değiştirir.' if i>=20 else 'Portaldan sonraki çıkış yönünü de hazırla.' if i>=15 else 'A rölesini etkinleştirmeden çıkış tamamlanmaz. Kontrol karesini anahtar rotana dahil et.' if i>=10 else 'Anahtarın bulunduğu yolu çıkışla birleştir. Sabit okların yönüne dikkat et.' if i>=5 else 'Numaralı anahtarların sırası rotayı belirler. Bir sonraki anahtar için hangi disklere geri döneceğini planla.')
+  L['balance']={'referenceTurns':target,'referenceSteps':len(departures),'mechanicTypes':len(types),'design':i+1,'relaxedSteps':relaxed}
   return L,dict(level=i+1,id=L['id'],turns=target,steps=len(departures),actions=[turns[k] for k in departures],positions=[path[k] for k in departures],path=path)
  except (ValueError,IndexError):return
 levels=[];routes=[]
@@ -100,6 +119,6 @@ for i in range(50):
   if result:break
  else:raise RuntimeError(f'No design {i+1}')
  L,r=result;levels.append(L);routes.append(r)
- print(f'{i+1:02d} {L["name"]}: {r["turns"]} turns / {r["steps"]} steps (design {attempt})')
+ print(f'{i+1:02d} {L["name"]}: {r["turns"]} turns / {r["steps"]} steps  / lower bound {L['balance']['relaxedSteps']} (design {attempt})')
 p=ROOT/'index.html';s=p.read_text();s=re.sub(r'const levels=[\s\S]*?const storage=','const levels='+json.dumps(levels,ensure_ascii=False,separators=(',',':'))+';\nconst storage=',s,count=1);p.write_text(s)
 (ROOT/'tests'/'solutions.json').write_text(json.dumps(routes,ensure_ascii=False,separators=(',',':')))
