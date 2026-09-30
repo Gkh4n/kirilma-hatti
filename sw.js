@@ -1,5 +1,5 @@
 // Network-first navigation keeps the published game current; cache is used offline.
-const CACHE='kirilma-hatti-v1.2.0';
+const CACHE='kirilma-hatti-v3.1.0';
 const HOME=new URL('./index.html',self.location.href).href;
 self.addEventListener('install',event=>event.waitUntil(
  caches.open(CACHE).then(cache=>cache.add(new Request(HOME,{cache:'reload'}))).then(()=>self.skipWaiting())
