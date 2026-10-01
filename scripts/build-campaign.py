@@ -121,9 +121,16 @@ for i in range(50):
  L,r=result;levels.append(L);routes.append(r)
  print(f'{i+1:02d} {L["name"]}: {r["turns"]} turns / {r["steps"]} steps  / lower bound {L['balance']['relaxedSteps']} (design {attempt})')
 p=ROOT/'index.html';s=p.read_text()
-existing=json.loads(re.search(r'const levels=([\s\S]*?);\nconst storage=',s)[1])
+existing=json.loads(re.search(r'const levels=([\s\S]*?);\nconst startHints=',s)[1])
 existing_routes=json.loads((ROOT/'tests'/'solutions.json').read_text())
 levels += existing[50:]
 routes += existing_routes[50:]
-s=re.sub(r'const levels=[\s\S]*?const storage=','const levels='+json.dumps(levels,ensure_ascii=False,separators=(',',':'))+';\nconst storage=',s,count=1);p.write_text(s)
+s=re.sub(r'const levels=[\s\S]*?const startHints=','const levels='+json.dumps(levels,ensure_ascii=False,separators=(',',':'))+';\nconst startHints=',s,count=1);p.write_text(s)
 (ROOT/'tests'/'solutions.json').write_text(json.dumps(routes,ensure_ascii=False,separators=(',',':')))
+
+# Keep visual start hints in sync with the regenerated solution witnesses.
+all_routes=json.loads((ROOT/'tests'/'solutions.json').read_text())
+s=p.read_text()
+hints={r['id']:r['path'][:2] for r in all_routes}
+s=re.sub(r'const startHints=[\s\S]*?;\nconst storage=', 'const startHints='+json.dumps(hints,separators=(',',':'))+';\nconst storage=',s,count=1)
+p.write_text(s)

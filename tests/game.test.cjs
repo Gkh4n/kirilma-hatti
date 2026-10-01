@@ -32,3 +32,21 @@ test('single-step does not recollect a switch and is disabled during auto run',(
 test('master exit needs both crystals and the correct phase',()=>{const {g}=boot();let S=empty(g,{exit:[3,3],requiredCrystals:true,phaseSwitches:[[1,1],[2,2]],exitPhase:0});assert.match(g.advance(S).reason,/kristaline/);S=empty(g,{exit:[3,3],requiredCrystals:true,phaseSwitches:[[1,1],[2,2]],exitPhase:0});S.visitedCrystals=new Set(['1,1','2,2']);S.phase=1;assert.match(g.advance(S).reason,/Faz I/);S.pos=[3,2];S.phase=0;assert(g.advance(S).won);});
 test('preview crystal collection is isolated from the live state',()=>{const {g}=boot();g.state=empty(g,{phaseSwitches:[[3,3]],exit:[3,5]});g.predictRoute();assert.equal(g.state.visitedCrystals.size,0);});
 test('master layouts are full and have tougher verified movement floors',()=>{const {g}=boot();const hardestNormal=Math.max(...g.levels.slice(0,50).map(L=>L.balance.relaxedSteps));for(const L of g.levels.slice(50)){assert.equal(L.walls.length,0);assert(L.balance.relaxedSteps>hardestNormal);assert(L.keys.length>=8);assert.deepEqual(Array.from(L.requiredGates),['A','B']);assert.equal(L.phaseSwitches.length,2);assert.equal(L.links.length,2);}});
+
+test('start hints match verified routes and do not alter player moves or grid',()=>{
+ const {g,el}=boot();const routes=JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname,'solutions.json'),'utf8'));
+ g.levels.slice(0,50).forEach(L=>g.save.records[L.id]={moves:100,steps:100});
+ for(let i=0;i<74;i++){
+  g.openLevel(i);const before=JSON.stringify(g.state.grid),moves=g.state.moves;
+  el('#hintBtn').listeners.click();
+  assert.equal(g.state.showStartHint,true);assert.equal(JSON.stringify(g.state.grid),before);assert.equal(g.state.moves,moves);
+  const [a,b]=routes[i].path;assert.equal(Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1]),1);
+  const highlighted=el('#board').children.filter(t=>t.classes.has('hint-next'));
+  assert.equal(highlighted.length,1);assert.equal(highlighted[0].dataset.r,b[0]);assert.equal(highlighted[0].dataset.c,b[1]);
+  el('#hintBtn').listeners.click();assert.equal(g.state.showStartHint,false);
+ }
+});
+test('hint pauses automatic movement without resetting the run',()=>{
+ const {g,el}=boot();g.openLevel(0);g.startGame();const pos=JSON.stringify(g.state.pos);
+ el('#hintBtn').listeners.click();assert.equal(g.state.paused,true);assert.equal(JSON.stringify(g.state.pos),pos);assert.equal(g.state.showStartHint,true);
+});

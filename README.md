@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.0.0
+# Kırılma Hattı · 4.1.0
 
 74 bölümlük stratejik rota oyunu. Ana dünyadaki 50 bölümün tamamı seçilebilir.
 Bu 50 bölüm tamamlandığında 24 bölümlük Usta Dünyası açılır; yıldız eşiği yoktur.
@@ -69,7 +69,7 @@ Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten
 en kısa çözüm veya öznel zorluğun kusursuz sıralandığı iddiası değildir.
 Oyuncular daha iyi yollar bulabilir.
 
-4.0.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
+4.1.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
 yönü, kapı ve buz kısıtları gevşetilse bile anahtarları sırayla gezmenin en kısa
 mesafesi 16–25 adımdır ve kampanya boyunca gerilemez. Bu alt sınır bağımsız
 genişlik öncelikli arama ile doğrulanır; hamle minimumu değildir.
@@ -78,3 +78,8 @@ Usta bölümlerinin çözüm tanıkları 68–91 dönüş ve 37–39 hareket ad�
 Gevşetilmiş en kısa hareket mesafesi 28–35 adımdır: normal dünyanın en yüksek
 25 adımlık alt sınırının üzerindedir. Bu ölçüt düşünsel zorluğu tek başına
 kanıtlamaz; hamle açısından en iyi çözümler oyuncular tarafından geliştirilebilir.
+
+4.1: Ana menü sadeleştirildi; başlangıç ipucu, doğrulanmış çözümün ilk iki
+karesini ve yönünü tahtada işaretler. Diskleri kendiliğinden çevirmez, hamle
+eklemez. Çalışan oyunda ipucu açmak hareketi duraklatır. Bu ipucu tam çözüm
+veya en az hamle garantisi değildir.

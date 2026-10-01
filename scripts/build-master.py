@@ -113,7 +113,7 @@ def build(i,attempt):
   return L,dict(level=i+51,id=L['id'],turns=target,steps=len(departures),actions=[turns[k] for k in departures],positions=[path[k] for k in departures],path=path)
  except (ValueError,IndexError):return
 p=ROOT/'index.html';s=p.read_text()
-base=json.loads(re.search(r'const levels=([\s\S]*?);\nconst storage=',s)[1])[:50]
+base=json.loads(re.search(r'const levels=([\s\S]*?);\nconst startHints=',s)[1])[:50]
 base_routes=json.loads((ROOT/'tests'/'solutions.json').read_text())[:50]
 levels=[];routes=[]
 for i in range(24):
@@ -123,5 +123,12 @@ for i in range(24):
  else:raise RuntimeError(f'No master design {i+1}')
  L,r=result;levels.append(L);routes.append(r)
  print(f'M{i+1:02d}: {r["turns"]} turns / {r["steps"]} steps / minimum relaxed distance {L["balance"]["relaxedSteps"]} (candidate {attempt})',flush=True)
-s=re.sub(r'const levels=[\s\S]*?const storage=','const levels='+json.dumps(base+levels,ensure_ascii=False,separators=(',',':'))+';\nconst storage=',s,count=1);p.write_text(s)
+s=re.sub(r'const levels=[\s\S]*?const startHints=','const levels='+json.dumps(base+levels,ensure_ascii=False,separators=(',',':'))+';\nconst startHints=',s,count=1);p.write_text(s)
 (ROOT/'tests'/'solutions.json').write_text(json.dumps(base_routes+routes,ensure_ascii=False,separators=(',',':')))
+
+# Keep visual start hints in sync with the regenerated solution witnesses.
+all_routes=json.loads((ROOT/'tests'/'solutions.json').read_text())
+s=p.read_text()
+hints={r['id']:r['path'][:2] for r in all_routes}
+s=re.sub(r'const startHints=[\s\S]*?;\nconst storage=', 'const startHints='+json.dumps(hints,separators=(',',':'))+';\nconst storage=',s,count=1)
+p.write_text(s)
