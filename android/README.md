@@ -1,4 +1,4 @@
-# Android 4.5.0
+# Android 4.5.1
 
 Offline WebView application, package tr.kirilmahatti.game, Android 6.0+.
 The bundled index.html is copied from the repository root for each build.
@@ -34,3 +34,5 @@ okları kaldırılmıştır; tarayıcı sürümünde korunur. İlerleme kayıtla
 4.5.0: Açılış rehberi kaldırıldı. Oyna bölüm haritasını açar; ilk oynayışta
 yalnızca temel kontroller anlatılır. İkonlu Nasıl Oynanır düğmesi tüm
 mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
+
+4.5.1: Dünya adları AUREN ve NOXIS olarak güncellendi; bölüm, kayıt ve kilit mantığı korunur.

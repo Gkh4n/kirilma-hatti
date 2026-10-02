@@ -1,8 +1,8 @@
-# Kırılma Hattı · 4.5.0
+# Kırılma Hattı · 4.5.1
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
-Bu 50 bölüm tamamlandığında 24 bölümlük Usta Dünyası açılır; yıldız eşiği yoktur.
-Usta Dünyası sekizer bölümlük Obsidyen, Paradoks ve Son Mühür yörüngelerinden oluşur.
+Bu 50 bölüm tamamlandığında 24 bölümlük NOXIS açılır; yıldız eşiği yoktur.
+NOXIS sekizer bölümlük Obsidyen, Paradoks ve Son Mühür yörüngelerinden oluşur.
 4.0 güncellemesi mevcut 50 bölümün verilerini ve `kh32_` kayıtlarını korur.
 
 Her manuel 90° dönüş bir hamledir; sayaç sıfırdan artar. Daha az hamle daha iyi
@@ -13,7 +13,7 @@ eski kayıtlar silinmez, yeni kampanya `kh32_` kayıt alanını kullanır.
 ## Mekanikler
 
 - Tüm 74 bölümde 42 dolu kare; boş duvar hücresi yok.
-- Ana dünyada 3–6, Usta Dünyası’nda 8–10 sıralı anahtar; tek yönlü/sabit diskler.
+- AUREN’de 3–6, NOXIS’te 8–10 sıralı anahtar; tek yönlü/sabit diskler.
 - Usta çıkışları iki açık röle, iki kristalin ziyareti ve Faz I gerektirir.
 - Harfli röleler ve kapılar; aynı röleye tekrar girmek kapıyı kapatır.
   Röleli bölümlerde çıkış için rölenin açık olması da gerekir.
@@ -60,8 +60,8 @@ kapı, portal, anahtar sırası, kırılgan zemin, buz ve faz kuralları;
 gecikmiş sonuç pencerelerinin iptali; 50 tamamlanma koşuluyla dünya kilidi;
 tek adım/geri alma; kristal ve çıkış fazı koşulları.
 
-`scripts/build-campaign.py` ana dünyayı (var olan usta bölümlerini koruyarak),
-`scripts/build-master.py` Usta Dünyası’nı deterministik olarak yeniden üretir.
+`scripts/build-campaign.py` AUREN’i (var olan usta bölümlerini koruyarak),
+`scripts/build-master.py` NOXIS’i deterministik olarak yeniden üretir.
 İkisi de kök dizinden Python 3.12+ ile çalıştırılır. Üretimden sonra testler
 yeniden çalıştırılmalıdır.
 Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten 35 adıma
@@ -88,7 +88,7 @@ veya en az hamle garantisi değildir.
 kullanılan tüm mekanikleri simgeli kartlarla açıklar. Usta çıkış koşulları
 aynı rehberde yer alır.
 
-4.3: Sıralı bölüm kilidi hem ana dünya hem usta dünyasına uygulanır. Önceki
+4.3: Sıralı bölüm kilidi hem AUREN hem NOXIS’e uygulanır. Önceki
 rekorlar korunur; arada tamamlanmamış bölüm varsa sonraki bölümler kilitlidir.
 Android sürümü tüm oyun dosyalarını içerir ve çevrimdışı çalışır.
 
@@ -104,3 +104,5 @@ okları kaldırılmıştır; tarayıcı sürümünde korunur. İlerleme kayıtla
 4.5.0: Açılış rehberi kaldırıldı. Oyna bölüm haritasını açar; ilk oynayışta
 yalnızca temel kontroller anlatılır. İkonlu Nasıl Oynanır düğmesi tüm
 mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
+
+4.5.1: Dünya adları AUREN ve NOXIS olarak güncellendi; bölüm, kayıt ve kilit mantığı korunur.

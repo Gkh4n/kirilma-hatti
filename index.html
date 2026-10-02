@@ -4,8 +4,8 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#080c16"/>
-<meta name="application-version" content="4.5.0"/>
-<meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 50 ana bölüm ve 24 Usta Dünyası sınavını keşfet."/>
+<meta name="application-version" content="4.5.1"/>
+<meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve AUREN’in 50 bölümünü ve NOXIS’in 24 elit rotasını keşfet."/>
 <title>Kırılma Hattı</title>
 <style>
 :root{
@@ -363,6 +363,9 @@ html,body{background:#080c16;color:var(--text)}
 #helpOverlay .actions:has(#helpPlay[hidden]){grid-template-columns:1fr}#helpOverlay .sheet{scrollbar-width:thin;scrollbar-color:#bca47355 transparent}
 @media(max-width:360px){.brand-caption{display:none}.brand-header{margin-bottom:12px}.brand-wordmark{font-size:11px}}
 @media(max-height:700px){.home.active{min-height:calc(100svh - 105px)}.home-content{padding:12px 0 22px}.home-emblem{width:64px;height:64px;padding:12px;margin-bottom:16px}.menu-panel{margin-top:22px}.brand-header{margin-bottom:10px}}
+/* World names share the existing card treatment. */
+.world-tab{min-width:0}.world-tab>span{min-width:0;white-space:nowrap;letter-spacing:.09em}.world-tab small{white-space:nowrap;letter-spacing:0}
+@media(max-width:360px){.world-tab small{font-size:9px}.world-tab{padding:11px 8px;gap:5px}}
 </style>
 </head>
 <body>
@@ -394,7 +397,7 @@ html,body{background:#080c16;color:var(--text)}
 
   <section id="levels" class="screen">
     <div class="section-head">
-      <div><div class="tiny muted">YÖRÜNGE HARİTASI</div><h2>Rotanı seç.</h2><p class="tiny muted">50 bölüm · 24 usta sınavı</p></div>
+      <div><div class="tiny muted">YÖRÜNGE HARİTASI</div><h2>Rotanı seç.</h2><p class="tiny muted">AUREN · 50 Bölüm / NOXIS · 24 Elit Rota</p></div>
       <button class="icon-btn js-home" aria-label="Ana sayfa"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
     </div>
     <div id="worldTabs" class="world-tabs" role="group" aria-label="Dünya seçimi"></div><div id="chapterTabs" class="chapter-tabs" role="group" aria-label="Yörünge seçimi"></div><div id="levelList"></div>
@@ -456,7 +459,7 @@ html,body{background:#080c16;color:var(--text)}
       <div id="resultOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
         <div class="modal glass">
           <h3 id="resultTitle">Bölüm Tamam</h3>
-          <p id="resultText"></p><div id="resultSummary" class="result-summary" hidden><div class="score-hero"><strong id="resultMoves">0</strong><span>HAMLE</span><small id="resultDelta"></small></div><svg id="resultRoute" viewBox="0 0 84 98" aria-label="Tamamlanan rota"></svg></div><div id="worldUnlocked" class="world-unlocked" hidden>USTA DÜNYASI AÇILDI <span>24 yeni sınav seni bekliyor.</span></div>
+          <p id="resultText"></p><div id="resultSummary" class="result-summary" hidden><div class="score-hero"><strong id="resultMoves">0</strong><span>HAMLE</span><small id="resultDelta"></small></div><svg id="resultRoute" viewBox="0 0 84 98" aria-label="Tamamlanan rota"></svg></div><div id="worldUnlocked" class="world-unlocked" hidden>NOXIS AÇILDI <span>24 elit rota seni bekliyor.</span></div>
           <div id="resultStars" class="result-stars">★★★</div>
           <div id="scoreNote" class="score-note"></div>
           <div class="modal-actions">
@@ -493,7 +496,7 @@ html,body{background:#080c16;color:var(--text)}
     <div class="guide-endpoints"><div><i class="guide-start"></i><b>Başlangıç</b><span>Parlayan çekirdek buradan yola çıkar.</span></div><div><i class="guide-exit">⚑</i><b>Çıkış</b><span>Altın bayrağa, bölümün koşullarını tamamlayarak ulaş.</span></div></div>
     <div id="advancedGuide"><h4 class="guide-heading">TÜM MEKANİKLER</h4>
     <div id="mechanicsGuide" class="mechanics-guide"></div>
-    <div class="guide-master"><b>Usta Dünyası</b><p>Ana dünyadaki 50 bölümü tamamlayınca açılır. Bu 24 bölümde iki röleyi açık bırakmalı, iki farklı kristale de uğramalı ve çıkışa Faz I ile ulaşmalısın.</p></div></div>
+    <div class="guide-master"><b>NOXIS</b><p>AUREN’deki 50 bölümü tamamlayınca açılır. Bu 24 bölümde iki röleyi açık bırakmalı, iki farklı kristale de uğramalı ve çıkışa Faz I ile ulaşmalısın.</p></div></div>
     <div class="actions"><button id="closeHelp" class="btn secondary">Kapat</button><button id="helpPlay" class="btn primary"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg><span>Oyna</span></button></div>
   </div>
 </div>
@@ -679,8 +682,8 @@ function renderLevels(){
  const cfg=worldConfig(),totalChapters=cfg.count/cfg.size,start=cfg.offset+mapChapter*cfg.size,group=levels.slice(start,start+cfg.size),host=$('#levelList'),tabs=$('#chapterTabs');
  const complete=levels.slice(0,50).filter(L=>recordFor(L)).length,unlocked=masterUnlocked(),worldTabs=$('#worldTabs');
  $('#levels').classList.toggle('master-world',mapWorld==='master');worldTabs.innerHTML='';
- for(const [id,title,sub]of [['normal','ANA DÜNYA','50 bölüm'],['master','USTA DÜNYASI',unlocked?'24 sınav':`${complete}/50 · Kilitli`]]){const b=document.createElement('button');b.type='button';b.className='world-tab'+(mapWorld===id?' selected':'');b.setAttribute('aria-label',title);b.setAttribute('aria-pressed',String(mapWorld===id));b.innerHTML=`${uiIcon(id==='master'?'cup':'map')}<span>${title}<small>${sub}</small></span>`;b.addEventListener('click',()=>{mapWorld=id;mapChapter=0;mapSelected=id==='master'?50:0;renderLevels()});worldTabs.appendChild(b)}
- if(mapWorld==='master'&&!unlocked){tabs.innerHTML='';host.innerHTML=`<div class="master-lock">${uiIcon('cup')}<span>USTALARIN DÜNYASI</span><h3>Sonraki eşik.</h3><p>Ana Dünya’daki 50 bölümün tamamını bitir.<br>Yıldız sayısı değil, tamamlamak yeterli.</p><div class="unlock-meter"><i style="width:${complete*2}%"></i></div><b>${complete} / 50 tamamlandı</b><small>24 özel harita · İki röle · Faz bulmacaları</small><button id="returnNormal" class="btn primary">${uiIcon('map')}<span>ANA DÜNYAYA DÖN</span></button></div>`;$('#returnNormal').addEventListener('click',()=>{mapWorld='normal';mapChapter=0;mapSelected=0;renderLevels()});return;}
+ for(const [id,title,sub]of [['normal','AUREN','50 Bölüm'],['master','NOXIS',unlocked?'24 Elit Rota':'24 Elit Rota · Kilitli']]){const b=document.createElement('button');b.type='button';b.className='world-tab'+(mapWorld===id?' selected':'');b.setAttribute('aria-label',title);b.setAttribute('aria-pressed',String(mapWorld===id));b.innerHTML=`${uiIcon(id==='master'?'cup':'map')}<span>${title}<small>${sub}</small></span>`;b.addEventListener('click',()=>{mapWorld=id;mapChapter=0;mapSelected=id==='master'?50:0;renderLevels()});worldTabs.appendChild(b)}
+ if(mapWorld==='master'&&!unlocked){tabs.innerHTML='';host.innerHTML=`<div class="master-lock">${uiIcon('cup')}<span>NOXIS</span><h3>Sonraki eşik.</h3><p>AUREN’deki 50 bölümün tamamını bitir.<br>Yıldız sayısı değil, tamamlamak yeterli.</p><div class="unlock-meter"><i style="width:${complete*2}%"></i></div><b>${complete} / 50 tamamlandı</b><small>24 Elit Rota · İki röle · Faz bulmacaları</small><button id="returnNormal" class="btn primary">${uiIcon('map')}<span>AUREN’E DÖN</span></button></div>`;$('#returnNormal').addEventListener('click',()=>{mapWorld='normal';mapChapter=0;mapSelected=0;renderLevels()});return;}
  tabs.style.gridTemplateColumns=`repeat(${totalChapters},1fr)`;
  if(mapSelected<start||mapSelected>=start+group.length)mapSelected=start;
  tabs.innerHTML='';
@@ -703,7 +706,7 @@ function renderLevels(){
 }
 
 function showIntro(L,i){
- clearTimeout(introTimer);$('#introKicker').textContent=`${i>=50?'Usta Sınavı':'Bölüm'} ${i>=50?i-49:i+1}`;$('#introTitle').textContent=L.name;$('#introTag').textContent=L.tag;$('#levelIntro').classList.add('show');
+ clearTimeout(introTimer);$('#introKicker').textContent=`${i>=50?'NOXIS · Rota':'Bölüm'} ${i>=50?i-49:i+1}`;$('#introTitle').textContent=L.name;$('#introTag').textContent=L.tag;$('#levelIntro').classList.add('show');
  introTimer=setTimeout(()=>$('#levelIntro').classList.remove('show'),900);
 }
 
@@ -982,8 +985,8 @@ function win(){
  $('#resultSummary').hidden=false;$('#resultMoves').textContent=state.moves;$('#worldUnlocked').hidden=!opened;resultRoute();
  const delta=result.old?result.old.moves-state.moves:null;
  $('#resultDelta').textContent=delta===null?'İlk tamamlayış':delta>0?`${delta} hamle daha az`:delta<0?`En iyi: ${result.old.moves} hamle`:state.steps<result.old.steps?`${result.old.steps-state.steps} adım daha kısa`:'En iyi hamlenle eşit';
- $('#resultStars').textContent='★'.repeat(st)+'☆'.repeat(3-st);$('#scoreNote').textContent=currentLevel===levels.length-1?'Son mühür tamamlandı. Usta Dünyası haritasına dönebilirsin.':`Usta rota hedefi: ${state.L.par} hamle`;
- buttonLabel('#againBtn','retry','Yeniden Dene');buttonLabel('#nextBtn',next>=0?'next':'map',opened?'Usta Dünyası':next>=0?'Sonraki':'Yörüngeler');$('#nextBtn').onclick=()=>next>=0?openLevel(next):show('levels');
+ $('#resultStars').textContent='★'.repeat(st)+'☆'.repeat(3-st);$('#scoreNote').textContent=currentLevel===levels.length-1?'Son mühür tamamlandı. NOXIS haritasına dönebilirsin.':`Usta rota hedefi: ${state.L.par} hamle`;
+ buttonLabel('#againBtn','retry','Yeniden Dene');buttonLabel('#nextBtn',next>=0?'next':'map',opened?'NOXIS':next>=0?'Sonraki':'Yörüngeler');$('#nextBtn').onclick=()=>next>=0?openLevel(next):show('levels');
  if(opened){save.lastLevel=50;storage.set('kh32_lastLevel',50);$('#nextBtn').onclick=()=>openLevel(50)}
  updateHud();scheduleResult(520);refreshHome()
 }
