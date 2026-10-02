@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.3.0
+# Kırılma Hattı · 4.3.1
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük Usta Dünyası açılır; yıldız eşiği yoktur.
@@ -69,7 +69,7 @@ Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten
 en kısa çözüm veya öznel zorluğun kusursuz sıralandığı iddiası değildir.
 Oyuncular daha iyi yollar bulabilir.
 
-4.3.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
+4.3.1 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
 yönü, kapı ve buz kısıtları gevşetilse bile anahtarları sırayla gezmenin en kısa
 mesafesi 16–25 adımdır ve kampanya boyunca gerilemez. Bu alt sınır bağımsız
 genişlik öncelikli arama ile doğrulanır; hamle minimumu değildir.
@@ -91,3 +91,7 @@ aynı rehberde yer alır.
 4.3: Sıralı bölüm kilidi hem ana dünya hem usta dünyasına uygulanır. Önceki
 rekorlar korunur; arada tamamlanmamış bölüm varsa sonraki bölümler kilitlidir.
 Android sürümü tüm oyun dosyalarını içerir ve çevrimdışı çalışır.
+
+4.3.1: Native root container applies system-bar and cutout insets before
+laying out WebView. Consumed dimensions are zeroed for web content to avoid
+double padding. All screens and system bars share the #080c16 background.

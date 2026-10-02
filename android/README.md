@@ -1,4 +1,4 @@
-# Android 4.3.0
+# Android 4.3.1
 
 Offline WebView application, package tr.kirilmahatti.game, Android 6.0+.
 The bundled index.html is copied from the repository root for each build.
@@ -17,3 +17,7 @@ that key to install later builds as updates without removing player records.
 Validation: game unit tests and all 74 witness replays, APK signature,
 manifest/package/minSdk/targetSdk and asset-byte comparison. A physical-device
 installation test has not been performed in this environment.
+
+4.3.1: Native root container applies system-bar and cutout insets before
+laying out WebView. Consumed dimensions are zeroed for web content to avoid
+double padding. All screens and system bars share the #080c16 background.
