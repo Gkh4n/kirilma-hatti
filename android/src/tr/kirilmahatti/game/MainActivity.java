@@ -6,7 +6,7 @@ public final class MainActivity extends Activity {
  getWindow().setStatusBarColor(background);getWindow().setNavigationBarColor(background);
  getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(background));
  if(Build.VERSION.SDK_INT>=29){getWindow().setStatusBarContrastEnforced(false);getWindow().setNavigationBarContrastEnforced(false);}
- if(Build.VERSION.SDK_INT>=30){getWindow().setDecorFitsSystemWindows(false);getWindow().getInsetsController().setSystemBarsAppearance(0,android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS|android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);}
+ if(Build.VERSION.SDK_INT>=30){getWindow().setDecorFitsSystemWindows(false);}
  else getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
  final android.widget.FrameLayout root=new android.widget.FrameLayout(this);root.setBackgroundColor(background);
  web=new WebView(this);web.setBackgroundColor(background);
@@ -25,9 +25,12 @@ public final class MainActivity extends Activity {
    if(Build.VERSION.SDK_INT>=28)remaining=remaining.consumeDisplayCutout();return remaining;
   }
  });
- setContentView(root);root.requestApplyInsets();
+ setContentView(root);
+ // Configure appearance only after the decor exists. No early controller dereference.
+ getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR & ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+ root.requestApplyInsets();
  WebSettings s=web.getSettings();s.setJavaScriptEnabled(true);s.setDomStorageEnabled(true);s.setAllowFileAccess(false);s.setAllowContentAccess(false);s.setMediaPlaybackRequiresUserGesture(true);web.setWebViewClient(new WebViewClient(){@Override public boolean shouldOverrideUrlLoading(WebView v,String u){return !u.equals("https://game.local/index.html");}@Override public WebResourceResponse shouldInterceptRequest(WebView v,WebResourceRequest r){try{if("game.local".equals(r.getUrl().getHost())&&"/index.html".equals(r.getUrl().getPath()))return new WebResourceResponse("text/html","UTF-8",getAssets().open("index.html"));}catch(Exception e){}return new WebResourceResponse("text/plain","UTF-8",new java.io.ByteArrayInputStream(new byte[0]));}});web.setWebChromeClient(new WebChromeClient(){@Override public boolean onJsConfirm(WebView v,String u,String message,final JsResult result){new AlertDialog.Builder(MainActivity.this).setMessage(message).setPositiveButton("Tamam",new DialogInterface.OnClickListener(){public void onClick(DialogInterface d,int w){result.confirm();}}).setNegativeButton("Vazgeç",new DialogInterface.OnClickListener(){public void onClick(DialogInterface d,int w){result.cancel();}}).setOnCancelListener(new DialogInterface.OnCancelListener(){public void onCancel(DialogInterface d){result.cancel();}}).show();return true;}});web.loadUrl("https://game.local/index.html");}
- @Override protected void onPause(){web.evaluateJavascript("document.dispatchEvent(new Event('visibilitychange'));window.dispatchEvent(new Event('pagehide'));",null);web.onPause();super.onPause();}
+ @Override protected void onPause(){if(web!=null){web.evaluateJavascript("document.dispatchEvent(new Event('visibilitychange'));window.dispatchEvent(new Event('pagehide'));",null);web.onPause();}super.onPause();}
  @Override protected void onResume(){super.onResume();if(web!=null)web.onResume();}
  @Override public void onBackPressed(){new AlertDialog.Builder(this).setMessage("Oyundan çıkılsın mı?").setNegativeButton("Devam et",null).setPositiveButton("Çık",new DialogInterface.OnClickListener(){public void onClick(DialogInterface d,int w){finish();}}).show();}
 }
