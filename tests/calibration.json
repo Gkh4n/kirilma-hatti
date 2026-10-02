@@ -1,697 +1,389 @@
 {
-  "method": "Multi-pass bounded cost search; equivalent-state deduplication; replay-verified cycle removal. Global optimum not certified.",
-  "changed": [
+  "version": "4.6.3",
+  "method": "strict-best-verified-target-no-tolerance",
+  "globalMinimumProven": false,
+  "provenLevels": [
+    1,
     2,
-    4,
+    5,
     7,
+    8,
+    9,
     10,
-    17,
-    22,
-    25,
-    30,
-    35,
-    38,
-    43,
-    45,
-    48,
-    50,
-    52,
-    54,
-    57,
-    59,
-    62,
-    64,
-    67,
-    69,
-    72,
-    74
+    11,
+    19,
+    20
   ],
-  "levels": [
+  "targets": [
     {
       "level": 1,
-      "changed": false,
-      "oldTarget": 18,
-      "target": 18,
-      "steps": 16,
-      "focus": "original",
-      "referenceTurns": 15
+      "threeStars": 15,
+      "minimumProven": true
     },
     {
       "level": 2,
-      "changed": true,
-      "oldTarget": 19,
-      "target": 10,
-      "steps": 16,
-      "focus": "return-junction",
-      "referenceTurns": 8
+      "threeStars": 8,
+      "minimumProven": true
     },
     {
       "level": 3,
-      "changed": false,
-      "oldTarget": 20,
-      "target": 18,
-      "steps": 16,
-      "focus": "original",
-      "referenceTurns": 15
+      "threeStars": 15,
+      "minimumProven": false
     },
     {
       "level": 4,
-      "changed": true,
-      "oldTarget": 21,
-      "target": 15,
-      "steps": 20,
-      "focus": "return-junction",
-      "referenceTurns": 13
+      "threeStars": 13,
+      "minimumProven": false
     },
     {
       "level": 5,
-      "changed": false,
-      "oldTarget": 22,
-      "target": 11,
-      "steps": 20,
-      "focus": "original",
-      "referenceTurns": 9
+      "threeStars": 9,
+      "minimumProven": true
     },
     {
       "level": 6,
-      "changed": false,
-      "oldTarget": 23,
-      "target": 20,
-      "steps": 19,
-      "focus": "original",
-      "referenceTurns": 17
+      "threeStars": 17,
+      "minimumProven": false
     },
     {
       "level": 7,
-      "changed": true,
-      "oldTarget": 24,
-      "target": 9,
-      "steps": 13,
-      "focus": "return-junction",
-      "referenceTurns": 7
+      "threeStars": 7,
+      "minimumProven": true
     },
     {
       "level": 8,
-      "changed": false,
-      "oldTarget": 25,
-      "target": 12,
-      "steps": 23,
-      "focus": "original",
-      "referenceTurns": 10
+      "threeStars": 10,
+      "minimumProven": true
     },
     {
       "level": 9,
-      "changed": false,
-      "oldTarget": 26,
-      "target": 17,
-      "steps": 17,
-      "focus": "original",
-      "referenceTurns": 14
+      "threeStars": 14,
+      "minimumProven": true
     },
     {
       "level": 10,
-      "changed": true,
-      "oldTarget": 27,
-      "target": 15,
-      "steps": 17,
-      "focus": "return-junction",
-      "referenceTurns": 13
+      "threeStars": 13,
+      "minimumProven": true
     },
     {
       "level": 11,
-      "changed": false,
-      "oldTarget": 28,
-      "target": 13,
-      "steps": 22,
-      "focus": "original",
-      "referenceTurns": 12
+      "threeStars": 12,
+      "minimumProven": true
     },
     {
       "level": 12,
-      "changed": false,
-      "oldTarget": 29,
-      "target": 17,
-      "steps": 24,
-      "focus": "original",
-      "referenceTurns": 15
+      "threeStars": 15,
+      "minimumProven": false
     },
     {
       "level": 13,
-      "changed": false,
-      "oldTarget": 30,
-      "target": 23,
-      "steps": 26,
-      "focus": "original",
-      "referenceTurns": 21
+      "threeStars": 21,
+      "minimumProven": false
     },
     {
       "level": 14,
-      "changed": false,
-      "oldTarget": 31,
-      "target": 21,
-      "steps": 18,
-      "focus": "original",
-      "referenceTurns": 19
+      "threeStars": 19,
+      "minimumProven": false
     },
     {
       "level": 15,
-      "changed": false,
-      "oldTarget": 32,
-      "target": 25,
-      "steps": 24,
-      "focus": "original",
-      "referenceTurns": 23
+      "threeStars": 23,
+      "minimumProven": false
     },
     {
       "level": 16,
-      "changed": false,
-      "oldTarget": 33,
-      "target": 13,
-      "steps": 35,
-      "focus": "original",
-      "referenceTurns": 12
+      "threeStars": 12,
+      "minimumProven": false
     },
     {
       "level": 17,
-      "changed": true,
-      "oldTarget": 34,
-      "target": 20,
-      "steps": 17,
-      "focus": "return-junction",
-      "referenceTurns": 18
+      "threeStars": 18,
+      "minimumProven": false
     },
     {
       "level": 18,
-      "changed": false,
-      "oldTarget": 35,
-      "target": 24,
-      "steps": 23,
-      "focus": "original",
-      "referenceTurns": 22
+      "threeStars": 22,
+      "minimumProven": false
     },
     {
       "level": 19,
-      "changed": false,
-      "oldTarget": 36,
-      "target": 13,
-      "steps": 23,
-      "focus": "original",
-      "referenceTurns": 12
+      "threeStars": 12,
+      "minimumProven": true
     },
     {
       "level": 20,
-      "changed": false,
-      "oldTarget": 37,
-      "target": 11,
-      "steps": 27,
-      "focus": "original",
-      "referenceTurns": 10
+      "threeStars": 10,
+      "minimumProven": true
     },
     {
       "level": 21,
-      "changed": false,
-      "oldTarget": 38,
-      "target": 25,
-      "steps": 22,
-      "focus": "original",
-      "referenceTurns": 23
+      "threeStars": 23,
+      "minimumProven": false
     },
     {
       "level": 22,
-      "changed": true,
-      "oldTarget": 39,
-      "target": 18,
-      "steps": 22,
-      "focus": "two-branches",
-      "referenceTurns": 16
+      "threeStars": 16,
+      "minimumProven": false
     },
     {
       "level": 23,
-      "changed": false,
-      "oldTarget": 40,
-      "target": 25,
-      "steps": 24,
-      "focus": "original",
-      "referenceTurns": 23
+      "threeStars": 23,
+      "minimumProven": false
     },
     {
       "level": 24,
-      "changed": false,
-      "oldTarget": 41,
-      "target": 17,
-      "steps": 26,
-      "focus": "original",
-      "referenceTurns": 15
+      "threeStars": 15,
+      "minimumProven": false
     },
     {
       "level": 25,
-      "changed": true,
-      "oldTarget": 42,
-      "target": 19,
-      "steps": 55,
-      "focus": "return-junction",
-      "referenceTurns": 17
+      "threeStars": 17,
+      "minimumProven": false
     },
     {
       "level": 26,
-      "changed": false,
-      "oldTarget": 43,
-      "target": 29,
-      "steps": 33,
-      "focus": "original",
-      "referenceTurns": 26
+      "threeStars": 26,
+      "minimumProven": false
     },
     {
       "level": 27,
-      "changed": false,
-      "oldTarget": 44,
-      "target": 22,
-      "steps": 43,
-      "focus": "original",
-      "referenceTurns": 20
+      "threeStars": 20,
+      "minimumProven": false
     },
     {
       "level": 28,
-      "changed": false,
-      "oldTarget": 45,
-      "target": 23,
-      "steps": 29,
-      "focus": "original",
-      "referenceTurns": 21
+      "threeStars": 21,
+      "minimumProven": false
     },
     {
       "level": 29,
-      "changed": false,
-      "oldTarget": 46,
-      "target": 27,
-      "steps": 37,
-      "focus": "original",
-      "referenceTurns": 25
+      "threeStars": 25,
+      "minimumProven": false
     },
     {
       "level": 30,
-      "changed": true,
-      "oldTarget": 47,
-      "target": 18,
-      "steps": 20,
-      "focus": "coupled-junction",
-      "referenceTurns": 16
+      "threeStars": 16,
+      "minimumProven": false
     },
     {
       "level": 31,
-      "changed": false,
-      "oldTarget": 48,
-      "target": 31,
-      "steps": 32,
-      "focus": "original",
-      "referenceTurns": 28
+      "threeStars": 28,
+      "minimumProven": false
     },
     {
       "level": 32,
-      "changed": false,
-      "oldTarget": 49,
-      "target": 23,
-      "steps": 28,
-      "focus": "original",
-      "referenceTurns": 21
+      "threeStars": 21,
+      "minimumProven": false
     },
     {
       "level": 33,
-      "changed": false,
-      "oldTarget": 50,
-      "target": 33,
-      "steps": 41,
-      "focus": "original",
-      "referenceTurns": 30
+      "threeStars": 30,
+      "minimumProven": false
     },
     {
       "level": 34,
-      "changed": false,
-      "oldTarget": 51,
-      "target": 18,
-      "steps": 54,
-      "focus": "original",
-      "referenceTurns": 16
+      "threeStars": 16,
+      "minimumProven": false
     },
     {
       "level": 35,
-      "changed": true,
-      "oldTarget": 52,
-      "target": 24,
-      "steps": 33,
-      "focus": "oneway-return",
-      "referenceTurns": 22
+      "threeStars": 22,
+      "minimumProven": false
     },
     {
       "level": 36,
-      "changed": false,
-      "oldTarget": 53,
-      "target": 30,
-      "steps": 35,
-      "focus": "original",
-      "referenceTurns": 27
+      "threeStars": 27,
+      "minimumProven": false
     },
     {
       "level": 37,
-      "changed": false,
-      "oldTarget": 54,
-      "target": 33,
-      "steps": 36,
-      "focus": "original",
-      "referenceTurns": 30
+      "threeStars": 30,
+      "minimumProven": false
     },
     {
       "level": 38,
-      "changed": true,
-      "oldTarget": 55,
-      "target": 24,
-      "steps": 32,
-      "focus": "coupled-junction",
-      "referenceTurns": 22
+      "threeStars": 22,
+      "minimumProven": false
     },
     {
       "level": 39,
-      "changed": false,
-      "oldTarget": 56,
-      "target": 25,
-      "steps": 48,
-      "focus": "original",
-      "referenceTurns": 23
+      "threeStars": 23,
+      "minimumProven": false
     },
     {
       "level": 40,
-      "changed": false,
-      "oldTarget": 57,
-      "target": 26,
-      "steps": 39,
-      "focus": "original",
-      "referenceTurns": 24
+      "threeStars": 24,
+      "minimumProven": false
     },
     {
       "level": 41,
-      "changed": false,
-      "oldTarget": 58,
-      "target": 34,
-      "steps": 55,
-      "focus": "original",
-      "referenceTurns": 31
+      "threeStars": 31,
+      "minimumProven": false
     },
     {
       "level": 42,
-      "changed": false,
-      "oldTarget": 59,
-      "target": 29,
-      "steps": 63,
-      "focus": "original",
-      "referenceTurns": 26
+      "threeStars": 26,
+      "minimumProven": false
     },
     {
       "level": 43,
-      "changed": true,
-      "oldTarget": 60,
-      "target": 32,
-      "steps": 53,
-      "focus": "oneway-return",
-      "referenceTurns": 29
+      "threeStars": 29,
+      "minimumProven": false
     },
     {
       "level": 44,
-      "changed": false,
-      "oldTarget": 61,
-      "target": 23,
-      "steps": 43,
-      "focus": "original",
-      "referenceTurns": 21
+      "threeStars": 21,
+      "minimumProven": false
     },
     {
       "level": 45,
-      "changed": true,
-      "oldTarget": 62,
-      "target": 35,
-      "steps": 56,
-      "focus": "ice-entry",
-      "referenceTurns": 32
+      "threeStars": 32,
+      "minimumProven": false
     },
     {
       "level": 46,
-      "changed": false,
-      "oldTarget": 63,
-      "target": 24,
-      "steps": 51,
-      "focus": "original",
-      "referenceTurns": 22
+      "threeStars": 22,
+      "minimumProven": false
     },
     {
       "level": 47,
-      "changed": false,
-      "oldTarget": 64,
-      "target": 33,
-      "steps": 36,
-      "focus": "original",
-      "referenceTurns": 30
+      "threeStars": 30,
+      "minimumProven": false
     },
     {
       "level": 48,
-      "changed": true,
-      "oldTarget": 65,
-      "target": 33,
-      "steps": 60,
-      "focus": "fragile-exit",
-      "referenceTurns": 30
+      "threeStars": 30,
+      "minimumProven": false
     },
     {
       "level": 49,
-      "changed": false,
-      "oldTarget": 66,
-      "target": 36,
-      "steps": 51,
-      "focus": "original",
-      "referenceTurns": 33
+      "threeStars": 33,
+      "minimumProven": false
     },
     {
       "level": 50,
-      "changed": true,
-      "oldTarget": 67,
-      "target": 34,
-      "steps": 65,
-      "focus": "coupled-junction",
-      "referenceTurns": 31
+      "threeStars": 31,
+      "minimumProven": false
     },
     {
       "level": 51,
-      "changed": false,
-      "oldTarget": 68,
-      "target": 34,
-      "steps": 52,
-      "focus": "original",
-      "referenceTurns": 31
+      "threeStars": 31,
+      "minimumProven": false
     },
     {
       "level": 52,
-      "changed": true,
-      "oldTarget": 69,
-      "target": 38,
-      "steps": 51,
-      "focus": "fragile-exit",
-      "referenceTurns": 35
+      "threeStars": 35,
+      "minimumProven": false
     },
     {
       "level": 53,
-      "changed": false,
-      "oldTarget": 70,
-      "target": 38,
-      "steps": 56,
-      "focus": "original",
-      "referenceTurns": 35
+      "threeStars": 35,
+      "minimumProven": false
     },
     {
       "level": 54,
-      "changed": true,
-      "oldTarget": 71,
-      "target": 23,
-      "steps": 36,
-      "focus": "coupled-junction",
-      "referenceTurns": 21
+      "threeStars": 21,
+      "minimumProven": false
     },
     {
       "level": 55,
-      "changed": false,
-      "oldTarget": 72,
-      "target": 37,
-      "steps": 41,
-      "focus": "original",
-      "referenceTurns": 34
+      "threeStars": 34,
+      "minimumProven": false
     },
     {
       "level": 56,
-      "changed": false,
-      "oldTarget": 73,
-      "target": 36,
-      "steps": 42,
-      "focus": "original",
-      "referenceTurns": 33
+      "threeStars": 33,
+      "minimumProven": false
     },
     {
       "level": 57,
-      "changed": true,
-      "oldTarget": 74,
-      "target": 44,
-      "steps": 48,
-      "focus": "ice-entry",
-      "referenceTurns": 40
+      "threeStars": 40,
+      "minimumProven": false
     },
     {
       "level": 58,
-      "changed": false,
-      "oldTarget": 75,
-      "target": 81,
-      "steps": 37,
-      "focus": "original",
-      "referenceTurns": 75
+      "threeStars": 75,
+      "minimumProven": false
     },
     {
       "level": 59,
-      "changed": true,
-      "oldTarget": 76,
-      "target": 79,
-      "steps": 38,
-      "focus": "oneway-return",
-      "referenceTurns": 73
+      "threeStars": 73,
+      "minimumProven": false
     },
     {
       "level": 60,
-      "changed": false,
-      "oldTarget": 77,
-      "target": 84,
-      "steps": 38,
-      "focus": "original",
-      "referenceTurns": 77
+      "threeStars": 77,
+      "minimumProven": false
     },
     {
       "level": 61,
-      "changed": false,
-      "oldTarget": 78,
-      "target": 53,
-      "steps": 47,
-      "focus": "original",
-      "referenceTurns": 49
+      "threeStars": 49,
+      "minimumProven": false
     },
     {
       "level": 62,
-      "changed": true,
-      "oldTarget": 79,
-      "target": 54,
-      "steps": 64,
-      "focus": "coupled-junction",
-      "referenceTurns": 50
+      "threeStars": 50,
+      "minimumProven": false
     },
     {
       "level": 63,
-      "changed": false,
-      "oldTarget": 80,
-      "target": 47,
-      "steps": 64,
-      "focus": "original",
-      "referenceTurns": 43
+      "threeStars": 43,
+      "minimumProven": false
     },
     {
       "level": 64,
-      "changed": true,
-      "oldTarget": 81,
-      "target": 47,
-      "steps": 66,
-      "focus": "fragile-exit",
-      "referenceTurns": 43
+      "threeStars": 43,
+      "minimumProven": false
     },
     {
       "level": 65,
-      "changed": false,
-      "oldTarget": 82,
-      "target": 39,
-      "steps": 50,
-      "focus": "original",
-      "referenceTurns": 36
+      "threeStars": 36,
+      "minimumProven": false
     },
     {
       "level": 66,
-      "changed": false,
-      "oldTarget": 83,
-      "target": 50,
-      "steps": 52,
-      "focus": "original",
-      "referenceTurns": 46
+      "threeStars": 46,
+      "minimumProven": false
     },
     {
       "level": 67,
-      "changed": true,
-      "oldTarget": 84,
-      "target": 52,
-      "steps": 61,
-      "focus": "oneway-return",
-      "referenceTurns": 48
+      "threeStars": 48,
+      "minimumProven": false
     },
     {
       "level": 68,
-      "changed": false,
-      "oldTarget": 85,
-      "target": 40,
-      "steps": 47,
-      "focus": "original",
-      "referenceTurns": 37
+      "threeStars": 37,
+      "minimumProven": false
     },
     {
       "level": 69,
-      "changed": true,
-      "oldTarget": 86,
-      "target": 46,
-      "steps": 51,
-      "focus": "ice-entry",
-      "referenceTurns": 42
+      "threeStars": 42,
+      "minimumProven": false
     },
     {
       "level": 70,
-      "changed": false,
-      "oldTarget": 87,
-      "target": 47,
-      "steps": 61,
-      "focus": "original",
-      "referenceTurns": 43
+      "threeStars": 43,
+      "minimumProven": false
     },
     {
       "level": 71,
-      "changed": false,
-      "oldTarget": 88,
-      "target": 47,
-      "steps": 63,
-      "focus": "original",
-      "referenceTurns": 43
+      "threeStars": 43,
+      "minimumProven": false
     },
     {
       "level": 72,
-      "changed": true,
-      "oldTarget": 89,
-      "target": 51,
-      "steps": 55,
-      "focus": "fragile-exit",
-      "referenceTurns": 47
+      "threeStars": 47,
+      "minimumProven": false
     },
     {
       "level": 73,
-      "changed": false,
-      "oldTarget": 90,
-      "target": 49,
-      "steps": 59,
-      "focus": "original",
-      "referenceTurns": 45
+      "threeStars": 45,
+      "minimumProven": false
     },
     {
       "level": 74,
-      "changed": true,
-      "oldTarget": 91,
-      "target": 54,
-      "steps": 69,
-      "focus": "coupled-junction",
-      "referenceTurns": 50
+      "threeStars": 50,
+      "minimumProven": false
     }
   ]
 }

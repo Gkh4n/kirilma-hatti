@@ -83,3 +83,7 @@ ve tamamlanan bölüm özeti gösterilir.
 4.6.1: NOXIS oyun başlıkları yalnızca bölüm adını gösterir; kategori önekleri kaldırıldı.
 
 4.6.2: Portal legend uses the board ring/P1 identity. Multi-pass bounded cost search and replay-verified cycle shortening improve reference routes; global optimality is not proven.
+
+
+### 4.6.3
+Dünya/bölüm başlıkları iki dünyada aynı düzende. Sonuç ekranından haritaya dönüş eklendi. Üç yıldız toleransı kaldırıldı; hedef doğrulanmış en iyi rota ile daha iyi kayıtlı rekorun küçüğüdür. Bu hedef, bütün bölümler için mutlak minimum iddiası değildir. Dijkstra kontrolünde minimumu kanıtlanan bölümler: 1, 2, 5, 7, 8, 9, 10, 11, 19, 20. Diğerlerinde kaynak sınırına ulaşıldı; tests/minimum-certificates.json durumu açıkça kaydeder. Bölümler ve kilit sistemi değişmedi.
