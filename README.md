@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.4.0
+# Kırılma Hattı · 4.5.0
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük Usta Dünyası açılır; yıldız eşiği yoktur.
@@ -100,3 +100,7 @@ double padding. All screens and system bars share the #080c16 background.
 ziyaret edilen önceki ekrana döner. Yalnızca ana ekranda, oyunun koyu lacivert
 ve altın tasarımına uygun çıkış onayı gösterilir. APK içindeki üst geri
 okları kaldırılmıştır; tarayıcı sürümünde korunur. İlerleme kayıtları korunur.
+
+4.5.0: Açılış rehberi kaldırıldı. Oyna bölüm haritasını açar; ilk oynayışta
+yalnızca temel kontroller anlatılır. İkonlu Nasıl Oynanır düğmesi tüm
+mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.

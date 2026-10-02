@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#080c16"/>
-<meta name="application-version" content="4.4.0"/>
+<meta name="application-version" content="4.5.0"/>
 <meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 50 ana bölüm ve 24 Usta Dünyası sınavını keşfet."/>
 <title>Kırılma Hattı</title>
 <style>
@@ -351,10 +351,23 @@ html,body{background:#080c16;color:var(--text)}
 .android-app #gameBack,.android-app .section-head>.js-home{display:none}
 .android-app .topbar{grid-template-columns:1fr auto}.android-app .topbar-title{text-align:left}
 .exit-sheet{text-align:center;background:linear-gradient(145deg,#1b263a,#101827);border:1px solid #dac38f33;max-width:390px}.exit-sheet h3{font-size:22px}.exit-sheet p{color:#aebbd0;font-size:13px}.exit-emblem{width:52px;height:52px;display:grid;place-items:center;margin:0 auto 18px;border:1px solid #d7b87555;border-radius:17px;color:#e8c788;font-size:30px}.exit-sheet .actions{position:static;background:none;gap:10px;margin-top:22px;padding:0}.exit-sheet .btn{font-size:13px;border-radius:15px}
+
+/* 4.5: unified identity and focused first-play flow */
+[hidden]{display:none!important}
+.brand-header{display:flex;align-items:center;gap:10px;max-width:900px;margin:0 auto 18px;padding:7px 0 12px;border-bottom:1px solid #d9bc7d1a;color:#e8c788}
+.brand-mark{width:34px;height:34px;border:1px solid #d9bc7d30;border-radius:11px;background:#141e2e;padding:4px;flex:none}.brand-mark svg{width:100%;height:100%}
+.brand-wordmark{font-size:12px;letter-spacing:.11em;font-weight:750;color:#f1eddf}.brand-wordmark span{color:#e8c788}.brand-caption{margin-left:auto;font-size:8px;letter-spacing:.12em;color:#8e9bb0}
+.home.active{min-height:calc(100svh - 115px)}.home-content{max-width:420px;padding:24px 0 40px}.home-emblem{width:88px;height:88px;padding:18px;margin:0 auto 24px;border:1px solid #dec58f45;border-radius:28px;background:linear-gradient(145deg,#2c2c2c,#121c2d);box-shadow:0 18px 60px #0003;color:#e8c788}.home-emblem svg{width:100%;height:100%}.game-name{font-size:clamp(34px,9vw,48px)}.tagline{font-size:14px;color:#a8b5c8}
+.menu-panel{margin-top:32px}.menu-list #playBtn{flex-direction:row;gap:12px;min-height:62px}.menu-list .btn.secondary{min-height:82px;gap:10px;font-size:11px}.menu-list #helpBtn{color:#eee9de}.menu-list #helpBtn svg{color:#e8c788}
+#levels .section-head{margin-top:0}.brand-header+#home:not(.active){display:none}
+#helpOverlay .actions:has(#helpPlay[hidden]){grid-template-columns:1fr}#helpOverlay .sheet{scrollbar-width:thin;scrollbar-color:#bca47355 transparent}
+@media(max-width:360px){.brand-caption{display:none}.brand-header{margin-bottom:12px}.brand-wordmark{font-size:11px}}
+@media(max-height:700px){.home.active{min-height:calc(100svh - 105px)}.home-content{padding:12px 0 22px}.home-emblem{width:64px;height:64px;padding:12px;margin-bottom:16px}.menu-panel{margin-top:22px}.brand-header{margin-bottom:10px}}
 </style>
 </head>
 <body>
 <div class="app">
+<header class="brand-header"><div class="brand-mark"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 30V10h12v14h10V8" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="9" cy="30" r="4" fill="#70dfbc"/><circle cx="31" cy="8" r="4" fill="currentColor"/></svg></div><div class="brand-wordmark">KIRILMA <span>HATTI</span></div><span class="brand-caption">ROTA BULMACASI</span></header>
   <section id="home" class="screen active home">
     <div class="ambient" aria-hidden="true">
       <svg viewBox="0 0 760 720" preserveAspectRatio="none">
@@ -365,25 +378,23 @@ html,body{background:#080c16;color:var(--text)}
       </svg>
     </div>
     <div class="home-content">
-      <div class="home-logo"></div>
+      <div class="home-emblem"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 30V10h12v14h10V8" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="9" cy="30" r="4" fill="#70dfbc"/><circle cx="31" cy="8" r="4" fill="currentColor"/></svg></div>
       <h1 class="game-name">KIRILMA <span>HATTI</span></h1>
       <p class="tagline">Her dönüş bir karar.</p>
       <div class="menu-panel glass">
         <div class="menu-list">
           <button id="playBtn" class="btn primary">OYNA</button>
-          <button id="levelsBtn" class="btn secondary">BÖLÜMLER</button>
+          <button id="helpBtn" class="btn secondary">NASIL OYNANIR?</button>
           <button id="settingsBtn" class="btn secondary">AYARLAR</button>
         </div>
-        <div class="home-stats">
-          <button id="helpBtn" class="chip" type="button">Nasıl oynanır?</button>
-        </div>
+
       </div>
     </div>
   </section>
 
   <section id="levels" class="screen">
     <div class="section-head">
-      <div><div class="tiny muted">YÖRÜNGE HARİTASI</div><h2>Her dönüş bir karar.</h2><p class="tiny muted">50 bölüm + 24 usta sınavı</p></div>
+      <div><div class="tiny muted">YÖRÜNGE HARİTASI</div><h2>Rotanı seç.</h2><p class="tiny muted">50 bölüm · 24 usta sınavı</p></div>
       <button class="icon-btn js-home" aria-label="Ana sayfa"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
     </div>
     <div id="worldTabs" class="world-tabs" role="group" aria-label="Dünya seçimi"></div><div id="chapterTabs" class="chapter-tabs" role="group" aria-label="Yörünge seçimi"></div><div id="levelList"></div>
@@ -480,9 +491,9 @@ html,body{background:#080c16;color:var(--text)}
     <div class="help-note">Geri alma, son dönüşü ve hamle sayacını geri alır. Ampul, başlangıç karesini ve çözüm rotasının ilk yönünü gösterir; diskleri sen çevirirsin.</div>
     <h4 class="guide-heading">TAHTAYI TANI</h4>
     <div class="guide-endpoints"><div><i class="guide-start"></i><b>Başlangıç</b><span>Parlayan çekirdek buradan yola çıkar.</span></div><div><i class="guide-exit">⚑</i><b>Çıkış</b><span>Altın bayrağa, bölümün koşullarını tamamlayarak ulaş.</span></div></div>
-    <h4 class="guide-heading">TÜM MEKANİKLER</h4>
+    <div id="advancedGuide"><h4 class="guide-heading">TÜM MEKANİKLER</h4>
     <div id="mechanicsGuide" class="mechanics-guide"></div>
-    <div class="guide-master"><b>Usta Dünyası</b><p>Ana dünyadaki 50 bölümü tamamlayınca açılır. Bu 24 bölümde iki röleyi açık bırakmalı, iki farklı kristale de uğramalı ve çıkışa Faz I ile ulaşmalısın.</p></div>
+    <div class="guide-master"><b>Usta Dünyası</b><p>Ana dünyadaki 50 bölümü tamamlayınca açılır. Bu 24 bölümde iki röleyi açık bırakmalı, iki farklı kristale de uğramalı ve çıkışa Faz I ile ulaşmalısın.</p></div></div>
     <div class="actions"><button id="closeHelp" class="btn secondary">Kapat</button><button id="helpPlay" class="btn primary"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg><span>Oyna</span></button></div>
   </div>
 </div>
@@ -604,7 +615,7 @@ function show(name,remember=true){
 }
 function refreshHome(){
  save.unlocked=unlockedCount();
- buttonLabel('#playBtn','play',Object.keys(save.records).length?'DEVAM ET':'OYNA');buttonLabel('#levelsBtn','map','YÖRÜNGELER');buttonLabel('#settingsBtn','settings','AYARLAR');
+ buttonLabel('#playBtn','play','OYNA');buttonLabel('#helpBtn','info','NASIL OYNANIR?');buttonLabel('#settingsBtn','settings','AYARLAR');
 }
 
 function refreshSettings(){$('#soundToggle').textContent=save.sound?'Açık':'Kapalı';$('#vibrationToggle').textContent=save.vibration?'Açık':'Kapalı'}
@@ -995,13 +1006,23 @@ function renderMechanicsGuide(){
  ];
  $('#mechanicsGuide').innerHTML=entries.map(([type,title,desc,badge])=>mechanicCard(type,title,desc,badge)).join('');
 }
-function openHelp(){renderMechanicsGuide();if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh32_seenHelp','1')}
+let helpMode='full';
+function openHelp(mode='full'){
+ helpMode=mode==='intro'?'intro':'full';
+ if(helpMode==='full')renderMechanicsGuide();
+ $('#advancedGuide').hidden=helpMode==='intro';
+ $('#helpTitle').textContent=helpMode==='intro'?'İlk rotanı kur.':'Nasıl oynanır?';
+ $('#helpPlay').hidden=helpMode==='full';
+ buttonLabel('#helpPlay','map','Bölümleri seç');
+ if(state?.running&&!state.paused)pauseGame();
+ $('#helpOverlay').classList.add('show');$('#closeHelp').focus();
+}
+function closeHelp(){$('#helpOverlay').classList.remove('show');if(helpMode==='intro'){save.seenHelp=true;storage.set('kh32_seenHelp','1')}}
 function resetAll(){if(!confirm('Tüm kişisel rekorlar ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=1;save.stars={};save.records={};storage.set('kh32_records','{}');save.lastLevel=0;storage.set('kh32_lastLevel','0');storage.set('kh32_stars','{}');currentLevel=0;refreshHome();show('home')}
 
 $('#cancelExit').addEventListener('click',()=>{$('#exitOverlay').classList.remove('show');$('#playBtn').focus()});
 $('#confirmExit').addEventListener('click',()=>{if(isAndroidApp)window.location.href='khapp://exit'});
-$('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(save.lastLevel)});
-$('#levelsBtn').addEventListener('click',()=>{sfx.ui();show('levels')});
+$('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();show('levels');if(!save.seenHelp)openHelp('intro')});
 $('#settingsBtn').addEventListener('click',()=>{sfx.ui();show('settings')});
 $('#helpBtn').addEventListener('click',openHelp);
 document.querySelectorAll('.js-home').forEach(b=>b.addEventListener('click',()=>{sfx.ui();show('home')}));
@@ -1016,14 +1037,14 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state?.run
 window.addEventListener('pagehide',()=>{if(state?.running&&!state.paused)pauseGame()});
 $('#againBtn').addEventListener('click',()=>openLevel(currentLevel));
 $('#closeHelp').addEventListener('click',closeHelp);
-$('#helpPlay').addEventListener('click',()=>{closeHelp();openLevel(save.lastLevel)});
+$('#helpPlay').addEventListener('click',()=>{closeHelp();show('levels')});
 $('#soundToggle').addEventListener('click',()=>{save.sound=!save.sound;storage.set('kh9_sound',save.sound?'1':'0');refreshSettings();if(save.sound){ensureAudio();sfx.key()}});
 $('#vibrationToggle').addEventListener('click',()=>{save.vibration=!save.vibration;storage.set('kh9_vibration',save.vibration?'1':'0');refreshSettings();vibrate(15)});
 $('#showHelp').addEventListener('click',openHelp);
 $('#resetProgress').addEventListener('click',resetAll);
 window.addEventListener('resize',()=>requestAnimationFrame(()=>{renderPaths();if(state&&screens.game.classList.contains('active'))positionRunner(state.pos,true,currentDir())}));
 
-refreshHome();refreshSettings();renderLevels();if(!save.seenHelp)openHelp();
+refreshHome();refreshSettings();renderLevels();
 if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{}));}
 })();
 

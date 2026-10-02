@@ -1,4 +1,4 @@
-# Android 4.4.0
+# Android 4.5.0
 
 Offline WebView application, package tr.kirilmahatti.game, Android 6.0+.
 The bundled index.html is copied from the repository root for each build.
@@ -30,3 +30,7 @@ a partially initialized activity. Native inset layout from 4.3.1 is retained.
 ziyaret edilen önceki ekrana döner. Yalnızca ana ekranda, oyunun koyu lacivert
 ve altın tasarımına uygun çıkış onayı gösterilir. APK içindeki üst geri
 okları kaldırılmıştır; tarayıcı sürümünde korunur. İlerleme kayıtları korunur.
+
+4.5.0: Açılış rehberi kaldırıldı. Oyna bölüm haritasını açar; ilk oynayışta
+yalnızca temel kontroller anlatılır. İkonlu Nasıl Oynanır düğmesi tüm
+mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
