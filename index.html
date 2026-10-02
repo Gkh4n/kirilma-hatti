@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#080c16"/>
-<meta name="application-version" content="4.2.0"/>
+<meta name="application-version" content="4.3.0"/>
 <meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 50 ana bölüm ve 24 Usta Dünyası sınavını keşfet."/>
 <title>Kırılma Hattı</title>
 <style>
@@ -344,6 +344,7 @@ html,body{background:radial-gradient(ellipse at 50% -20%,#233350 0,transparent 5
 #helpOverlay .sheet{background:linear-gradient(150deg,#19243a,#101827);border-color:#7187aa40;width:min(100%,580px)}
 .guide-heading{margin:26px 0 12px;font-size:11px;letter-spacing:.14em;color:#d9bd80}.mechanics-guide{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mechanics-guide .mechanic-info{align-items:start;background:#101a2c;border-color:#859ab52b;padding:12px;grid-template-columns:30px 1fr}.mechanics-guide .mechanic-copy b{font-size:13px;color:#eee9de}.mechanics-guide .mechanic-copy span{font-size:12px;line-height:1.55;color:#b9c7dc}.mechanics-guide .mechanic-icon{margin-top:1px;color:#e8ca8b}.guide-endpoints{display:grid;grid-template-columns:1fr 1fr;gap:10px}.guide-endpoints>div{padding:12px;background:#101a2c;border:1px solid #859ab52b;border-radius:12px;display:grid;grid-template-columns:24px 1fr;gap:7px;align-items:center}.guide-endpoints b{font-size:12px}.guide-endpoints span{grid-column:1/-1;font-size:12px;line-height:1.5;color:#b9c7dc}.guide-start{display:block;width:14px;height:14px;border-radius:50%;background:#6de5bf;box-shadow:0 0 10px #6de5bf55}.guide-exit{color:#f1d393;font-style:normal;font-size:24px;line-height:1}.guide-master{margin-top:16px;padding:14px;border:1px solid #b08adb40;background:#a077d00c;border-radius:12px}.guide-master b{color:#d6bdf6;font-size:13px}.guide-master p{margin-top:7px!important;font-size:12px!important}#helpOverlay .actions{background:#121b2c;z-index:2;padding-top:12px}#helpOverlay .help-note{color:#aebed5;line-height:1.6}
 @media(max-width:440px){.mechanics-guide{grid-template-columns:1fr}#helpOverlay .sheet{padding:16px}#helpOverlay .actions{bottom:-16px}.mechanics-guide .mechanic-info{padding:11px 12px}}
+.orbit-node.locked{opacity:.45;background:#111929;border-color:#53607a;box-shadow:none}.orbit-node.locked .node-check{color:#b3bed0}
 </style>
 </head>
 <body>
@@ -533,14 +534,15 @@ function storeRecord(L,moves,steps){
  return {old,improved};
 }
 const savedLast=Number(storage.get('kh32_lastLevel','0'));
-const save={unlocked:50,stars:readStars(),lastLevel:Number.isInteger(savedLast)&&savedLast>=0&&savedLast<levels.length?savedLast:0,
+const save={unlocked:1,stars:readStars(),lastLevel:Number.isInteger(savedLast)&&savedLast>=0&&savedLast<levels.length?savedLast:0,
  records:readRecords(),seenHelp:storage.get('kh32_seenHelp')==='1',sound:storage.get('kh9_sound')!=='0',vibration:storage.get('kh9_vibration')!=='0'};
 function masterUnlocked(){return levels.slice(0,50).every(L=>!!recordFor(L))}
-function canPlay(i){return Number.isInteger(i)&&i>=0&&i<levels.length&&(i<50||masterUnlocked())}
+function unlockedCount(){const first=levels.findIndex(L=>!recordFor(L));return first<0?levels.length:Math.min(levels.length,first+1)}
+function canPlay(i){return Number.isInteger(i)&&i>=0&&i<unlockedCount()}
 function levelLabel(i){return i>=50?'Usta '+String(i-49).padStart(2,'0'):String(i+1)}
 function worldConfig(){return mapWorld==='master'?{offset:50,size:8,count:24}:{offset:0,size:10,count:50}}
 if(!canPlay(save.lastLevel))save.lastLevel=0;
-save.unlocked=masterUnlocked()?levels.length:50;
+save.unlocked=unlockedCount();
 let currentLevel=save.lastLevel,state=null,timer=null,audioCtx=null,introTimer=null,resultTimer=null;
 let undoStack=[];
 const PAUSE_ICON='<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
@@ -580,7 +582,7 @@ function show(name){
  document.body.scrollTop=0;
 }
 function refreshHome(){
- save.unlocked=masterUnlocked()?levels.length:50;
+ save.unlocked=unlockedCount();
  buttonLabel('#playBtn','play',Object.keys(save.records).length?'DEVAM ET':'OYNA');buttonLabel('#levelsBtn','map','YÖRÜNGELER');buttonLabel('#settingsBtn','settings','AYARLAR');
 }
 
@@ -661,8 +663,9 @@ function renderLevels(){
  const done=group.filter(L=>recordFor(L)).length;
  host.innerHTML=`<div class="orbit-heading"><span>${String(mapChapter+1).padStart(2,'0')} / ${group[0].chapter}</span><span>${done}/${group.length} tamamlandı</span></div><div class="orbit-map"><svg viewBox="0 0 340 340" class="orbit-lines" aria-hidden="true"><circle cx="170" cy="170" r="139" class="orbit-guide"/><path d="${path}" class="orbit-track"/><path d="${earned}" class="orbit-earned"/></svg><div class="orbit-center">${uiIcon('map')}<span>YÖRÜNGE</span><strong>${String(mapChapter+1).padStart(2,'0')}</strong></div><div class="orbit-nodes"></div></div><div id="levelPreview" class="level-preview"></div>`;
  const nodes=host.querySelector('.orbit-nodes');
- group.forEach((L,j)=>{const i=start+j,p=points[j],rec=recordFor(L),button=document.createElement('button');button.type='button';button.className='orbit-node'+(rec?' completed':'')+(i===mapSelected?' selected':'');button.style.left=p[0]/340*100+'%';button.style.top=p[1]/340*100+'%';button.setAttribute('aria-label',`${i>=50?'Usta':'Bölüm'} ${i>=50?i-49:i+1}: ${L.name}${rec?', rekor '+rec.moves+' hamle':''}`);button.setAttribute('aria-pressed',String(i===mapSelected));button.innerHTML=`<strong>${i>=50?i-49:i+1}</strong>${rec?'<span class="node-check">✓</span>':''}`;button.addEventListener('click',()=>{mapSelected=i;sfx.ui();renderLevels()});nodes.appendChild(button)});
+ group.forEach((L,j)=>{const i=start+j,p=points[j],rec=recordFor(L),button=document.createElement('button');button.type='button';button.className='orbit-node'+(rec?' completed':'')+(i===mapSelected?' selected':'')+(!canPlay(i)?' locked':'');button.style.left=p[0]/340*100+'%';button.style.top=p[1]/340*100+'%';button.setAttribute('aria-label',`${i>=50?'Usta':'Bölüm'} ${i>=50?i-49:i+1}: ${L.name}${rec?', rekor '+rec.moves+' hamle':''}`);button.setAttribute('aria-pressed',String(i===mapSelected));button.innerHTML=`<strong>${i>=50?i-49:i+1}</strong>${!canPlay(i)?'<span class="node-check">⌑</span>':rec?'<span class="node-check">✓</span>':''}`;button.addEventListener('click',()=>{mapSelected=i;sfx.ui();renderLevels()});nodes.appendChild(button)});
  const L=levels[mapSelected],rec=recordFor(L),card=$('#levelPreview');
+ if(!canPlay(mapSelected)){card.innerHTML=`<div class="preview-heading"><span>KİLİTLİ BÖLÜM</span></div><h3>${L.name}</h3><p>Önce ${levelLabel(mapSelected-1)}. bölümü tamamla.</p>`;return;}
  card.innerHTML=`<div class="preview-heading"><span>${mapSelected>=50?'USTA':'BÖLÜM'} ${String(mapSelected>=50?mapSelected-49:mapSelected+1).padStart(2,'0')}</span><span>${L.tag}</span></div><h3>${L.name}</h3><div class="preview-stats"><span>${uiIcon('cup')}<b>${rec?rec.moves+' hamle':'İlk rekorunu yaz'}</b></span><span>Usta rota <b>≤${L.par}</b></span></div><button id="mapPlay" class="btn primary">${uiIcon('play')}<span>ROTAYI KUR</span></button>`;
  $('#mapPlay').addEventListener('click',()=>{ensureAudio();openLevel(mapSelected)});
 }
@@ -673,7 +676,7 @@ function showIntro(L,i){
 }
 
 function openLevel(i){
- if(!canPlay(i)){show('levels');mapWorld='master';mapChapter=0;mapSelected=50;renderLevels();return false;}
+ if(!canPlay(i)){show('levels');return false;}
  $('#game').classList.toggle('master-world',i>=50);
  cancelPending();undoStack=[];currentLevel=i;save.lastLevel=i;storage.set('kh32_lastLevel',i);const L=levels[i];
  state={L,grid:createGrid(L),pos:[...L.start],prevPos:null,pathSegments:[],moves:0,collected:new Set(),boosts:new Set(),openGates:new Set(),fragileUsed:new Set(),limited:new Map(),steps:0,rotations:0,running:false,paused:false,dead:false,won:false,hintUsed:false,phase:0,visitedCrystals:new Set(),failCell:null,moverStep:0,nextOrdered:0,loopSeen:new Set()};
@@ -940,7 +943,7 @@ function win(){
  const hadMaster=masterUnlocked();clearInterval(timer);timer=null;state.won=true;state.running=false;$('#pauseBtn').disabled=true;$('#hintBtn').disabled=true;updateHud();sfx.win();vibrate([35,20,35,20,90]);$('#pathSvg').classList.add('route-flash');renderBoard();renderPaths();
  const shell=document.querySelector('.board-shell'),rip=document.createElement('div');rip.className='success-ripple';shell.appendChild(rip);setTimeout(()=>rip.remove(),800);
  const st=starCount();save.stars[currentLevel]=Math.max(Number(save.stars[currentLevel]||0),st);storage.set('kh32_stars',JSON.stringify(save.stars));
- const result=storeRecord(state.L,state.moves,state.steps),opened=!hadMaster&&masterUnlocked();save.unlocked=masterUnlocked()?levels.length:50;
+ const result=storeRecord(state.L,state.moves,state.steps),opened=!hadMaster&&masterUnlocked();save.unlocked=unlockedCount();
  let next=currentLevel+1;if(next===50&&!masterUnlocked())next=levels.slice(0,50).findIndex(L=>!recordFor(L));if(next>=levels.length)next=-1;
  save.lastLevel=next>=0?next:currentLevel;storage.set('kh32_lastLevel',save.lastLevel);
  $('#resultTitle').textContent=opened?'Yeni Dünya Açıldı':result.improved?'Yeni Rekor':'Hedefe Ulaştın';$('#resultText').textContent=`${levelLabel(currentLevel)}. ${state.L.name} · ${state.steps} adım`;
@@ -972,7 +975,7 @@ function renderMechanicsGuide(){
  $('#mechanicsGuide').innerHTML=entries.map(([type,title,desc,badge])=>mechanicCard(type,title,desc,badge)).join('');
 }
 function openHelp(){renderMechanicsGuide();if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh32_seenHelp','1')}
-function resetAll(){if(!confirm('Tüm kişisel rekorlar ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=50;save.stars={};save.records={};storage.set('kh32_records','{}');save.lastLevel=0;storage.set('kh32_lastLevel','0');storage.set('kh32_stars','{}');currentLevel=0;refreshHome();show('home')}
+function resetAll(){if(!confirm('Tüm kişisel rekorlar ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=1;save.stars={};save.records={};storage.set('kh32_records','{}');save.lastLevel=0;storage.set('kh32_lastLevel','0');storage.set('kh32_stars','{}');currentLevel=0;refreshHome();show('home')}
 
 $('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(save.lastLevel)});
 $('#levelsBtn').addEventListener('click',()=>{sfx.ui();show('levels')});

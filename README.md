@@ -1,6 +1,6 @@
-# Kırılma Hattı · 4.2.0
+# Kırılma Hattı · 4.3.0
 
-74 bölümlük stratejik rota oyunu. Ana dünyadaki 50 bölümün tamamı seçilebilir.
+74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük Usta Dünyası açılır; yıldız eşiği yoktur.
 Usta Dünyası sekizer bölümlük Obsidyen, Paradoks ve Son Mühür yörüngelerinden oluşur.
 4.0 güncellemesi mevcut 50 bölümün verilerini ve `kh32_` kayıtlarını korur.
@@ -69,7 +69,7 @@ Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten
 en kısa çözüm veya öznel zorluğun kusursuz sıralandığı iddiası değildir.
 Oyuncular daha iyi yollar bulabilir.
 
-4.2.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
+4.3.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
 yönü, kapı ve buz kısıtları gevşetilse bile anahtarları sırayla gezmenin en kısa
 mesafesi 16–25 adımdır ve kampanya boyunca gerilemez. Bu alt sınır bağımsız
 genişlik öncelikli arama ile doğrulanır; hamle minimumu değildir.
@@ -87,3 +87,7 @@ veya en az hamle garantisi değildir.
 4.2: Nasıl oynanır penceresi, başlangıç/çıkış işaretlerini ve kampanyada
 kullanılan tüm mekanikleri simgeli kartlarla açıklar. Usta çıkış koşulları
 aynı rehberde yer alır.
+
+4.3: Sıralı bölüm kilidi hem ana dünya hem usta dünyasına uygulanır. Önceki
+rekorlar korunur; arada tamamlanmamış bölüm varsa sonraki bölümler kilitlidir.
+Android sürümü tüm oyun dosyalarını içerir ve çevrimdışı çalışır.
