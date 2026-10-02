@@ -1,4 +1,4 @@
-# Android 4.6.1
+# Android 4.6.2
 
 Offline WebView application, package tr.kirilmahatti.game, Android 6.0+.
 The bundled index.html is copied from the repository root for each build.
@@ -40,3 +40,5 @@ mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
 4.6.0: Revised routes, calibrated star targets, first-encounter coaching and world completion summaries.
 
 4.6.1: NOXIS oyun başlıkları yalnızca bölüm adını gösterir; kategori önekleri kaldırıldı.
+
+4.6.2: Portal legend uses the board ring/P1 identity. Multi-pass bounded cost search and replay-verified cycle shortening improve reference routes; global optimality is not proven.

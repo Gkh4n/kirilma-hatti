@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.6.1
+# Kırılma Hattı · 4.6.2
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük NOXIS açılır; yıldız eşiği yoktur.
@@ -81,3 +81,5 @@ AUREN/NOXIS son bölümleri tamamlanınca kayıtlı toplam yıldız, en iyi haml
 ve tamamlanan bölüm özeti gösterilir.
 
 4.6.1: NOXIS oyun başlıkları yalnızca bölüm adını gösterir; kategori önekleri kaldırıldı.
+
+4.6.2: Portal legend uses the board ring/P1 identity. Multi-pass bounded cost search and replay-verified cycle shortening improve reference routes; global optimality is not proven.
