@@ -52,3 +52,14 @@ test('hint pauses automatic movement without resetting the run',()=>{
 });
 
 test('sequential locks reject skipped levels and unlock exactly one successor',()=>{const {g}=boot();assert(g.canPlay(0));assert(!g.canPlay(1));assert.equal(g.openLevel(5),false);g.openLevel(0);g.win();assert(g.canPlay(1));assert(!g.canPlay(2));g.storeRecord(g.levels[3],10,10);assert(!g.canPlay(4));});
+
+test('Android back follows visited screens and confirms exit only on home',()=>{
+ const {g,el}=boot({kh32_seenHelp:'1'});
+ g.show('levels');g.openLevel(0);g.handleAndroidBack();assert(el('#levels').classList.contains('active'));g.handleAndroidBack();assert(el('#home').classList.contains('active'));assert(!el('#exitOverlay').classList.contains('show'));
+ g.show('settings');g.handleAndroidBack();assert(el('#home').classList.contains('active'));g.handleAndroidBack();assert(el('#exitOverlay').classList.contains('show'));g.handleAndroidBack();assert(!el('#exitOverlay').classList.contains('show'));
+ g.openLevel(0);g.handleAndroidBack();assert(el('#home').classList.contains('active'));
+});
+test('Android back closes help before navigating and stops a running game',()=>{
+ const {g,el}=boot({kh32_seenHelp:'1'});g.show('settings');el('#helpBtn').listeners.click();g.handleAndroidBack();assert(!el('#helpOverlay').classList.contains('show'));assert(el('#settings').classList.contains('active'));
+ g.show('home');g.openLevel(0);g.startGame();g.handleAndroidBack();assert(!g.state.running);assert(el('#home').classList.contains('active'));
+});

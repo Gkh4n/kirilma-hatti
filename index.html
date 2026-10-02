@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#080c16"/>
-<meta name="application-version" content="4.3.2"/>
+<meta name="application-version" content="4.4.0"/>
 <meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 50 ana bölüm ve 24 Usta Dünyası sınavını keşfet."/>
 <title>Kırılma Hattı</title>
 <style>
@@ -348,6 +348,9 @@ html,body{background:radial-gradient(ellipse at 50% -20%,#233350 0,transparent 5
 /* One continuous surface from system bars through every screen. */
 html,body{background:#080c16;color:var(--text)}
 #home,#levels,#settings,#game{background:transparent}
+.android-app #gameBack,.android-app .section-head>.js-home{display:none}
+.android-app .topbar{grid-template-columns:1fr auto}.android-app .topbar-title{text-align:left}
+.exit-sheet{text-align:center;background:linear-gradient(145deg,#1b263a,#101827);border:1px solid #dac38f33;max-width:390px}.exit-sheet h3{font-size:22px}.exit-sheet p{color:#aebbd0;font-size:13px}.exit-emblem{width:52px;height:52px;display:grid;place-items:center;margin:0 auto 18px;border:1px solid #d7b87555;border-radius:17px;color:#e8c788;font-size:30px}.exit-sheet .actions{position:static;background:none;gap:10px;margin-top:22px;padding:0}.exit-sheet .btn{font-size:13px;border-radius:15px}
 </style>
 </head>
 <body>
@@ -484,6 +487,9 @@ html,body{background:#080c16;color:var(--text)}
   </div>
 </div>
 
+<div id="exitOverlay" class="full-overlay" role="dialog" aria-modal="true" aria-labelledby="exitTitle">
+ <div class="sheet glass exit-sheet"><div class="exit-emblem">↪</div><h3 id="exitTitle">Oyundan çıkılsın mı?</h3><p>Tamamladığın bölümler ve rekorların kayıtlı.</p><div class="actions"><button id="cancelExit" class="btn secondary">Oyunda Kal</button><button id="confirmExit" class="btn primary">Çıkış Yap</button></div></div>
+</div>
 <script>
 (()=>{
 const DIRS=['U','R','D','L'],ROT={U:0,R:90,D:180,L:270},ARROW={U:'↑',R:'→',D:'↓',L:'←'},VEC={U:[-1,0],R:[0,1],D:[1,0],L:[0,-1]};
@@ -573,7 +579,19 @@ function seeded(seed){let x=seed>>>0;return()=>{x=(x*1664525+1013904223)>>>0;ret
 function same(a,b){return a&&b&&a[0]===b[0]&&a[1]===b[1]}function has(list,r,c){return list.some(p=>p[0]===r&&p[1]===c)}function itemAt(list,r,c){return list.find(p=>p[0]===r&&p[1]===c)}
 function keyIndex(L,r,c){return L.keys.findIndex(p=>p[0]===r&&p[1]===c)}function boostIndex(L,r,c){return L.boosts.findIndex(p=>p[0]===r&&p[1]===c)}
 function totalStars(){return Object.values(save.stars).reduce((a,b)=>a+Number(b||0),0)}
-function show(name){
+let currentScreen='home';const screenHistory=[];
+const isAndroidApp=/KirilmaHattiAndroid/.test(navigator.userAgent||'');
+if(isAndroidApp)document.documentElement.classList.add('android-app');
+function handleAndroidBack(){
+ if($('#exitOverlay').classList.contains('show')){$('#exitOverlay').classList.remove('show');$('#playBtn').focus();return}
+ if($('#helpOverlay').classList.contains('show')){closeHelp();return}
+ if(currentScreen!=='home'){show(screenHistory.pop()||'home',false);return}
+ $('#exitOverlay').classList.add('show');$('#cancelExit').focus();
+}
+window.handleAndroidBack=handleAndroidBack;
+function show(name,remember=true){
+ if(name!==currentScreen){if(name==='home')screenHistory.length=0;else if(remember)screenHistory.push(currentScreen);currentScreen=name}
+ $('#exitOverlay').classList.remove('show');
  if(name!=='game'){cancelPending();if(state)state.running=false}
  Object.values(screens).forEach(x=>x.classList.remove('active'));
  screens[name].classList.add('active');
@@ -980,6 +998,8 @@ function renderMechanicsGuide(){
 function openHelp(){renderMechanicsGuide();if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh32_seenHelp','1')}
 function resetAll(){if(!confirm('Tüm kişisel rekorlar ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=1;save.stars={};save.records={};storage.set('kh32_records','{}');save.lastLevel=0;storage.set('kh32_lastLevel','0');storage.set('kh32_stars','{}');currentLevel=0;refreshHome();show('home')}
 
+$('#cancelExit').addEventListener('click',()=>{$('#exitOverlay').classList.remove('show');$('#playBtn').focus()});
+$('#confirmExit').addEventListener('click',()=>{if(isAndroidApp)window.location.href='khapp://exit'});
 $('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(save.lastLevel)});
 $('#levelsBtn').addEventListener('click',()=>{sfx.ui();show('levels')});
 $('#settingsBtn').addEventListener('click',()=>{sfx.ui();show('settings')});
