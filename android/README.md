@@ -1,4 +1,4 @@
-# Android 4.6.0
+# Android 4.6.1
 
 Offline WebView application, package tr.kirilmahatti.game, Android 6.0+.
 The bundled index.html is copied from the repository root for each build.
@@ -38,3 +38,5 @@ mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
 4.5.1: Dünya adları AUREN ve NOXIS olarak güncellendi; bölüm, kayıt ve kilit mantığı korunur.
 
 4.6.0: Revised routes, calibrated star targets, first-encounter coaching and world completion summaries.
+
+4.6.1: NOXIS oyun başlıkları yalnızca bölüm adını gösterir; kategori önekleri kaldırıldı.

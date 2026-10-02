@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.6.0
+# Kırılma Hattı · 4.6.1
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük NOXIS açılır; yıldız eşiği yoktur.
@@ -79,3 +79,5 @@ Mekanikler ilk görüldüğünde ilgili kare 9 saniye vurgulanır; anlatım kapa
 ve başlatıldığında kapanır. Görülmüş anlatımlar cihazda kaydedilir.
 AUREN/NOXIS son bölümleri tamamlanınca kayıtlı toplam yıldız, en iyi hamle
 ve tamamlanan bölüm özeti gösterilir.
+
+4.6.1: NOXIS oyun başlıkları yalnızca bölüm adını gösterir; kategori önekleri kaldırıldı.
