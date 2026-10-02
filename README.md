@@ -1,4 +1,4 @@
-# Kırılma Hattı · 4.5.1
+# Kırılma Hattı · 4.6.0
 
 74 bölümlük stratejik rota oyunu. Bölümler sırayla açılır; yeni oyuncuda yalnızca ilk bölüm açıktır.
 Bu 50 bölüm tamamlandığında 24 bölümlük NOXIS açılır; yıldız eşiği yoktur.
@@ -64,45 +64,18 @@ tek adım/geri alma; kristal ve çıkış fazı koşulları.
 `scripts/build-master.py` NOXIS’i deterministik olarak yeniden üretir.
 İkisi de kök dizinden Python 3.12+ ile çalıştırılır. Üretimden sonra testler
 yeniden çalıştırılmalıdır.
-Test rotalarının dönüş sayısı 18'den 67'ye yükselir; uzunlukları 24'ten 35 adıma
-çıkar ve gerilemez. Bunlar çözülebilirlik ve denge referanslarıdır; matematiksel
-en kısa çözüm veya öznel zorluğun kusursuz sıralandığı iddiası değildir.
-Oyuncular daha iyi yollar bulabilir.
+4.6 kalibrasyonu gerçek oyun motorunda 72 aday genişliğinde sınırlı arama kullanır.
+Üç yıldız hedefi doğrulanmış rota maliyetine ilk 10 bölümde %15, diğerlerinde
+%8 tolerans (en az 1 hamle) ekler. Bu değerler kanıtlanmış minimum değildir;
+oyuncu daha iyi bir yol bulabilir. Zorluk yalnızca hamle sayısıyla ölçülmez.
+`tests/calibration.json` değişen bölümleri ve hedefleri; `tests/solutions.json`
+74 oynatılabilir çözümü içerir. `node tests/verify.cjs` hepsini gerçek motorla doğrular.
 
-4.4.0 için ayrıca tüm hücrelerin doluluğu ve röleli çıkışlar test edilir. Disk
-yönü, kapı ve buz kısıtları gevşetilse bile anahtarları sırayla gezmenin en kısa
-mesafesi 16–25 adımdır ve kampanya boyunca gerilemez. Bu alt sınır bağımsız
-genişlik öncelikli arama ile doğrulanır; hamle minimumu değildir.
-
-Usta bölümlerinin çözüm tanıkları 68–91 dönüş ve 37–39 hareket adımı kullanır.
-Gevşetilmiş en kısa hareket mesafesi 28–35 adımdır: normal dünyanın en yüksek
-25 adımlık alt sınırının üzerindedir. Bu ölçüt düşünsel zorluğu tek başına
-kanıtlamaz; hamle açısından en iyi çözümler oyuncular tarafından geliştirilebilir.
-
-4.1: Ana menü sadeleştirildi; başlangıç ipucu, doğrulanmış çözümün ilk iki
-karesini ve yönünü tahtada işaretler. Diskleri kendiliğinden çevirmez, hamle
-eklemez. Çalışan oyunda ipucu açmak hareketi duraklatır. Bu ipucu tam çözüm
-veya en az hamle garantisi değildir.
-
-4.2: Nasıl oynanır penceresi, başlangıç/çıkış işaretlerini ve kampanyada
-kullanılan tüm mekanikleri simgeli kartlarla açıklar. Usta çıkış koşulları
-aynı rehberde yer alır.
-
-4.3: Sıralı bölüm kilidi hem AUREN hem NOXIS’e uygulanır. Önceki
-rekorlar korunur; arada tamamlanmamış bölüm varsa sonraki bölümler kilitlidir.
-Android sürümü tüm oyun dosyalarını içerir ve çevrimdışı çalışır.
-
-4.3.1: Native root container applies system-bar and cutout insets before
-laying out WebView. Consumed dimensions are zeroed for web content to avoid
-double padding. All screens and system bars share the #080c16 background.
-
-4.4.0: Android geri tuşu önce açık yardım/çıkış penceresini kapatır, ardından
-ziyaret edilen önceki ekrana döner. Yalnızca ana ekranda, oyunun koyu lacivert
-ve altın tasarımına uygun çıkış onayı gösterilir. APK içindeki üst geri
-okları kaldırılmıştır; tarayıcı sürümünde korunur. İlerleme kayıtları korunur.
-
-4.5.0: Açılış rehberi kaldırıldı. Oyna bölüm haritasını açar; ilk oynayışta
-yalnızca temel kontroller anlatılır. İkonlu Nasıl Oynanır düğmesi tüm
-mekanikleri içerir. Ortak logo/isim başlığı tüm ekranlarda yer alır.
-
-4.5.1: Dünya adları AUREN ve NOXIS olarak güncellendi; bölüm, kayıt ve kilit mantığı korunur.
+24 haritada anahtar sapakları ve yeniden kullanılan kavşaklar tasarlandı;
+ileri haritalarda buz girişi, tek yön, bağlı disk ve kırılgan çıkış vurguları değişir.
+Değişen haritalar yeni skor sürümü kullanır; eski kayıtlar ve bölüm açılışları
+korunur, eski rota rekorları yeni rota skoruyla karşılaştırılmaz.
+Mekanikler ilk görüldüğünde ilgili kare 9 saniye vurgulanır; anlatım kapatılabilir
+ve başlatıldığında kapanır. Görülmüş anlatımlar cihazda kaydedilir.
+AUREN/NOXIS son bölümleri tamamlanınca kayıtlı toplam yıldız, en iyi hamle
+ve tamamlanan bölüm özeti gösterilir.

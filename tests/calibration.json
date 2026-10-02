@@ -1,0 +1,623 @@
+{
+  "method": "72-wide bounded search using actual advance rules; upper bounds, not proven minima",
+  "changed": [
+    2,
+    4,
+    7,
+    10,
+    17,
+    22,
+    25,
+    30,
+    35,
+    38,
+    43,
+    45,
+    48,
+    50,
+    52,
+    54,
+    57,
+    59,
+    62,
+    64,
+    67,
+    69,
+    72,
+    74
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "changed": false,
+      "oldTarget": 18,
+      "target": 21,
+      "steps": 24,
+      "focus": "original"
+    },
+    {
+      "level": 2,
+      "changed": true,
+      "oldTarget": 19,
+      "target": 10,
+      "steps": 16,
+      "focus": "return-junction"
+    },
+    {
+      "level": 3,
+      "changed": false,
+      "oldTarget": 20,
+      "target": 19,
+      "steps": 52,
+      "focus": "original"
+    },
+    {
+      "level": 4,
+      "changed": true,
+      "oldTarget": 21,
+      "target": 15,
+      "steps": 32,
+      "focus": "return-junction"
+    },
+    {
+      "level": 5,
+      "changed": false,
+      "oldTarget": 22,
+      "target": 11,
+      "steps": 20,
+      "focus": "original"
+    },
+    {
+      "level": 6,
+      "changed": false,
+      "oldTarget": 23,
+      "target": 20,
+      "steps": 19,
+      "focus": "original"
+    },
+    {
+      "level": 7,
+      "changed": true,
+      "oldTarget": 24,
+      "target": 9,
+      "steps": 13,
+      "focus": "return-junction"
+    },
+    {
+      "level": 8,
+      "changed": false,
+      "oldTarget": 25,
+      "target": 12,
+      "steps": 23,
+      "focus": "original"
+    },
+    {
+      "level": 9,
+      "changed": false,
+      "oldTarget": 26,
+      "target": 17,
+      "steps": 25,
+      "focus": "original"
+    },
+    {
+      "level": 10,
+      "changed": true,
+      "oldTarget": 27,
+      "target": 15,
+      "steps": 17,
+      "focus": "return-junction"
+    },
+    {
+      "level": 11,
+      "changed": false,
+      "oldTarget": 28,
+      "target": 13,
+      "steps": 22,
+      "focus": "original"
+    },
+    {
+      "level": 12,
+      "changed": false,
+      "oldTarget": 29,
+      "target": 18,
+      "steps": 48,
+      "focus": "original"
+    },
+    {
+      "level": 13,
+      "changed": false,
+      "oldTarget": 30,
+      "target": 25,
+      "steps": 68,
+      "focus": "original"
+    },
+    {
+      "level": 14,
+      "changed": false,
+      "oldTarget": 31,
+      "target": 21,
+      "steps": 18,
+      "focus": "original"
+    },
+    {
+      "level": 15,
+      "changed": false,
+      "oldTarget": 32,
+      "target": 35,
+      "steps": 26,
+      "focus": "original"
+    },
+    {
+      "level": 16,
+      "changed": false,
+      "oldTarget": 33,
+      "target": 13,
+      "steps": 35,
+      "focus": "original"
+    },
+    {
+      "level": 17,
+      "changed": true,
+      "oldTarget": 34,
+      "target": 20,
+      "steps": 25,
+      "focus": "return-junction"
+    },
+    {
+      "level": 18,
+      "changed": false,
+      "oldTarget": 35,
+      "target": 24,
+      "steps": 71,
+      "focus": "original"
+    },
+    {
+      "level": 19,
+      "changed": false,
+      "oldTarget": 36,
+      "target": 13,
+      "steps": 23,
+      "focus": "original"
+    },
+    {
+      "level": 20,
+      "changed": false,
+      "oldTarget": 37,
+      "target": 11,
+      "steps": 27,
+      "focus": "original"
+    },
+    {
+      "level": 21,
+      "changed": false,
+      "oldTarget": 38,
+      "target": 26,
+      "steps": 60,
+      "focus": "original"
+    },
+    {
+      "level": 22,
+      "changed": true,
+      "oldTarget": 39,
+      "target": 18,
+      "steps": 22,
+      "focus": "two-branches"
+    },
+    {
+      "level": 23,
+      "changed": false,
+      "oldTarget": 40,
+      "target": 25,
+      "steps": 44,
+      "focus": "original"
+    },
+    {
+      "level": 24,
+      "changed": false,
+      "oldTarget": 41,
+      "target": 17,
+      "steps": 32,
+      "focus": "original"
+    },
+    {
+      "level": 25,
+      "changed": true,
+      "oldTarget": 42,
+      "target": 21,
+      "steps": 32,
+      "focus": "return-junction"
+    },
+    {
+      "level": 26,
+      "changed": false,
+      "oldTarget": 43,
+      "target": 47,
+      "steps": 29,
+      "focus": "original"
+    },
+    {
+      "level": 27,
+      "changed": false,
+      "oldTarget": 44,
+      "target": 24,
+      "steps": 57,
+      "focus": "original"
+    },
+    {
+      "level": 28,
+      "changed": false,
+      "oldTarget": 45,
+      "target": 23,
+      "steps": 29,
+      "focus": "original"
+    },
+    {
+      "level": 29,
+      "changed": false,
+      "oldTarget": 46,
+      "target": 50,
+      "steps": 30,
+      "focus": "original"
+    },
+    {
+      "level": 30,
+      "changed": true,
+      "oldTarget": 47,
+      "target": 18,
+      "steps": 20,
+      "focus": "coupled-junction"
+    },
+    {
+      "level": 31,
+      "changed": false,
+      "oldTarget": 48,
+      "target": 52,
+      "steps": 30,
+      "focus": "original"
+    },
+    {
+      "level": 32,
+      "changed": false,
+      "oldTarget": 49,
+      "target": 23,
+      "steps": 60,
+      "focus": "original"
+    },
+    {
+      "level": 33,
+      "changed": false,
+      "oldTarget": 50,
+      "target": 54,
+      "steps": 31,
+      "focus": "original"
+    },
+    {
+      "level": 34,
+      "changed": false,
+      "oldTarget": 51,
+      "target": 18,
+      "steps": 54,
+      "focus": "original"
+    },
+    {
+      "level": 35,
+      "changed": true,
+      "oldTarget": 52,
+      "target": 24,
+      "steps": 43,
+      "focus": "oneway-return"
+    },
+    {
+      "level": 36,
+      "changed": false,
+      "oldTarget": 53,
+      "target": 31,
+      "steps": 41,
+      "focus": "original"
+    },
+    {
+      "level": 37,
+      "changed": false,
+      "oldTarget": 54,
+      "target": 59,
+      "steps": 32,
+      "focus": "original"
+    },
+    {
+      "level": 38,
+      "changed": true,
+      "oldTarget": 55,
+      "target": 24,
+      "steps": 36,
+      "focus": "coupled-junction"
+    },
+    {
+      "level": 39,
+      "changed": false,
+      "oldTarget": 56,
+      "target": 61,
+      "steps": 32,
+      "focus": "original"
+    },
+    {
+      "level": 40,
+      "changed": false,
+      "oldTarget": 57,
+      "target": 27,
+      "steps": 71,
+      "focus": "original"
+    },
+    {
+      "level": 41,
+      "changed": false,
+      "oldTarget": 58,
+      "target": 63,
+      "steps": 33,
+      "focus": "original"
+    },
+    {
+      "level": 42,
+      "changed": false,
+      "oldTarget": 59,
+      "target": 64,
+      "steps": 33,
+      "focus": "original"
+    },
+    {
+      "level": 43,
+      "changed": true,
+      "oldTarget": 60,
+      "target": 62,
+      "steps": 35,
+      "focus": "oneway-return"
+    },
+    {
+      "level": 44,
+      "changed": false,
+      "oldTarget": 61,
+      "target": 66,
+      "steps": 33,
+      "focus": "original"
+    },
+    {
+      "level": 45,
+      "changed": true,
+      "oldTarget": 62,
+      "target": 67,
+      "steps": 36,
+      "focus": "ice-entry"
+    },
+    {
+      "level": 46,
+      "changed": false,
+      "oldTarget": 63,
+      "target": 27,
+      "steps": 47,
+      "focus": "original"
+    },
+    {
+      "level": 47,
+      "changed": false,
+      "oldTarget": 64,
+      "target": 70,
+      "steps": 34,
+      "focus": "original"
+    },
+    {
+      "level": 48,
+      "changed": true,
+      "oldTarget": 65,
+      "target": 75,
+      "steps": 36,
+      "focus": "fragile-exit"
+    },
+    {
+      "level": 49,
+      "changed": false,
+      "oldTarget": 66,
+      "target": 72,
+      "steps": 35,
+      "focus": "original"
+    },
+    {
+      "level": 50,
+      "changed": true,
+      "oldTarget": 67,
+      "target": 40,
+      "steps": 79,
+      "focus": "coupled-junction"
+    },
+    {
+      "level": 51,
+      "changed": false,
+      "oldTarget": 68,
+      "target": 74,
+      "steps": 37,
+      "focus": "original"
+    },
+    {
+      "level": 52,
+      "changed": true,
+      "oldTarget": 69,
+      "target": 75,
+      "steps": 39,
+      "focus": "fragile-exit"
+    },
+    {
+      "level": 53,
+      "changed": false,
+      "oldTarget": 70,
+      "target": 76,
+      "steps": 37,
+      "focus": "original"
+    },
+    {
+      "level": 54,
+      "changed": true,
+      "oldTarget": 71,
+      "target": 23,
+      "steps": 46,
+      "focus": "coupled-junction"
+    },
+    {
+      "level": 55,
+      "changed": false,
+      "oldTarget": 72,
+      "target": 78,
+      "steps": 37,
+      "focus": "original"
+    },
+    {
+      "level": 56,
+      "changed": false,
+      "oldTarget": 73,
+      "target": 36,
+      "steps": 42,
+      "focus": "original"
+    },
+    {
+      "level": 57,
+      "changed": true,
+      "oldTarget": 74,
+      "target": 76,
+      "steps": 39,
+      "focus": "ice-entry"
+    },
+    {
+      "level": 58,
+      "changed": false,
+      "oldTarget": 75,
+      "target": 81,
+      "steps": 37,
+      "focus": "original"
+    },
+    {
+      "level": 59,
+      "changed": true,
+      "oldTarget": 76,
+      "target": 84,
+      "steps": 40,
+      "focus": "oneway-return"
+    },
+    {
+      "level": 60,
+      "changed": false,
+      "oldTarget": 77,
+      "target": 84,
+      "steps": 38,
+      "focus": "original"
+    },
+    {
+      "level": 61,
+      "changed": false,
+      "oldTarget": 78,
+      "target": 85,
+      "steps": 38,
+      "focus": "original"
+    },
+    {
+      "level": 62,
+      "changed": true,
+      "oldTarget": 79,
+      "target": 92,
+      "steps": 40,
+      "focus": "coupled-junction"
+    },
+    {
+      "level": 63,
+      "changed": false,
+      "oldTarget": 80,
+      "target": 87,
+      "steps": 38,
+      "focus": "original"
+    },
+    {
+      "level": 64,
+      "changed": true,
+      "oldTarget": 81,
+      "target": 92,
+      "steps": 40,
+      "focus": "fragile-exit"
+    },
+    {
+      "level": 65,
+      "changed": false,
+      "oldTarget": 82,
+      "target": 89,
+      "steps": 38,
+      "focus": "original"
+    },
+    {
+      "level": 66,
+      "changed": false,
+      "oldTarget": 83,
+      "target": 90,
+      "steps": 38,
+      "focus": "original"
+    },
+    {
+      "level": 67,
+      "changed": true,
+      "oldTarget": 84,
+      "target": 90,
+      "steps": 41,
+      "focus": "oneway-return"
+    },
+    {
+      "level": 68,
+      "changed": false,
+      "oldTarget": 85,
+      "target": 92,
+      "steps": 39,
+      "focus": "original"
+    },
+    {
+      "level": 69,
+      "changed": true,
+      "oldTarget": 86,
+      "target": 91,
+      "steps": 41,
+      "focus": "ice-entry"
+    },
+    {
+      "level": 70,
+      "changed": false,
+      "oldTarget": 87,
+      "target": 94,
+      "steps": 39,
+      "focus": "original"
+    },
+    {
+      "level": 71,
+      "changed": false,
+      "oldTarget": 88,
+      "target": 96,
+      "steps": 39,
+      "focus": "original"
+    },
+    {
+      "level": 72,
+      "changed": true,
+      "oldTarget": 89,
+      "target": 97,
+      "steps": 41,
+      "focus": "fragile-exit"
+    },
+    {
+      "level": 73,
+      "changed": false,
+      "oldTarget": 90,
+      "target": 98,
+      "steps": 39,
+      "focus": "original"
+    },
+    {
+      "level": 74,
+      "changed": true,
+      "oldTarget": 91,
+      "target": 96,
+      "steps": 41,
+      "focus": "coupled-junction"
+    }
+  ]
+}
