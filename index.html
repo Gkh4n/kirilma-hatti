@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#080c16"/>
-<meta name="application-version" content="4.1.0"/>
+<meta name="application-version" content="4.2.0"/>
 <meta name="description" content="Kırılma Hattı: rotayı kur, anahtarları topla ve 50 ana bölüm ve 24 Usta Dünyası sınavını keşfet."/>
 <title>Kırılma Hattı</title>
 <style>
@@ -339,6 +339,11 @@ html,body{background:radial-gradient(ellipse at 50% -20%,#233350 0,transparent 5
 .menu-panel{margin-top:30px;padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none}.menu-list{grid-template-columns:1fr 1fr;gap:10px}.menu-list #playBtn{grid-column:1/-1;min-height:62px;justify-content:center;font-size:16px;border-radius:18px}.menu-list .btn{min-height:72px;flex-direction:column;justify-content:center;padding:12px 8px;gap:8px;font-size:11px;border-radius:16px;letter-spacing:.05em}.menu-list .btn.secondary{background:linear-gradient(145deg,#19253b,#111a2b);box-shadow:inset 0 1px #ffffff06;border-color:#8b9cb92b}.home-stats{margin-top:20px}.home-stats #helpBtn{min-height:44px;background:transparent;border:0;color:#b2bfd3;font-size:12px;padding:10px 16px}
 .status{background:none!important;box-shadow:none!important;border:0!important;padding:6px 4px;min-height:0}.status:empty,.star-target:empty{display:none}.goal-line:has(.goal-text:empty){display:none}.goal-line{min-height:0;padding:6px 0;margin:0}.star-target{min-height:0;font-size:11px}.controls{margin-top:8px}.mechanic-chip{min-height:36px}.hint-origin{outline:2px solid #ffe4a5!important;outline-offset:-3px;z-index:2}.hint-next{outline:2px dashed #e9c783!important;outline-offset:-5px}.hint-arrow{position:absolute;inset:8%;display:grid;place-items:center;background:#182031ee;border-radius:12px;color:#ffe4a5;font-size:clamp(26px,8vw,46px);font-weight:700;z-index:12;pointer-events:none}#hintBtn[aria-pressed=true]{color:#ffe4a5;border-color:#d6b56c}
 @media(max-height:650px){.home-content{padding:16px 0}.home-logo{margin-bottom:14px;width:56px;height:56px}.menu-panel{margin-top:20px}.home-stats{margin-top:10px}}
+
+/* Complete, scrollable reference without adding home-screen clutter. */
+#helpOverlay .sheet{background:linear-gradient(150deg,#19243a,#101827);border-color:#7187aa40;width:min(100%,580px)}
+.guide-heading{margin:26px 0 12px;font-size:11px;letter-spacing:.14em;color:#d9bd80}.mechanics-guide{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mechanics-guide .mechanic-info{align-items:start;background:#101a2c;border-color:#859ab52b;padding:12px;grid-template-columns:30px 1fr}.mechanics-guide .mechanic-copy b{font-size:13px;color:#eee9de}.mechanics-guide .mechanic-copy span{font-size:12px;line-height:1.55;color:#b9c7dc}.mechanics-guide .mechanic-icon{margin-top:1px;color:#e8ca8b}.guide-endpoints{display:grid;grid-template-columns:1fr 1fr;gap:10px}.guide-endpoints>div{padding:12px;background:#101a2c;border:1px solid #859ab52b;border-radius:12px;display:grid;grid-template-columns:24px 1fr;gap:7px;align-items:center}.guide-endpoints b{font-size:12px}.guide-endpoints span{grid-column:1/-1;font-size:12px;line-height:1.5;color:#b9c7dc}.guide-start{display:block;width:14px;height:14px;border-radius:50%;background:#6de5bf;box-shadow:0 0 10px #6de5bf55}.guide-exit{color:#f1d393;font-style:normal;font-size:24px;line-height:1}.guide-master{margin-top:16px;padding:14px;border:1px solid #b08adb40;background:#a077d00c;border-radius:12px}.guide-master b{color:#d6bdf6;font-size:13px}.guide-master p{margin-top:7px!important;font-size:12px!important}#helpOverlay .actions{background:#121b2c;z-index:2;padding-top:12px}#helpOverlay .help-note{color:#aebed5;line-height:1.6}
+@media(max-width:440px){.mechanics-guide{grid-template-columns:1fr}#helpOverlay .sheet{padding:16px}#helpOverlay .actions{bottom:-16px}.mechanics-guide .mechanic-info{padding:11px 12px}}
 </style>
 </head>
 <body>
@@ -385,7 +390,7 @@ html,body{background:radial-gradient(ellipse at 50% -20%,#233350 0,transparent 5
     <div class="settings-grid">
       <div class="setting glass"><div><b>Ses</b><div class="tiny muted">Oyun ve arayüz sesleri.</div></div><button id="soundToggle" class="switch">Açık</button></div>
       <div class="setting glass"><div><b>Titreşim</b><div class="tiny muted">Dokunuş ve sonuç geri bildirimi.</div></div><button id="vibrationToggle" class="switch">Açık</button></div>
-      <div class="setting glass"><div><b>Nasıl oynanır?</b><div class="tiny muted">Temel oynanışı tekrar göster.</div></div><button id="showHelp" class="switch">Göster</button></div>
+      <div class="setting glass"><div><b>Nasıl oynanır?</b><div class="tiny muted">Kontroller ve tüm mekanikler.</div></div><button id="showHelp" class="switch">Göster</button></div>
     </div>
     <div class="settings-actions">
       <button id="resetProgress" class="btn secondary">İlerlemeyi Sıfırla</button>
@@ -465,7 +470,12 @@ html,body{background:radial-gradient(ellipse at 50% -20%,#233350 0,transparent 5
     <h3 id="helpTitle">Nasıl Oynanır?</h3>
     <p>Çekirdeği anahtarlardan geçirip çıkışa ulaştır. Amacın bunu <b>en az hamleyle</b> yapmak.</p>
     <div class="help-steps"><div><b>01</b><span>Bir diske dokun: saat yönünde 90° döner ve <strong>1 hamle</strong> sayılır.</span></div><div><b>02</b><span>Rotanı çizgide gör, başlat. Düşünmek için duraklat; tek adım düğmesiyle çekirdeği bir kare ilerlet.</span></div><div><b>03</b><span>Daha az hamle daha iyi sonuçtur; hamleler eşitse daha kısa rota üstün gelir.</span></div></div>
-    <div class="help-note">Geri alma son dönüşü ve sayacını geri alır. Alttaki mekanik simgelerine dokunarak kısa açıklamalarını gör. “Usta rota” test edilmiş bir hedeftir; mutlak minimum olduğu iddia edilmez.</div>
+    <div class="help-note">Geri alma, son dönüşü ve hamle sayacını geri alır. Ampul, başlangıç karesini ve çözüm rotasının ilk yönünü gösterir; diskleri sen çevirirsin.</div>
+    <h4 class="guide-heading">TAHTAYI TANI</h4>
+    <div class="guide-endpoints"><div><i class="guide-start"></i><b>Başlangıç</b><span>Parlayan çekirdek buradan yola çıkar.</span></div><div><i class="guide-exit">⚑</i><b>Çıkış</b><span>Altın bayrağa, bölümün koşullarını tamamlayarak ulaş.</span></div></div>
+    <h4 class="guide-heading">TÜM MEKANİKLER</h4>
+    <div id="mechanicsGuide" class="mechanics-guide"></div>
+    <div class="guide-master"><b>Usta Dünyası</b><p>Ana dünyadaki 50 bölümü tamamlayınca açılır. Bu 24 bölümde iki röleyi açık bırakmalı, iki farklı kristale de uğramalı ve çıkışa Faz I ile ulaşmalısın.</p></div>
     <div class="actions"><button id="closeHelp" class="btn secondary">Kapat</button><button id="helpPlay" class="btn primary"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg><span>Oyna</span></button></div>
   </div>
 </div>
@@ -943,7 +953,25 @@ function win(){
  updateHud();scheduleResult(520);refreshHome()
 }
 
-function openHelp(){if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh32_seenHelp','1')}
+function renderMechanicsGuide(){
+ const entries=[
+ ['key','Sıralı anahtar','Numaraları 1’den başlayarak sırayla topla. Sıradaki anahtarı almadan sonraki toplanmaz.','1'],
+ ['fixed','Sabit disk','Döndürülemez. Çekirdek, diskin gösterdiği yönde ilerler.'],
+ ['oneway','Tek yön','Yalnızca okun yönünde hareket ederek girebilirsin. Disk döndürülemez.'],
+ ['hazard','Mayın','Bu kareye girmek denemeyi bitirir. Güvenli bir rota kur.'],
+ ['switch','Röle','A veya B kontrol karesine her giriş, aynı harfli kapının durumunu değiştirir: açar ya da kapatır.'],
+ ['gate','Kapı','Kapalıysa geçemezsin. Açıkken giriş yönünde düz ilerlersin. Çıkış için istenen röleleri açık bırak.','A'],
+ ['portal','Portal','Aynı P numaralı diğer uca ışınlanırsın. Sonraki hareketi, vardığın uçtaki disk belirler.','P1'],
+ ['fragile','Kırılgan zemin','Kareden ayrılınca zemin çöker. Sonradan tekrar üzerine gelemezsin.'],
+ ['linked','Bağlı disk','Aynı bağlantı numaralı diskler birlikte döner. Birini çevirirken diğerinin yönünü de hesaba kat.'],
+ ['auto','Döner disk','Çekirdek girdiğinde saat yönünde 90° döner. Bu otomatik dönüş hamle sayılmaz.'],
+ ['ice','Buz','Döndürülemez. Çekirdek giriş yönünü korur; buz üzerinde yön değiştiremez.'],
+ ['phase','Faz kristali','Her girişte etkin fazı I ile II arasında değiştirir. Tekrar girersen yeniden değişir.'],
+ ['gate','Faz kapısı','Yalnızca üzerindeki I veya II etkinse açılır. Açık kapıdan giriş yönünde düz geçilir.','II']
+ ];
+ $('#mechanicsGuide').innerHTML=entries.map(([type,title,desc,badge])=>mechanicCard(type,title,desc,badge)).join('');
+}
+function openHelp(){renderMechanicsGuide();if(state?.running&&!state.paused)pauseGame();$('#helpOverlay').classList.add('show');$('#closeHelp').focus()}function closeHelp(){$('#helpOverlay').classList.remove('show');save.seenHelp=true;storage.set('kh32_seenHelp','1')}
 function resetAll(){if(!confirm('Tüm kişisel rekorlar ve yıldızlar sıfırlansın mı?'))return;cancelPending();save.unlocked=50;save.stars={};save.records={};storage.set('kh32_records','{}');save.lastLevel=0;storage.set('kh32_lastLevel','0');storage.set('kh32_stars','{}');currentLevel=0;refreshHome();show('home')}
 
 $('#playBtn').addEventListener('click',()=>{ensureAudio();sfx.ui();openLevel(save.lastLevel)});
