@@ -1,18 +1,84 @@
 {
-  "version": "4.6.3",
-  "method": "strict-best-verified-target-no-tolerance",
+  "version": "4.6.4",
+  "method": "preserved-exhaustive-proofs-with-explicit-unresolved-levels",
   "globalMinimumProven": false,
   "provenLevels": [
     1,
     2,
+    3,
+    4,
     5,
+    6,
     7,
     8,
     9,
     10,
     11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
     19,
-    20
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    43,
+    44,
+    46,
+    47
+  ],
+  "unresolvedLevels": [
+    42,
+    45,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74
   ],
   "targets": [
     {
@@ -28,12 +94,12 @@
     {
       "level": 3,
       "threeStars": 15,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 4,
       "threeStars": 13,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 5,
@@ -43,7 +109,7 @@
     {
       "level": 6,
       "threeStars": 17,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 7,
@@ -73,37 +139,37 @@
     {
       "level": 12,
       "threeStars": 15,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 13,
       "threeStars": 21,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 14,
       "threeStars": 19,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 15,
-      "threeStars": 23,
-      "minimumProven": false
+      "threeStars": 22,
+      "minimumProven": true
     },
     {
       "level": 16,
       "threeStars": 12,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 17,
-      "threeStars": 18,
-      "minimumProven": false
+      "threeStars": 17,
+      "minimumProven": true
     },
     {
       "level": 18,
-      "threeStars": 22,
-      "minimumProven": false
+      "threeStars": 19,
+      "minimumProven": true
     },
     {
       "level": 19,
@@ -118,107 +184,107 @@
     {
       "level": 21,
       "threeStars": 23,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 22,
       "threeStars": 16,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 23,
       "threeStars": 23,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 24,
       "threeStars": 15,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 25,
       "threeStars": 17,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 26,
       "threeStars": 26,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 27,
       "threeStars": 20,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 28,
       "threeStars": 21,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 29,
-      "threeStars": 25,
-      "minimumProven": false
+      "threeStars": 24,
+      "minimumProven": true
     },
     {
       "level": 30,
       "threeStars": 16,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 31,
       "threeStars": 28,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 32,
       "threeStars": 21,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 33,
       "threeStars": 30,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 34,
-      "threeStars": 16,
-      "minimumProven": false
+      "threeStars": 15,
+      "minimumProven": true
     },
     {
       "level": 35,
       "threeStars": 22,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 36,
       "threeStars": 27,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 37,
       "threeStars": 30,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 38,
       "threeStars": 22,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 39,
       "threeStars": 23,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 40,
       "threeStars": 24,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 41,
-      "threeStars": 31,
-      "minimumProven": false
+      "threeStars": 30,
+      "minimumProven": true
     },
     {
       "level": 42,
@@ -228,12 +294,12 @@
     {
       "level": 43,
       "threeStars": 29,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 44,
       "threeStars": 21,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 45,
@@ -243,12 +309,12 @@
     {
       "level": 46,
       "threeStars": 22,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 47,
       "threeStars": 30,
-      "minimumProven": false
+      "minimumProven": true
     },
     {
       "level": 48,

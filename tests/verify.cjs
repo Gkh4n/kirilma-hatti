@@ -1,10 +1,11 @@
 const assert=require('node:assert/strict');const {boot}=require('./harness.cjs');const routes=require('./solutions.json');
 const {g,data}=boot();
+const {replay}=require('./trace.cjs');
 assert.equal(g.levels.length,74);assert.equal(new Set(g.levels.map(L=>L.id)).size,74);
 for(let i=0;i<74;i++){
  const L=g.levels[i],b=L.balance;assert(b.referenceTurns<=L.par);assert(L.par<=Math.ceil(b.referenceTurns*1.15)+1);
  g.openLevel(i);g.startGame();
- for(const turns of routes[i].actions){const [r,c]=g.state.pos;for(let j=0;j<turns;j++)g.rotate(r,c);g.tick();assert(!g.state.dead,`Dead level ${i+1}`);}
+ replay(g,routes[i],()=>assert(!g.state.dead,`Dead level ${i+1}`));
  assert(g.state.won,`Unsolved level ${i+1}`);assert.equal(g.state.moves,b.referenceTurns);assert.equal(g.recordFor(L).moves,b.referenceTurns);assert.equal(g.save.stars[i],3);
 }
 g.openLevel(0);const [r,c]=g.state.pos;for(let i=0;i<1000;i++)g.rotate(r,c);assert.equal(g.state.moves,1000);assert(!g.state.dead);g.undoRotation();assert.equal(g.state.moves,999);

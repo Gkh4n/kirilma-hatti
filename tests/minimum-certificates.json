@@ -1,340 +1,372 @@
 [
   {
     "level": 1,
+    "id": "kh32-01",
     "status": "proven",
     "minimum": 15,
     "steps": 16,
-    "expanded": 1040047,
-    "source": "validated-witness"
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 2,
+    "id": "kh32-02",
     "status": "proven",
     "minimum": 8,
     "steps": 16,
-    "expanded": 7147,
-    "source": "validated-witness",
-    "elapsedMs": 157
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 3,
-    "status": "budget-exhausted",
-    "lowerBound": 14,
-    "upperBound": 15,
-    "expanded": 500001,
-    "elapsedMs": 9363
+    "id": "kh32-03",
+    "status": "proven",
+    "minimum": 15,
+    "steps": 16,
+    "source": "preserved-proof-result",
+    "proofMethod": "symbolic-fixed-point"
   },
   {
     "level": 4,
-    "status": "budget-exhausted",
-    "lowerBound": 12,
-    "upperBound": 13,
-    "expanded": 500001,
-    "elapsedMs": 11255
+    "id": "kh32-04",
+    "status": "proven",
+    "minimum": 13,
+    "steps": 20,
+    "source": "preserved-proof-result",
+    "proofMethod": "symbolic-fixed-point"
   },
   {
     "level": 5,
+    "id": "kh32-05",
     "status": "proven",
     "minimum": 9,
     "steps": 20,
-    "expanded": 8837,
-    "source": "validated-witness",
-    "elapsedMs": 115
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 6,
-    "status": "budget-exhausted",
-    "lowerBound": 16,
-    "upperBound": 17,
-    "expanded": 500001,
-    "elapsedMs": 11710
+    "id": "kh32-06",
+    "status": "proven",
+    "minimum": 17,
+    "steps": 19,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 7,
+    "id": "kh32-07",
     "status": "proven",
     "minimum": 7,
     "steps": 13,
-    "expanded": 1698,
-    "source": "validated-witness",
-    "elapsedMs": 16
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 8,
+    "id": "kh32-08",
     "status": "proven",
     "minimum": 10,
     "steps": 23,
-    "expanded": 21430,
-    "source": "validated-witness",
-    "elapsedMs": 284
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 9,
+    "id": "kh32-09",
     "status": "proven",
     "minimum": 14,
     "steps": 17,
-    "expanded": 458221,
-    "source": "validated-witness",
-    "elapsedMs": 8273
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 10,
+    "id": "kh32-10",
     "status": "proven",
     "minimum": 13,
     "steps": 17,
-    "expanded": 59122,
-    "source": "validated-witness",
-    "elapsedMs": 965
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 11,
+    "id": "kh32-11",
     "status": "proven",
     "minimum": 12,
     "steps": 22,
-    "expanded": 31416,
-    "source": "validated-witness",
-    "elapsedMs": 521
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 12,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 15,
-    "expanded": 500001,
-    "elapsedMs": 9373
+    "id": "kh32-12",
+    "status": "proven",
+    "minimum": 15,
+    "steps": 24,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 13,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 21,
-    "expanded": 75001,
-    "elapsedMs": 1160
+    "id": "kh32-13",
+    "status": "proven",
+    "minimum": 21,
+    "steps": 26,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 14,
-    "status": "budget-exhausted",
-    "lowerBound": 15,
-    "upperBound": 19,
-    "expanded": 75001,
-    "elapsedMs": 1145
+    "id": "kh32-14",
+    "status": "proven",
+    "minimum": 19,
+    "steps": 18,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 15,
-    "status": "budget-exhausted",
-    "lowerBound": 10,
-    "upperBound": 23,
-    "expanded": 75001,
-    "elapsedMs": 1334
+    "id": "kh32-15",
+    "status": "proven",
+    "minimum": 22,
+    "steps": 46,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 16,
-    "status": "budget-exhausted",
-    "lowerBound": 11,
-    "upperBound": 12,
-    "expanded": 75001,
-    "elapsedMs": 1191
+    "id": "kh32-16",
+    "status": "proven",
+    "minimum": 12,
+    "steps": 35,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 17,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 18,
-    "expanded": 75001,
-    "elapsedMs": 1015
+    "id": "kh32-17",
+    "status": "proven",
+    "minimum": 17,
+    "steps": 19,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 18,
-    "status": "budget-exhausted",
-    "lowerBound": 12,
-    "upperBound": 22,
-    "expanded": 75001,
-    "elapsedMs": 1092
+    "id": "kh32-18",
+    "status": "proven",
+    "minimum": 19,
+    "steps": 39,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 19,
+    "id": "kh32-19",
     "status": "proven",
     "minimum": 12,
     "steps": 23,
-    "expanded": 17891,
-    "source": "validated-witness",
-    "elapsedMs": 242
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 20,
+    "id": "kh32-20",
     "status": "proven",
     "minimum": 10,
     "steps": 27,
-    "expanded": 29631,
-    "source": "validated-witness",
-    "elapsedMs": 403
+    "source": "preserved-proof-result",
+    "proofMethod": "Dijkstra"
   },
   {
     "level": 21,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 23,
-    "expanded": 75001,
-    "elapsedMs": 1448
+    "id": "kh32-21",
+    "status": "proven",
+    "minimum": 23,
+    "steps": 22,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 22,
-    "status": "budget-exhausted",
-    "lowerBound": 14,
-    "upperBound": 16,
-    "expanded": 75001,
-    "elapsedMs": 1647
+    "id": "kh32-22",
+    "status": "proven",
+    "minimum": 16,
+    "steps": 22,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 23,
-    "status": "budget-exhausted",
-    "lowerBound": 11,
-    "upperBound": 23,
-    "expanded": 75001,
-    "elapsedMs": 1467
+    "id": "kh32-23",
+    "status": "proven",
+    "minimum": 23,
+    "steps": 24,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 24,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 15,
-    "expanded": 75001,
-    "elapsedMs": 1832
+    "id": "kh32-24",
+    "status": "proven",
+    "minimum": 15,
+    "steps": 26,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 25,
-    "status": "budget-exhausted",
-    "lowerBound": 12,
-    "upperBound": 17,
-    "expanded": 75001,
-    "elapsedMs": 1559
+    "id": "kh32-25",
+    "status": "proven",
+    "minimum": 17,
+    "steps": 55,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 26,
-    "status": "budget-exhausted",
-    "lowerBound": 15,
-    "upperBound": 26,
-    "expanded": 75001,
-    "elapsedMs": 1593
+    "id": "kh32-26",
+    "status": "proven",
+    "minimum": 26,
+    "steps": 33,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 27,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 20,
-    "expanded": 75001,
-    "elapsedMs": 1507
+    "id": "kh32-27",
+    "status": "proven",
+    "minimum": 20,
+    "steps": 43,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 28,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 21,
-    "expanded": 75001,
-    "elapsedMs": 1768
+    "id": "kh32-28",
+    "status": "proven",
+    "minimum": 21,
+    "steps": 29,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 29,
-    "status": "budget-exhausted",
-    "lowerBound": 14,
-    "upperBound": 25,
-    "expanded": 75001,
-    "elapsedMs": 1467
+    "id": "kh32-29",
+    "status": "proven",
+    "minimum": 24,
+    "steps": 44,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 30,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 16,
-    "expanded": 75001,
-    "elapsedMs": 2090
+    "id": "kh32-30",
+    "status": "proven",
+    "minimum": 16,
+    "steps": 20,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 31,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 28,
-    "expanded": 75001,
-    "elapsedMs": 1592
+    "id": "kh32-31",
+    "status": "proven",
+    "minimum": 28,
+    "steps": 32,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 32,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 21,
-    "expanded": 75001,
-    "elapsedMs": 1772
+    "id": "kh32-32",
+    "status": "proven",
+    "minimum": 21,
+    "steps": 28,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 33,
-    "status": "budget-exhausted",
-    "lowerBound": 15,
-    "upperBound": 30,
-    "expanded": 75001,
-    "elapsedMs": 1567
+    "id": "kh32-33",
+    "status": "proven",
+    "minimum": 30,
+    "steps": 41,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 34,
-    "status": "budget-exhausted",
-    "lowerBound": 12,
-    "upperBound": 16,
-    "expanded": 75001,
-    "elapsedMs": 1780
+    "id": "kh32-34",
+    "status": "proven",
+    "minimum": 15,
+    "steps": 104,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 35,
-    "status": "budget-exhausted",
-    "lowerBound": 16,
-    "upperBound": 22,
-    "expanded": 75001,
-    "elapsedMs": 1657
+    "id": "kh32-35",
+    "status": "proven",
+    "minimum": 22,
+    "steps": 33,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 36,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 27,
-    "expanded": 75001,
-    "elapsedMs": 1597
+    "id": "kh32-36",
+    "status": "proven",
+    "minimum": 27,
+    "steps": 35,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 37,
-    "status": "budget-exhausted",
-    "lowerBound": 15,
-    "upperBound": 30,
-    "expanded": 75001,
-    "elapsedMs": 1610
+    "id": "kh32-37",
+    "status": "proven",
+    "minimum": 30,
+    "steps": 36,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 38,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 22,
-    "expanded": 75001,
-    "elapsedMs": 2151
+    "id": "kh32-38",
+    "status": "proven",
+    "minimum": 22,
+    "steps": 32,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 39,
-    "status": "budget-exhausted",
-    "lowerBound": 12,
-    "upperBound": 23,
-    "expanded": 75001,
-    "elapsedMs": 1733
+    "id": "kh32-39",
+    "status": "proven",
+    "minimum": 23,
+    "steps": 48,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 40,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 24,
-    "expanded": 75001,
-    "elapsedMs": 1875
+    "id": "kh32-40",
+    "status": "proven",
+    "minimum": 24,
+    "steps": 39,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 41,
-    "status": "budget-exhausted",
-    "lowerBound": 17,
-    "upperBound": 31,
-    "expanded": 75001,
-    "elapsedMs": 1655
+    "id": "kh32-41",
+    "status": "proven",
+    "minimum": 30,
+    "steps": 61,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 42,
@@ -346,19 +378,21 @@
   },
   {
     "level": 43,
-    "status": "budget-exhausted",
-    "lowerBound": 16,
-    "upperBound": 29,
-    "expanded": 75001,
-    "elapsedMs": 1534
+    "id": "kh32-43",
+    "status": "proven",
+    "minimum": 29,
+    "steps": 53,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 44,
-    "status": "budget-exhausted",
-    "lowerBound": 11,
-    "upperBound": 21,
-    "expanded": 75001,
-    "elapsedMs": 1806
+    "id": "kh32-44",
+    "status": "proven",
+    "minimum": 21,
+    "steps": 43,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 45,
@@ -370,19 +404,21 @@
   },
   {
     "level": 46,
-    "status": "budget-exhausted",
-    "lowerBound": 13,
-    "upperBound": 22,
-    "expanded": 75001,
-    "elapsedMs": 1657
+    "id": "kh32-46",
+    "status": "proven",
+    "minimum": 22,
+    "steps": 51,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 47,
-    "status": "budget-exhausted",
-    "lowerBound": 14,
-    "upperBound": 30,
-    "expanded": 75001,
-    "elapsedMs": 1573
+    "id": "kh32-47",
+    "status": "proven",
+    "minimum": 30,
+    "steps": 36,
+    "source": "preserved-proof-result",
+    "proofMethod": "exhaustive-symbolic-fixed-point"
   },
   {
     "level": 48,
